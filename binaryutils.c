@@ -341,7 +341,7 @@ int getbiggestobject(unsigned char *binary, int width, int height, int connex)
 {
   int *labels;
   int Nlabels;
-  int *hist;
+  int *hist = 0;
   int i;
   int best = 0;
   int bestlabel = -1;
@@ -601,6 +601,196 @@ unsigned char *copybinary(unsigned char *binary, int width, int height)
   return answer;
 }
 
+/*
+  add a border to binary image (useful for removed edge conditions)
+  Params: binary - then binary image
+          width - image width
+		  height - image height
+  Returns: pointer to malloced enalrged image, 0 on out of memory
+*/
+unsigned char *binary_addborder(unsigned char *binary, int width, int height, int border, unsigned char fill)
+{
+	unsigned char *answer;
+	int dwidth, dheight;
+	int x, y;
+
+	dwidth = width + 2 * border;
+	dheight = height + 2 * border;
+	answer = malloc(dwidth * dheight);
+	if (!answer)
+		goto error_exit;
+
+
+	for (y = 0; y < border; y++)
+	{
+		for (x = 0; x < dwidth; x++)
+		{
+			answer[y*dwidth + x] = fill;
+		}
+	}
+
+	for (y = border; y < dheight - border; y++)
+	{
+		for (x = 0; x < border; x++)
+			answer[y*dwidth + x] = fill;
+		for (x = border; x < dwidth-border; x++)
+			answer[y*dwidth + x ] = binary[(y - border)*width + x - border];
+		for (x = dwidth - border; x < dwidth; x++)
+			answer[y*dwidth + x] = fill;
+	}
+	for (y = dheight - border; y < dheight; y++)
+	{
+		for (x = 0; x < dwidth; x++)
+		{
+			answer[y*dwidth + x] = fill;
+		}
+	}
+
+	return answer;
+
+	error_exit:
+	   return 0;
+}
+
+/*
+  add border with wrapping (useful for some types of filters)
+  Params: binary - the binary image
+          width - image width
+		  height - image height
+		  border - number of border pixels to add
+*/
+unsigned char *binary_addborderwrapped(unsigned char *binary, int width, int height, int border)
+{
+	unsigned char *answer;
+	int dwidth, dheight;
+	int x, y;
+	int sx, sy;
+
+	answer = binary_addborder(binary, width, height, border, 0);
+	if (!answer)
+		goto error_exit;
+
+	dwidth = width + 2 * border;
+	dheight = height + 2 * border;
+
+	for (y = 0; y < border; y++)
+	{
+		sy = height - border + y;
+		while (sy < 0)
+			sy += height;
+
+		for (x = 0; x < border; x++)
+		{
+			sx = width - border + x;
+			while (sx < 0)
+				sx += width;
+			answer[y*dwidth + x] = binary[sy*width + sx];
+		}
+
+		for (x = border; x < dwidth-border; x++)
+		{
+			sx = x - border;
+			answer[y*dwidth + x] = binary[sy*width + sx];
+		}
+
+		for (x = dwidth - border; x < dwidth; x++)
+		{
+			sx = x - dwidth + border;
+			while (sx >= width)
+				sx -= width;
+			answer[y*dwidth + x] = binary[sy*width + sx];
+		}
+	}
+
+	for (y = border; y < dheight - border; y++)
+	{
+		sy = y - border;
+
+		for(x = 0; x < border; x++)
+		{
+			sx = width - border + x;
+			while (sx < 0)
+				sx += width;
+			answer[y*dwidth + x] = binary[sy*width + sx];
+		}
+
+		for (x = dwidth - border; x < dwidth; x++)
+		{
+			sx = x - dwidth + border;
+			while (sx >= width)
+				sx -= width;
+			answer[y*dwidth + x] = binary[sy*width + sx];
+		}
+	}
+
+	for (y = dheight - border; y < dheight; y++)
+	{
+		sy = y - dheight + border;
+		while (sy >= height)
+			sy -= height;
+
+		for (x = 0; x < border; x++)
+		{
+			sx = width - border + x;
+			while (sx < 0)
+				sx += width;
+			answer[y*dwidth + x] = binary[sy*width + sx];
+		}
+
+		for (x = border; x < dwidth - border; x++)
+		{
+			sx = x - border;
+			answer[y*dwidth + x] = binary[sy*width + sx];
+		}
+
+		for (x = dwidth - border; x < dwidth; x++)
+		{
+			sx = x - dwidth + border;
+			while (sx >= width)
+				sx -= width;
+			answer[y*dwidth + x] = binary[sy*width + sx];
+		}
+	}
+
+	return answer;
+error_exit:
+	free(answer);
+	return 0;
+
+}
+/*
+   remove a border from a binary iamge
+   Params; binary - the binary image
+           width - image width
+		   height - image height
+		   border - number of border pixels to remove
+   Returns: malloced destination image,  0 on failure
+*/
+unsigned char *binary_removeborder(unsigned char *binary, int width, int height, int border)
+{
+	int dwidth, dheight;
+	unsigned char *answer = 0;
+	int x, y;
+
+	dwidth = width - 2 * border;
+	dheight = height - 2 * border;
+	if (dwidth < 0 || dheight < 0)
+		goto error_exit;
+	answer = malloc(dwidth * dheight);
+	if (!answer)
+		goto error_exit;
+	for (y = 0; y < dheight; y++)
+	{
+		for (x = 0; x < dwidth; x++)
+		{
+			answer[y*dwidth + x] = binary[(y + border)*width + x + border];
+		}
+	}
+	return answer;
+error_exit:
+	free(answer);
+	return 0;
+}
 /*
   take a sub-image of a binary image
   Params: binary - the binary image
