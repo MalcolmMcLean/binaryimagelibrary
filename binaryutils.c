@@ -148,7 +148,7 @@ int erode(unsigned char *binary, int width, int height, unsigned char *sel, int 
           width - image width
 		  height - image height
 		  connex - 4 or 8 connectivity
-		  Nout - number of componets found
+		  Nout - number of components found
   Returns: array of labels for connected components
 */
 int *labelconnected(unsigned char *binary, int width, int height, int connex, int *Nout)
@@ -836,7 +836,7 @@ unsigned char *subbinary(unsigned char *binary, int width, int height, int x, in
   Params: binary - the binary image
           width - image width
 		  height - image height
-		  x, y - return for bounding box top left x, y co-ordiantes
+		  x, y - return for bounding box top left x, y co-ordinates
 		  bbwidth, bbheight - reutnr for bounding box width and height.
   Notes: x and y are -1 if there are no set pixels in the image.
 
@@ -888,8 +888,8 @@ void boundingbox(unsigned char *binary, int width, int height, int *x, int *y, i
 }
 
 /*
-  get the area (numer of set pixels) in a binary image
-  Params: binary - the bianry image
+  get the area (number of set pixels) in a binary image
+  Params: binary - the binary image
           width - image width
 		  height - image height
   Returns: number of set pixels.
@@ -1035,9 +1035,9 @@ void *compressbinary(unsigned char *binary, int width, int height, int *clen)
 
 /*
   decompression of run-length compressed binary image
-  Params: comp - pointer tot eh compressed data
+  Params: comp - pointer to the compressed data
           width - return pointer for image width
-		  height - return plointefr for iamge height
+		  height - return pointer for image height
   Returns: decompressed image data
 
 */
@@ -1156,15 +1156,15 @@ static int walkcontour(unsigned char *binary, int width, int height, int x, int 
 
 
 /*
-   Go round a binary iamge, extracting the contours of the set pixels.
+   Go round a binary image, extracting the contours of the set pixels.
    Params:
        binary - the image
        width - image width
-       height - iamge height
-       x, y, - returns for x co-ordiantes and y co-ordiantes of contours (malloced)
+       height - image height
+       x, y, - returns for x co-ordinates and y co-ordinates of contours (malloced)
        Nret - return for contour lengths (malloced)
    Returns:
-      number conours found, -1 on out of memory
+      number contours found, -1 on out of memory
  */
 int getcontours(unsigned char *binary, int width, int height, double ***x, double ***y, int **Nret)
 {
