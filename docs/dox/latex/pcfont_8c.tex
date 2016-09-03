@@ -1,0 +1,157 @@
+\hypertarget{pcfont_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/pcfont.c File Reference}
+\label{pcfont_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/pcfont.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/pcfont.\+c}}
+{\ttfamily \#include \char`\"{}pcfont8x19.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pcfont8x8.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries clamp}(x,  low,  high)~( (x) $<$ (low) ? (low) \+: (x) $>$ (high) ? (high) \+: (x) )\hypertarget{pcfont_8c_a51ac384f0eb70be2b0e64d9017a33ce9}{}\label{pcfont_8c_a51ac384f0eb70be2b0e64d9017a33ce9}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{pcfont_8c_a0241834c7fb71e875d55998f9033cfb2}{cgafont\+\_\+paste} (unsigned char $\ast$binary, int width, int height, int x, int y, int ch)
+\item 
+int \hyperlink{pcfont_8c_a4b497098b10a91c55f6e7469674fbe36}{pcfont\+\_\+paste} (unsigned char $\ast$binary, int width, int height, int x, int y, int ch)
+\item 
+int \hyperlink{pcfont_8c_a31567a57aa1851d4420c7d9e89b47573}{cgafont\+\_\+putch} (unsigned char $\ast$binary, int chwidth, int chheight, int cx, int cy, int ch)
+\item 
+int \hyperlink{pcfont_8c_ae9c250779966373cd6d9923ee7c4f353}{pcfont\+\_\+putch} (unsigned char $\ast$binary, int chwidth, int chheight, int cx, int cy, int ch)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Code for a P\+C-\/like font.
+
+Use to quickly build up raster displays. 
+
+\subsection{Function Documentation}
+\index{pcfont.\+c@{pcfont.\+c}!cgafont\+\_\+paste@{cgafont\+\_\+paste}}
+\index{cgafont\+\_\+paste@{cgafont\+\_\+paste}!pcfont.\+c@{pcfont.\+c}}
+\subsubsection[{\texorpdfstring{cgafont\+\_\+paste(unsigned char $\ast$binary, int width, int height, int x, int y, int ch)}{cgafont_paste(unsigned char *binary, int width, int height, int x, int y, int ch)}}]{\setlength{\rightskip}{0pt plus 5cm}int cgafont\+\_\+paste (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{ch}
+\end{DoxyParamCaption}
+)}\hypertarget{pcfont_8c_a0241834c7fb71e875d55998f9033cfb2}{}\label{pcfont_8c_a0241834c7fb71e875d55998f9033cfb2}
+Write a character to the binary buffer using 8x8 font
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em binary} & -\/ the buffer \\
+\hline
+ & {\em width} & -\/ bufffer width \\
+\hline
+ & {\em height} & -\/ buffer height \\
+\hline
+ & {\em x} & -\/ pixel x position (left) \\
+\hline
+ & {\em y} & -\/ pixel y position (top) \\
+\hline
+ & {\em ch} & -\/ character to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on fail 
+\end{DoxyReturn}
+\index{pcfont.\+c@{pcfont.\+c}!cgafont\+\_\+putch@{cgafont\+\_\+putch}}
+\index{cgafont\+\_\+putch@{cgafont\+\_\+putch}!pcfont.\+c@{pcfont.\+c}}
+\subsubsection[{\texorpdfstring{cgafont\+\_\+putch(unsigned char $\ast$binary, int chwidth, int chheight, int cx, int cy, int ch)}{cgafont_putch(unsigned char *binary, int chwidth, int chheight, int cx, int cy, int ch)}}]{\setlength{\rightskip}{0pt plus 5cm}int cgafont\+\_\+putch (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{chwidth, }
+\item[{int}]{chheight, }
+\item[{int}]{cx, }
+\item[{int}]{cy, }
+\item[{int}]{ch}
+\end{DoxyParamCaption}
+)}\hypertarget{pcfont_8c_a31567a57aa1851d4420c7d9e89b47573}{}\label{pcfont_8c_a31567a57aa1851d4420c7d9e89b47573}
+Write a character to the binary buffer using 8x8 font
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em binary} & -\/ the buffer \\
+\hline
+ & {\em width} & -\/ bufffer width \\
+\hline
+ & {\em height} & -\/ buffer height \\
+\hline
+ & {\em x} & -\/ character x position (left) \\
+\hline
+ & {\em y} & -\/ character y position (top) \\
+\hline
+ & {\em ch} & -\/ character to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on fail 
+\end{DoxyReturn}
+\index{pcfont.\+c@{pcfont.\+c}!pcfont\+\_\+paste@{pcfont\+\_\+paste}}
+\index{pcfont\+\_\+paste@{pcfont\+\_\+paste}!pcfont.\+c@{pcfont.\+c}}
+\subsubsection[{\texorpdfstring{pcfont\+\_\+paste(unsigned char $\ast$binary, int width, int height, int x, int y, int ch)}{pcfont_paste(unsigned char *binary, int width, int height, int x, int y, int ch)}}]{\setlength{\rightskip}{0pt plus 5cm}int pcfont\+\_\+paste (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{ch}
+\end{DoxyParamCaption}
+)}\hypertarget{pcfont_8c_a4b497098b10a91c55f6e7469674fbe36}{}\label{pcfont_8c_a4b497098b10a91c55f6e7469674fbe36}
+Write a character to the binary buffer, using 8x19 font
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em binary} & -\/ the buffer \\
+\hline
+ & {\em width} & -\/ bufffer width \\
+\hline
+ & {\em height} & -\/ buffer height \\
+\hline
+ & {\em x} & -\/ pixel x position (left) \\
+\hline
+ & {\em y} & -\/ pixel y position (top) \\
+\hline
+ & {\em ch} & -\/ character to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on fail 
+\end{DoxyReturn}
+\index{pcfont.\+c@{pcfont.\+c}!pcfont\+\_\+putch@{pcfont\+\_\+putch}}
+\index{pcfont\+\_\+putch@{pcfont\+\_\+putch}!pcfont.\+c@{pcfont.\+c}}
+\subsubsection[{\texorpdfstring{pcfont\+\_\+putch(unsigned char $\ast$binary, int chwidth, int chheight, int cx, int cy, int ch)}{pcfont_putch(unsigned char *binary, int chwidth, int chheight, int cx, int cy, int ch)}}]{\setlength{\rightskip}{0pt plus 5cm}int pcfont\+\_\+putch (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{chwidth, }
+\item[{int}]{chheight, }
+\item[{int}]{cx, }
+\item[{int}]{cy, }
+\item[{int}]{ch}
+\end{DoxyParamCaption}
+)}\hypertarget{pcfont_8c_ae9c250779966373cd6d9923ee7c4f353}{}\label{pcfont_8c_ae9c250779966373cd6d9923ee7c4f353}
+Write a character to the binary buffer using 8x8 font
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em binary} & -\/ the buffer \\
+\hline
+ & {\em width} & -\/ bufffer width \\
+\hline
+ & {\em height} & -\/ buffer height \\
+\hline
+ & {\em x} & -\/ character x position (left) \\
+\hline
+ & {\em y} & -\/ character y position (top) \\
+\hline
+ & {\em ch} & -\/ character to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on fail 
+\end{DoxyReturn}

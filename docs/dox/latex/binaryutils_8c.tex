@@ -1,0 +1,722 @@
+\hypertarget{binaryutils_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/binaryutils.c File Reference}
+\label{binaryutils_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/binaryutils.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/binaryutils.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries C\+N\+T\+\_\+\+T\+O\+P\+L\+E\+FT}~0x80\hypertarget{binaryutils_8c_a8a57dd4e4a4430ba7e5589b2317cf03b}{}\label{binaryutils_8c_a8a57dd4e4a4430ba7e5589b2317cf03b}
+
+\item 
+\#define {\bfseries C\+N\+T\+\_\+\+T\+O\+P\+R\+I\+G\+HT}~0x40\hypertarget{binaryutils_8c_ae4aaadf7b80271714da500e0a96e773e}{}\label{binaryutils_8c_ae4aaadf7b80271714da500e0a96e773e}
+
+\item 
+\#define {\bfseries C\+N\+T\+\_\+\+B\+O\+T\+T\+O\+M\+R\+I\+G\+HT}~0x20\hypertarget{binaryutils_8c_aae2bdbe0fd9c2adbc3b774c4a00fd150}{}\label{binaryutils_8c_aae2bdbe0fd9c2adbc3b774c4a00fd150}
+
+\item 
+\#define {\bfseries C\+N\+T\+\_\+\+B\+O\+T\+T\+O\+M\+L\+E\+FT}~0x10\hypertarget{binaryutils_8c_a28c40d3449cbef09df71335eb86b6fec}{}\label{binaryutils_8c_a28c40d3449cbef09df71335eb86b6fec}
+
+\item 
+\#define {\bfseries C\+N\+T\+\_\+\+R\+I\+G\+HT}~1\hypertarget{binaryutils_8c_aaaa8fc2431c207a21cbc77821134240b}{}\label{binaryutils_8c_aaaa8fc2431c207a21cbc77821134240b}
+
+\item 
+\#define {\bfseries C\+N\+T\+\_\+\+D\+O\+WN}~2\hypertarget{binaryutils_8c_a5a8d20fd47cee0ea20385fef70cb68d5}{}\label{binaryutils_8c_a5a8d20fd47cee0ea20385fef70cb68d5}
+
+\item 
+\#define {\bfseries C\+N\+T\+\_\+\+L\+E\+FT}~3\hypertarget{binaryutils_8c_a2ecc7afc81ab36d9cf833b5dc34df8e1}{}\label{binaryutils_8c_a2ecc7afc81ab36d9cf833b5dc34df8e1}
+
+\item 
+\#define {\bfseries C\+N\+T\+\_\+\+UP}~4\hypertarget{binaryutils_8c_a31a98f7f3a0852a5d0b24baa32b9b6e8}{}\label{binaryutils_8c_a31a98f7f3a0852a5d0b24baa32b9b6e8}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{binaryutils_8c_a19536d8ea6a7f94d8be8c3686715a0aa}{morphclose} (unsigned char $\ast$binary, int width, int height, unsigned char $\ast$sel, int swidth, int sheight)
+\item 
+int \hyperlink{binaryutils_8c_a86c717ce3aa3630ee8bb68f7ec7356d5}{morphopen} (unsigned char $\ast$binary, int width, int height, unsigned char $\ast$sel, int swidth, int sheight)
+\item 
+int \hyperlink{binaryutils_8c_a9fdfd57e34c6d364a4449bbb28273b1e}{dilate} (unsigned char $\ast$binary, int width, int height, unsigned char $\ast$sel, int swidth, int sheight)
+\item 
+int \hyperlink{binaryutils_8c_a0a9cacacf39e2a94f36e0f2c3dc071c3}{erode} (unsigned char $\ast$binary, int width, int height, unsigned char $\ast$sel, int swidth, int sheight)
+\item 
+int $\ast$ \hyperlink{binaryutils_8c_ac268bbeefd5ab6e8207fcfcde3d4abe1}{labelconnected} (unsigned char $\ast$binary, int width, int height, int connex, int $\ast$Nout)
+\item 
+int \hyperlink{binaryutils_8c_ade15f7684ff0cf5099769591a88a204b}{eulernumber} (unsigned char $\ast$binary, int width, int height)
+\item 
+int \hyperlink{binaryutils_8c_af02b021a8478c3cdef779296193300f8}{getbiggestobject} (unsigned char $\ast$binary, int width, int height, int connex)
+\item 
+int \hyperlink{binaryutils_8c_a24c659312acd87be58f36a2bf41c985d}{branchpoints} (unsigned char $\ast$binary, int width, int height, int $\ast$$\ast$xout, int $\ast$$\ast$yout)
+\item 
+int \hyperlink{binaryutils_8c_a63ea4ac071d65e31739b61ee3a9f6bd9}{ends} (unsigned char $\ast$binary, int width, int height, int $\ast$$\ast$xout, int $\ast$$\ast$yout)
+\item 
+unsigned char $\ast$ \hyperlink{binaryutils_8c_aa10c5767f80482510bf449b6437aac1e}{perimeter} (unsigned char $\ast$binary, int width, int height)
+\item 
+void \hyperlink{binaryutils_8c_a966953dc59c8d8d0b8ca0c45736f65a9}{invertbinary} (unsigned char $\ast$binary, int width, int height)
+\item 
+unsigned char $\ast$ \hyperlink{binaryutils_8c_a2e89f5fddbfa9478fc162169bbe39c24}{copybinary} (unsigned char $\ast$binary, int width, int height)
+\item 
+unsigned char $\ast$ \hyperlink{binaryutils_8c_aa731307b0e84fd4d1f923de26039e996}{subbinary} (unsigned char $\ast$binary, int width, int height, int x, int y, int swidth, int sheight)
+\item 
+void \hyperlink{binaryutils_8c_a17e38ac134ed8807ddab1690523bc4b3}{boundingbox} (unsigned char $\ast$binary, int width, int height, int $\ast$x, int $\ast$y, int $\ast$bbwidth, int $\ast$bbheight)
+\item 
+int \hyperlink{binaryutils_8c_a4a80461210fa58f3e12883f01740d4bd}{simplearea} (unsigned char $\ast$binary, int width, int height)
+\item 
+double \hyperlink{binaryutils_8c_aba41eb6f7b2320cb8e5095eae70c25f1}{complexarea} (unsigned char $\ast$binary, int width, int height)
+\item 
+void $\ast$ \hyperlink{binaryutils_8c_a1e42a781e50ea7f927c96daa8c339463}{compressbinary} (unsigned char $\ast$binary, int width, int height, int $\ast$clen)
+\item 
+unsigned char $\ast$ \hyperlink{binaryutils_8c_a95e55e415da131537994cab4310cf6ec}{decompressbinary} (unsigned char $\ast$comp, int $\ast$width, int $\ast$height)
+\item 
+int \hyperlink{binaryutils_8c_a0d487a42e56cd74460721c79f12c19d4}{getcontours} (unsigned char $\ast$binary, int width, int height, double $\ast$$\ast$$\ast$x, double $\ast$$\ast$$\ast$y, int $\ast$$\ast$Nret)
+\item 
+int \hyperlink{binaryutils_8c_a74af2d38d27f9c725f55d404d74fd0fb}{lineends} (unsigned char $\ast$binary, int width, int height, int $\ast$$\ast$xout, int $\ast$$\ast$yout)
+\item 
+unsigned char $\ast$ \hyperlink{binaryutils_8c_aa04999a4a4596f6333db1dedf304958f}{binary\+\_\+addborder} (unsigned char $\ast$binary, int width, int height, int border, unsigned char fill)
+\item 
+unsigned char $\ast$ \hyperlink{binaryutils_8c_a59a173b854d320acc250117934aa943b}{binary\+\_\+addborderwrapped} (unsigned char $\ast$binary, int width, int height, int border)
+\item 
+unsigned char $\ast$ \hyperlink{binaryutils_8c_a35db8beffba379586e2bbe4f839161d3}{binary\+\_\+removeborder} (unsigned char $\ast$binary, int width, int height, int border)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{binaryutils_8c}{Binaryutils.\+c}
+
+Source for the binary image processing library simple utlities.
+
+Put anything that is simple and stands alone more or less here.
+
+Very much a first, provisional version.
+
+By Malcolm Mc\+Lean. 
+
+\subsection{Function Documentation}
+\index{binaryutils.\+c@{binaryutils.\+c}!binary\+\_\+addborder@{binary\+\_\+addborder}}
+\index{binary\+\_\+addborder@{binary\+\_\+addborder}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{binary\+\_\+addborder(unsigned char $\ast$binary, int width, int height, int border, unsigned char fill)}{binary_addborder(unsigned char *binary, int width, int height, int border, unsigned char fill)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ binary\+\_\+addborder (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{border, }
+\item[{unsigned char}]{fill}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_aa04999a4a4596f6333db1dedf304958f}{}\label{binaryutils_8c_aa04999a4a4596f6333db1dedf304958f}
+Add a border to binary image (useful for removed edge conditions) 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to malloced enlarged image, 0 on out of memory. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!binary\+\_\+addborderwrapped@{binary\+\_\+addborderwrapped}}
+\index{binary\+\_\+addborderwrapped@{binary\+\_\+addborderwrapped}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{binary\+\_\+addborderwrapped(unsigned char $\ast$binary, int width, int height, int border)}{binary_addborderwrapped(unsigned char *binary, int width, int height, int border)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ binary\+\_\+addborderwrapped (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{border}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a59a173b854d320acc250117934aa943b}{}\label{binaryutils_8c_a59a173b854d320acc250117934aa943b}
+Add border with wrapping (useful for some types of filters).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em border} & -\/ number of border pixels to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The enlarged image, 0 on out of memory. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!binary\+\_\+removeborder@{binary\+\_\+removeborder}}
+\index{binary\+\_\+removeborder@{binary\+\_\+removeborder}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{binary\+\_\+removeborder(unsigned char $\ast$binary, int width, int height, int border)}{binary_removeborder(unsigned char *binary, int width, int height, int border)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ binary\+\_\+removeborder (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{border}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a35db8beffba379586e2bbe4f839161d3}{}\label{binaryutils_8c_a35db8beffba379586e2bbe4f839161d3}
+Remove a border from a binary image.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em border} & -\/ number of border pixels to remove \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Malloced destination image, 0 on failure. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!boundingbox@{boundingbox}}
+\index{boundingbox@{boundingbox}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{boundingbox(unsigned char $\ast$binary, int width, int height, int $\ast$x, int $\ast$y, int $\ast$bbwidth, int $\ast$bbheight)}{boundingbox(unsigned char *binary, int width, int height, int *x, int *y, int *bbwidth, int *bbheight)}}]{\setlength{\rightskip}{0pt plus 5cm}void boundingbox (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{int $\ast$}]{bbwidth, }
+\item[{int $\ast$}]{bbheight}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a17e38ac134ed8807ddab1690523bc4b3}{}\label{binaryutils_8c_a17e38ac134ed8807ddab1690523bc4b3}
+Get the bounding box of the set pixels in binary image.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\mbox{\tt out}  & {\em x} & return for bounding box top left x co-\/ordinate \\
+\hline
+\mbox{\tt out}  & {\em y} & return for bounding box top left y co-\/ordinate \\
+\hline
+\mbox{\tt out}  & {\em bbwidth} & -\/ return for bounding box width \\
+\hline
+\mbox{\tt out}  & {\em bbheight} & -\/ return for bounding box height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+x and y are -\/1 if there are no set pixels in the image. 
+\end{DoxyNote}
+\index{binaryutils.\+c@{binaryutils.\+c}!branchpoints@{branchpoints}}
+\index{branchpoints@{branchpoints}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{branchpoints(unsigned char $\ast$binary, int width, int height, int $\ast$$\ast$xout, int $\ast$$\ast$yout)}{branchpoints(unsigned char *binary, int width, int height, int **xout, int **yout)}}]{\setlength{\rightskip}{0pt plus 5cm}int branchpoints (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int $\ast$$\ast$}]{xout, }
+\item[{int $\ast$$\ast$}]{yout}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a24c659312acd87be58f36a2bf41c985d}{}\label{binaryutils_8c_a24c659312acd87be58f36a2bf41c985d}
+Get branch points
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\mbox{\tt out}  & {\em xout} & -\/ return for branch point x-\/coordiantes (malloced) \\
+\hline
+\mbox{\tt out}  & {\em yout} & -\/ return for branch point y-\/coordinates ( malloced) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of branch pints found, -\/1 on fail. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!complexarea@{complexarea}}
+\index{complexarea@{complexarea}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{complexarea(unsigned char $\ast$binary, int width, int height)}{complexarea(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}double complexarea (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_aba41eb6f7b2320cb8e5095eae70c25f1}{}\label{binaryutils_8c_aba41eb6f7b2320cb8e5095eae70c25f1}
+Get the area of binary image, weighting pixels by pattern. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+weighted area of the image. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!compressbinary@{compressbinary}}
+\index{compressbinary@{compressbinary}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{compressbinary(unsigned char $\ast$binary, int width, int height, int $\ast$clen)}{compressbinary(unsigned char *binary, int width, int height, int *clen)}}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ compressbinary (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int $\ast$}]{clen}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a1e42a781e50ea7f927c96daa8c339463}{}\label{binaryutils_8c_a1e42a781e50ea7f927c96daa8c339463}
+Quick run-\/length compression of a binary image. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\mbox{\tt out}  & {\em clen} & -\/ return pointer for length of compressed data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to malloced compressed data. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!copybinary@{copybinary}}
+\index{copybinary@{copybinary}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{copybinary(unsigned char $\ast$binary, int width, int height)}{copybinary(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char $\ast$ copybinary (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a2e89f5fddbfa9478fc162169bbe39c24}{}\label{binaryutils_8c_a2e89f5fddbfa9478fc162169bbe39c24}
+Copy a binary image.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ iamge width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to malloced copy of image, 0 on out of memory. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!decompressbinary@{decompressbinary}}
+\index{decompressbinary@{decompressbinary}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{decompressbinary(unsigned char $\ast$comp, int $\ast$width, int $\ast$height)}{decompressbinary(unsigned char *comp, int *width, int *height)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char $\ast$ decompressbinary (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{comp, }
+\item[{int $\ast$}]{width, }
+\item[{int $\ast$}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a95e55e415da131537994cab4310cf6ec}{}\label{binaryutils_8c_a95e55e415da131537994cab4310cf6ec}
+Decompression of run-\/length compressed binary image. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em comp} & -\/ pointer to the compressed data \\
+\hline
+\mbox{\tt out}  & {\em width} & -\/ return pointer for image width \\
+\hline
+\mbox{\tt out}  & {\em height} & -\/ return pointer for image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+decompressed image data 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!dilate@{dilate}}
+\index{dilate@{dilate}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{dilate(unsigned char $\ast$binary, int width, int height, unsigned char $\ast$sel, int swidth, int sheight)}{dilate(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)}}]{\setlength{\rightskip}{0pt plus 5cm}int dilate (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{unsigned char $\ast$}]{sel, }
+\item[{int}]{swidth, }
+\item[{int}]{sheight}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a9fdfd57e34c6d364a4449bbb28273b1e}{}\label{binaryutils_8c_a9fdfd57e34c6d364a4449bbb28273b1e}
+Dilate operation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em bianry} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em sel\mbox{[}in\mbox{]}} & -\/ the selection element \\
+\hline
+ & {\em swidth} & -\/ selection element width \\
+\hline
+ & {\em sheight} & -\/ selection element height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on sucess, -\/1 on error. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!ends@{ends}}
+\index{ends@{ends}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{ends(unsigned char $\ast$binary, int width, int height, int $\ast$$\ast$xout, int $\ast$$\ast$yout)}{ends(unsigned char *binary, int width, int height, int **xout, int **yout)}}]{\setlength{\rightskip}{0pt plus 5cm}int ends (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int $\ast$$\ast$}]{xout, }
+\item[{int $\ast$$\ast$}]{yout}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a63ea4ac071d65e31739b61ee3a9f6bd9}{}\label{binaryutils_8c_a63ea4ac071d65e31739b61ee3a9f6bd9}
+Get ends
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\mbox{\tt out}  & {\em xout} & -\/ return for end x-\/coordiantes (malloced) \\
+\hline
+\mbox{\tt out}  & {\em yout} & -\/ return for end y-\/coordinates ( malloced) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of branch pints found, -\/1 on fail. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+naive algorithm, just returns everythign with 1 neighbout 
+\end{DoxyNote}
+\index{binaryutils.\+c@{binaryutils.\+c}!erode@{erode}}
+\index{erode@{erode}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{erode(unsigned char $\ast$binary, int width, int height, unsigned char $\ast$sel, int swidth, int sheight)}{erode(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)}}]{\setlength{\rightskip}{0pt plus 5cm}int erode (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{unsigned char $\ast$}]{sel, }
+\item[{int}]{swidth, }
+\item[{int}]{sheight}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a0a9cacacf39e2a94f36e0f2c3dc071c3}{}\label{binaryutils_8c_a0a9cacacf39e2a94f36e0f2c3dc071c3}
+Erode operation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em bianry} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em sel\mbox{[}in\mbox{]}} & -\/ the selection element \\
+\hline
+ & {\em swidth} & -\/ selection element width \\
+\hline
+ & {\em sheight} & -\/ selection element height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on sucess, -\/1 on error. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!eulernumber@{eulernumber}}
+\index{eulernumber@{eulernumber}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{eulernumber(unsigned char $\ast$binary, int width, int height)}{eulernumber(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}int eulernumber (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_ade15f7684ff0cf5099769591a88a204b}{}\label{binaryutils_8c_ade15f7684ff0cf5099769591a88a204b}
+Calculate the Euler number for a binary image.
+
+\mbox{[}in\mbox{]} binary -\/ the binary image 
+\begin{DoxyParams}{Parameters}
+{\em width} & -\/ image width \\
+\hline
+{\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Euler number, = number of objects -\/ number of holes. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+on error returns I\+N\+T\+\_\+\+M\+IN. 
+\end{DoxyNote}
+\index{binaryutils.\+c@{binaryutils.\+c}!getbiggestobject@{getbiggestobject}}
+\index{getbiggestobject@{getbiggestobject}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{getbiggestobject(unsigned char $\ast$binary, int width, int height, int connex)}{getbiggestobject(unsigned char *binary, int width, int height, int connex)}}]{\setlength{\rightskip}{0pt plus 5cm}int getbiggestobject (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{connex}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_af02b021a8478c3cdef779296193300f8}{}\label{binaryutils_8c_af02b021a8478c3cdef779296193300f8}
+Erase everything except biggest object in bianry image.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \mbox{[}in.\+out\mbox{]}} & binary -\/ the binary image \\
+\hline
+{\em width} & -\/ image width \\
+\hline
+{\em height} & -\/ image height \\
+\hline
+{\em connex} & -\/ 4 or 8 connectivity \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on fail 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!getcontours@{getcontours}}
+\index{getcontours@{getcontours}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{getcontours(unsigned char $\ast$binary, int width, int height, double $\ast$$\ast$$\ast$x, double $\ast$$\ast$$\ast$y, int $\ast$$\ast$\+Nret)}{getcontours(unsigned char *binary, int width, int height, double ***x, double ***y, int **Nret)}}]{\setlength{\rightskip}{0pt plus 5cm}int getcontours (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{double $\ast$$\ast$$\ast$}]{x, }
+\item[{double $\ast$$\ast$$\ast$}]{y, }
+\item[{int $\ast$$\ast$}]{Nret}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a0d487a42e56cd74460721c79f12c19d4}{}\label{binaryutils_8c_a0d487a42e56cd74460721c79f12c19d4}
+Go round a binary image, extracting the contours of the set pixels.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\mbox{\tt out}  & {\em x} & -\/ return for x co-\/ordinates of contours (malloced) \\
+\hline
+\mbox{\tt out}  & {\em y} & -\/ return for y co-\/ordinates of contours (malloced) \\
+\hline
+\mbox{\tt out}  & {\em Nret} & -\/ return for contour lengths (malloced) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number contours found, -\/1 on out of memory. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!invertbinary@{invertbinary}}
+\index{invertbinary@{invertbinary}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{invertbinary(unsigned char $\ast$binary, int width, int height)}{invertbinary(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}void invertbinary (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a966953dc59c8d8d0b8ca0c45736f65a9}{}\label{binaryutils_8c_a966953dc59c8d8d0b8ca0c45736f65a9}
+Invert a binary image. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+in place. 
+\end{DoxyNote}
+\index{binaryutils.\+c@{binaryutils.\+c}!labelconnected@{labelconnected}}
+\index{labelconnected@{labelconnected}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{labelconnected(unsigned char $\ast$binary, int width, int height, int connex, int $\ast$\+Nout)}{labelconnected(unsigned char *binary, int width, int height, int connex, int *Nout)}}]{\setlength{\rightskip}{0pt plus 5cm}int $\ast$ labelconnected (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{connex, }
+\item[{int $\ast$}]{Nout}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_ac268bbeefd5ab6e8207fcfcde3d4abe1}{}\label{binaryutils_8c_ac268bbeefd5ab6e8207fcfcde3d4abe1}
+Label connected components in binary image. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em connex} & -\/ 4 or 8 connectivity \\
+\hline
+\mbox{\tt out}  & {\em Nout} & -\/ number of components found returns Width $\ast$ height array of labels for connected components. \\
+\hline
+\end{DoxyParams}
+\index{binaryutils.\+c@{binaryutils.\+c}!lineends@{lineends}}
+\index{lineends@{lineends}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{lineends(unsigned char $\ast$binary, int width, int height, int $\ast$$\ast$xout, int $\ast$$\ast$yout)}{lineends(unsigned char *binary, int width, int height, int **xout, int **yout)}}]{\setlength{\rightskip}{0pt plus 5cm}int lineends (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int $\ast$$\ast$}]{xout, }
+\item[{int $\ast$$\ast$}]{yout}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a74af2d38d27f9c725f55d404d74fd0fb}{}\label{binaryutils_8c_a74af2d38d27f9c725f55d404d74fd0fb}
+Get line end points
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\mbox{\tt out}  & {\em xout} & -\/ return for branch point x-\/coordiantes (malloced) \\
+\hline
+\mbox{\tt out}  & {\em yout} & -\/ return for branch point y-\/coordinates ( malloced) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of line end found, -\/1 on fail. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!morphclose@{morphclose}}
+\index{morphclose@{morphclose}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{morphclose(unsigned char $\ast$binary, int width, int height, unsigned char $\ast$sel, int swidth, int sheight)}{morphclose(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)}}]{\setlength{\rightskip}{0pt plus 5cm}int morphclose (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{unsigned char $\ast$}]{sel, }
+\item[{int}]{swidth, }
+\item[{int}]{sheight}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a19536d8ea6a7f94d8be8c3686715a0aa}{}\label{binaryutils_8c_a19536d8ea6a7f94d8be8c3686715a0aa}
+Morphological close operation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em bianry} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em sel\mbox{[}in\mbox{]}} & -\/ the selection element \\
+\hline
+ & {\em swidth} & -\/ selection element width \\
+\hline
+ & {\em sheight} & -\/ selection element height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on sucess, -\/1 on error. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!morphopen@{morphopen}}
+\index{morphopen@{morphopen}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{morphopen(unsigned char $\ast$binary, int width, int height, unsigned char $\ast$sel, int swidth, int sheight)}{morphopen(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)}}]{\setlength{\rightskip}{0pt plus 5cm}int morphopen (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{unsigned char $\ast$}]{sel, }
+\item[{int}]{swidth, }
+\item[{int}]{sheight}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a86c717ce3aa3630ee8bb68f7ec7356d5}{}\label{binaryutils_8c_a86c717ce3aa3630ee8bb68f7ec7356d5}
+Morphological open operation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em bianry} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em sel\mbox{[}in\mbox{]}} & -\/ the selection element \\
+\hline
+ & {\em swidth} & -\/ selection element width \\
+\hline
+ & {\em sheight} & -\/ selection element height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on sucess, -\/1 on error. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!perimeter@{perimeter}}
+\index{perimeter@{perimeter}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{perimeter(unsigned char $\ast$binary, int width, int height)}{perimeter(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char $\ast$ perimeter (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_aa10c5767f80482510bf449b6437aac1e}{}\label{binaryutils_8c_aa10c5767f80482510bf449b6437aac1e}
+get perimeter pixels.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the bianry image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The perimeter pixels. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!simplearea@{simplearea}}
+\index{simplearea@{simplearea}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{simplearea(unsigned char $\ast$binary, int width, int height)}{simplearea(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}int simplearea (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_a4a80461210fa58f3e12883f01740d4bd}{}\label{binaryutils_8c_a4a80461210fa58f3e12883f01740d4bd}
+Get the area (number of set pixels) in a binary image.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of set pixels. 
+\end{DoxyReturn}
+\index{binaryutils.\+c@{binaryutils.\+c}!subbinary@{subbinary}}
+\index{subbinary@{subbinary}!binaryutils.\+c@{binaryutils.\+c}}
+\subsubsection[{\texorpdfstring{subbinary(unsigned char $\ast$binary, int width, int height, int x, int y, int swidth, int sheight)}{subbinary(unsigned char *binary, int width, int height, int x, int y, int swidth, int sheight)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char $\ast$ subbinary (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{swidth, }
+\item[{int}]{sheight}
+\end{DoxyParamCaption}
+)}\hypertarget{binaryutils_8c_aa731307b0e84fd4d1f923de26039e996}{}\label{binaryutils_8c_aa731307b0e84fd4d1f923de26039e996}
+Take a sub-\/image of a binary image.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em x} & -\/ top left x co-\/ordinate of sub-\/image \\
+\hline
+ & {\em y} & -\/ top left y co-\/ordinate of sub-\/image \\
+\hline
+ & {\em swidth} & -\/ sub image width \\
+\hline
+ & {\em sheight} & -\/ sub image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Malloced pointer to sub image. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+If the sub-\/image extends the image boundary, it is zero padded, so x and y can be negative. 
+\end{DoxyNote}

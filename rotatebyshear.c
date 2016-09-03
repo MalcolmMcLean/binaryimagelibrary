@@ -1,6 +1,13 @@
-/*
+/**@file
+
+  Rotate by shear.
+
   By Malcolm McLean
-  Part of the binary image processing library
+
+  Rotate an image using the shearing method, which avoids sampling
+   artifacts as preserves pixel values.
+
+  Part of the binary image processing library.
 */
 #include <stdlib.h>
 #include <math.h>
@@ -9,17 +16,19 @@
 
 #define PI 3.1415926535897932384626433832795
 
-/*
-  rotate an image, using the shearing method
-  Params: binary - the binary or colour-indexed image
-          width - image width
-		  height - image height
-		  cx, cy - centre x, y co-ordinates (pass in 1.5, 1.5 for the centre of a 3x3 image)
-		  theta - angle to rotate by
-		  out - buffer for output (can't be the same as input)
-  Returns: 0 for success
+/**
+  Rotate an image, using the shearing method.
 
-  Notes: conventional image rotation by the matrix method causes destination pixels to be
+  @param[in] binary - the binary or colour-indexed image
+  @param width - image width
+  @param height - image height
+  @param cx - centre x, y co-ordinates (pass in 1.5, 1.5 for the centre of a 3x3 image)
+  @param cy - centre x, y co-ordinates (pass in 1.5, 1.5 for the centre of a 3x3 image)
+  @param theta - angle to rotate by
+  @param out[out] - buffer for output (can't be the same as input)
+  @returns: 0 for success
+
+  @note conventional image rotation by the matrix method causes destination pixels to be
     sub-samples of source pixels. This isn't a problem with continous tone images where
 	the new pixel values can be obtained by interpolation. However with binary or 
 	colour-index images, interpolation isn't possible. The shearing method preserves the

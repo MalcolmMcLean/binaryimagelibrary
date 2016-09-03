@@ -1,9 +1,9 @@
-/*
-  get the Otusu threshold for image segmentation
-  Params: gray - the grayscale image
-          width - image width
-          height - uimage height
-  Returns: threshold at which to split pixels into foreground and
+/**@file
+  Get the Otusu threshold for image segmentation.
+  @param[in] gray - the grayscale image
+  @param width - image width
+  @param height - image height
+  @returns Threshold at which to split pixels into foreground and
            background.
  */
 int getOtsuthreshold(unsigned char *grey, int width, int height)

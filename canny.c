@@ -2,7 +2,12 @@
 #include <string.h>
 #include <math.h>
 
-/*
+/**@file
+
+  The code detects edges in greyscale images. The method was developed
+  by John F Canny and s generally considered to be the best edge
+  detection method currently available.
+
   C version. Based on Java code by
 * Tom Gibara
 */
@@ -43,28 +48,30 @@ static  float hypotenuse(float x, float y);
 static float gaussian(float x, float sigma);
 
 
-/*
+/**
   Canny edge detection with default parameters
-    Params: grey - the greyscale image
-	        width, height - image width and height
-    Returns: binary image with edges as set pixels
+  @param grey - the greyscale image
+  @param width - image width
+  @param height - image height
+  @returns Binary image with edges as set pixels.
 */
 unsigned char *canny(unsigned char *grey, int width, int height)
 {
   return cannyparam(grey, width, height, 2.5f, 7.5f, 2.0f, 16, 0);
 }
 
-/*
- Canny edge detection with parameters passed in by user
-   Params: grey - the greyscale image
-           width, height - image dimensions
-		   lowthreshold - default 2.5
-		   highthreshold - default 7.5
-		   gaussiankernelradius - radius of edge detection Gaussian, in standard deviations
+/**
+ Canny edge detection with parameters passed in by user.
+ @param grey - the greyscale image
+ @param width - image width
+ @param height - image height
+ @param lowthreshold - default 2.5
+ @param highthreshold - default 7.5
+ @param gaussiankernelradius - radius of edge detection Gaussian, in standard deviations
 		     (default 2.0)
-		   gaussiankernelwidth - width of Gaussian kernel, in pixels (default 16)
-		   contrastnormalised - flag to normalise image before edge detection (defualt 0)
-   Returns: binary image with set pixels as edges
+  @param gaussiankernelwidth - width of Gaussian kernel, in pixels (default 16)
+  @param contrastnormalised - flag to normalise image before edge detection (defualt 0)
+  @returns: Binary image with set pixels as edges.
 
 */
 unsigned char *cannyparam(unsigned char *grey, int width, int height, 

@@ -1,7 +1,9 @@
-/*
+/**@file
    Binaryutils.c
 
-   Source for the binary image processing library.
+   Source for the binary image processing library simple utlities.
+
+   Put anything that is simple and stands alone more or less here.
 
    Very much a first, provisional version.
 
@@ -34,6 +36,18 @@ int getcontours(unsigned char *binary, int width, int height, double ***x, doubl
 static int mem_count(unsigned char *pixels, int N, int value);
 static void get3x3(unsigned char *out, unsigned char *binary, int width, int height, int x, int y, unsigned char border);
 
+/**
+   Morphological close operation.
+
+   @param[in,out] bianry - the binary image
+   @param width - image width
+   @param height - image height
+   @param sel[in] - the selection element
+   @param swidth - selection element width
+   @param sheight - selection element height
+   @returns 0 on sucess, -1 on error.
+
+*/
 int morphclose(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)
 {
   int err;
@@ -47,6 +61,18 @@ int morphclose(unsigned char *binary, int width, int height, unsigned char *sel,
   return 0;
 }
 
+/**
+Morphological open operation.
+
+@param[in,out] bianry - the binary image
+@param width - image width
+@param height - image height
+@param sel[in] - the selection element
+@param swidth - selection element width
+@param sheight - selection element height
+@returns 0 on sucess, -1 on error.
+
+*/
 int morphopen(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)
 {
   int err;
@@ -60,6 +86,18 @@ int morphopen(unsigned char *binary, int width, int height, unsigned char *sel, 
   return 0;
 }
 
+/**
+Dilate operation.
+
+@param[in,out] bianry - the binary image
+@param width - image width
+@param height - image height
+@param sel[in] - the selection element
+@param swidth - selection element width
+@param sheight - selection element height
+@returns 0 on sucess, -1 on error.
+
+*/
 int dilate(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)
 {
 	int x, y, sx, sy, ix, iy;
@@ -102,6 +140,18 @@ int dilate(unsigned char *binary, int width, int height, unsigned char *sel, int
 
 }
 
+/**
+Erode operation.
+
+@param[in,out] bianry - the binary image
+@param width - image width
+@param height - image height
+@param sel[in] - the selection element
+@param swidth - selection element width
+@param sheight - selection element height
+@returns 0 on sucess, -1 on error.
+
+*/
 int erode(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)
 {
 	int x, y, sx, sy, ix, iy;
@@ -142,14 +192,14 @@ int erode(unsigned char *binary, int width, int height, unsigned char *sel, int 
    return 0;
 }
 
-/*
-  label connected components in binary image
-  Params: binary - the binary image
-          width - image width
-		  height - image height
-		  connex - 4 or 8 connectivity
-		  Nout - number of components found
-  Returns: array of labels for connected components
+/**
+  Label connected components in binary image.
+  @param[in]  binary - the binary image
+  @param      width - image width
+  @param      height - image height
+  @param      connex - 4 or 8 connectivity
+  @param[out] Nout - number of components found
+  returns  Width * height array of labels for connected components.
 */
 int *labelconnected(unsigned char *binary, int width, int height, int connex, int *Nout)
 {
@@ -280,13 +330,14 @@ int *labelconnected(unsigned char *binary, int width, int height, int connex, in
   return answer;
 }
 
-/*
-  calculate the Euler number for a binary image
-  Params: binary - the binary image
-          width - image width
-		  height - image height
-  Returns: Euler number, = number of objects - number of holes.
-  Notes: on error returns INT_MIN.
+/**
+  Calculate the Euler number for a binary image.
+
+  @params[in] binary - the binary image
+  @param      width - image width
+  @param      height - image height
+  @returns    Euler number, = number of objects - number of holes.
+  \note on error returns INT_MIN.
 */
 int eulernumber(unsigned char *binary, int width, int height)
 {
@@ -337,6 +388,15 @@ error_exit:
   return (int) ~(((unsigned)~0) >> 1);
 }
 
+/**
+   Erase everything except biggest object in bianry image.
+
+   @param [in.out] binary - the binary image
+   @param width - image width
+   @param height - image height
+   @param connex - 4 or 8 connectivity
+   @returns 0 on success, -1 on fail
+*/
 int getbiggestobject(unsigned char *binary, int width, int height, int connex)
 {
   int *labels;
@@ -376,6 +436,16 @@ error_exit:
   return -1;
 }
 
+/**
+   Get branch points
+
+   @param[in]    binary - the binary image
+   @param        width - image width
+   @param        height - image height
+   @param[out]   xout - return for branch point x-coordiantes (malloced)
+   @param[out]   yout - return for branch point y-coordinates ( malloced)
+   @returns Number of branch pints found, -1 on fail.
+*/
 int branchpoints(unsigned char *binary, int width, int height, int **xout, int **yout)
 {
   int loopindex[9] = {0, 1, 2, 5, 8, 7, 6, 3, 0};
@@ -430,6 +500,16 @@ error_exit:
 	return -1;
 }
 
+/**
+Get line end points
+
+@param[in]      binary - the binary image
+@param          width - image width
+@param          height - image height
+@param[out]     xout - return for branch point x-coordiantes (malloced)
+@param[out]     yout - return for branch point y-coordinates ( malloced)
+@returns Number of line end found, -1 on fail.
+*/
 int lineends(unsigned char *binary, int width, int height, int **xout, int **yout)
 {
     int loopindex[9] = {0, 1, 2, 5, 8, 7, 6, 3, 0};
@@ -489,7 +569,17 @@ error_exit:
 
 }
 
+/**
+Get ends
 
+@param[in]    binary - the binary image
+@param        width - image width
+@param        height - image height
+@param[out]   xout - return for end x-coordiantes (malloced)
+@param[out]   yout - return for end y-coordinates ( malloced)
+@returns Number of branch pints found, -1 on fail.
+\note naive algorithm, just returns everythign with 1 neighbout
+*/
 int ends(unsigned char *binary, int width, int height, int **xout, int **yout)
 {
   int *endx = 0;
@@ -535,6 +625,14 @@ error_exit:
   return -1;
 }
 
+/**
+  get perimeter pixels.
+
+  @param[in] binary - the bianry image
+  @param width - image width
+  @param height - image height
+  @returns The perimeter pixels.
+*/
 unsigned char *perimeter(unsigned char *binary, int width, int height)
 {
   unsigned char *answer;
@@ -566,13 +664,12 @@ unsigned char *perimeter(unsigned char *binary, int width, int height)
   return answer;
 }
 
-/*
-  invert a binary image
-  Params: binary - the binary image
-          width - image width
-          height - image height
-  Notes: in place.
-
+/**
+  Invert a binary image.
+  @param[in,out] binary - the binary image
+  @param width - image width
+  @param height - image height
+  \note in place.
 */
 void invertbinary(unsigned char *binary, int width, int height)
 {
@@ -582,12 +679,13 @@ void invertbinary(unsigned char *binary, int width, int height)
     binary[i] = 1 - binary[i];
 }
 
-/*
-  copy a binary image
-  Params: binary - the binary image
-          width - iamge width
-		  height - image height
-  Returns: pointer to malloced copy of image, 0 on out of memory.
+/**
+  Copy a binary image.
+
+  @param[in] binary - the binary image
+  @param width - iamge width
+  @param height - image height
+  @returns Pointer to malloced copy of image, 0 on out of memory.
 */
 unsigned char *copybinary(unsigned char *binary, int width, int height)
 {
@@ -601,12 +699,12 @@ unsigned char *copybinary(unsigned char *binary, int width, int height)
   return answer;
 }
 
-/*
-  add a border to binary image (useful for removed edge conditions)
-  Params: binary - then binary image
-          width - image width
-		  height - image height
-  Returns: pointer to malloced enalrged image, 0 on out of memory
+/**
+  Add a border to binary image (useful for removed edge conditions)
+  @param[in]  binary - the binary image
+  @param width - image width
+  @param height - image height
+  @returns Pointer to malloced enlarged image, 0 on out of memory.
 */
 unsigned char *binary_addborder(unsigned char *binary, int width, int height, int border, unsigned char fill)
 {
@@ -652,12 +750,14 @@ unsigned char *binary_addborder(unsigned char *binary, int width, int height, in
 	   return 0;
 }
 
-/*
-  add border with wrapping (useful for some types of filters)
-  Params: binary - the binary image
-          width - image width
-		  height - image height
-		  border - number of border pixels to add
+/**
+  Add border with wrapping (useful for some types of filters).
+
+  @param[in] binary - the binary image
+  @param width - image width
+  @param height - image height
+  @param border - number of border pixels to add
+  @returns The enlarged image, 0 on out of memory.
 */
 unsigned char *binary_addborderwrapped(unsigned char *binary, int width, int height, int border)
 {
@@ -758,13 +858,15 @@ error_exit:
 	return 0;
 
 }
-/*
-   remove a border from a binary iamge
-   Params; binary - the binary image
-           width - image width
-		   height - image height
-		   border - number of border pixels to remove
-   Returns: malloced destination image,  0 on failure
+
+/**
+   Remove a border from a binary image.
+
+   @param[in]  binary - the binary image
+   @param width - image width
+   @param height - image height
+   @param border - number of border pixels to remove
+   @returns Malloced destination image,  0 on failure.
 */
 unsigned char *binary_removeborder(unsigned char *binary, int width, int height, int border)
 {
@@ -791,15 +893,19 @@ error_exit:
 	free(answer);
 	return 0;
 }
-/*
-  take a sub-image of a binary image
-  Params: binary - the binary image
-          width - image width
-		  height - image height
-          x, y - top left x, y co-ordinates of sub-image
-		  swidth, sheight - sub image width and height.
-  Returns: malloced pointer to sub image
-  Notes: if the sub-image extends the image boundary, it is zero padded, so x and y can be negative.
+
+/**
+  Take a sub-image of a binary image.
+
+  @param[in] binary - the binary image
+  @param width - image width
+  @param height - image height
+  @param x - top left x co-ordinate of sub-image
+  @param y - top left y co-ordinate of sub-image
+  @param swidth - sub image width
+  @param sheight - sub image height
+  @returns Malloced pointer to sub image.
+  @note If the sub-image extends the image boundary, it is zero padded, so x and y can be negative.
 */
 unsigned char *subbinary(unsigned char *binary, int width, int height, int x, int y, int swidth, int sheight)
 {
@@ -831,14 +937,17 @@ unsigned char *subbinary(unsigned char *binary, int width, int height, int x, in
   return answer;
 }
 
-/*
-  get the bounding box of the set pixels in binary image
-  Params: binary - the binary image
-          width - image width
-		  height - image height
-		  x, y - return for bounding box top left x, y co-ordinates
-		  bbwidth, bbheight - reutnr for bounding box width and height.
-  Notes: x and y are -1 if there are no set pixels in the image.
+/**
+  Get the bounding box of the set pixels in binary image.
+
+  @param[in] binary - the binary image
+  @param     width - image width
+  @param     height - image height
+  @param[out] x return for bounding box top left x co-ordinate
+  @param[out] y return for bounding box top left y co-ordinate
+  @param[out] bbwidth - return for bounding box width
+  @param[out] bbheight - return for bounding box height
+  @note x and y are -1 if there are no set pixels in the image.
 
 */
 void boundingbox(unsigned char *binary, int width, int height, int *x, int *y, int *bbwidth, int *bbheight)
@@ -887,12 +996,13 @@ void boundingbox(unsigned char *binary, int width, int height, int *x, int *y, i
   }
 }
 
-/*
-  get the area (number of set pixels) in a binary image
-  Params: binary - the binary image
-          width - image width
-		  height - image height
-  Returns: number of set pixels.
+/**
+  Get the area (number of set pixels) in a binary image.
+
+  @param[in] binary - the binary image
+  @param width - image width
+  @param height - image height
+  @returns number of set pixels.
 */
 int simplearea(unsigned char *binary, int width, int height)
 {
@@ -906,12 +1016,12 @@ int simplearea(unsigned char *binary, int width, int height)
   return answer;
 }
 
-/*
-  get the area of binary image, weighting pixels by pattern.
-  Params: binary - the binary image
-          width - image width
-		  height - image height
-  Returns: weighted area of the image.
+/**
+  Get the area of binary image, weighting pixels by pattern.
+  @param[in] binary - the binary image
+  @param width - image width
+  @param height - image height
+  @returns weighted area of the image.
 */
 double complexarea(unsigned char *binary, int width, int height)
 {
@@ -945,13 +1055,13 @@ double complexarea(unsigned char *binary, int width, int height)
 
 }
 
-/*
-  Quick run-length compression of a binary image
-  Params: binary - the binary image
-          width - image width
-		  height - image height
-		  clen - return pointer for length of compressed data
-  Returns: pointer to malloced compressed data
+/**
+  Quick run-length compression of a binary image.
+  @param[in]  binary - the binary image
+  @param      width - image width
+  @param      height - image height
+  @param[out] clen - return pointer for length of compressed data
+  @returns pointer to malloced compressed data.
 */
 void *compressbinary(unsigned char *binary, int width, int height, int *clen)
 {
@@ -1033,13 +1143,12 @@ void *compressbinary(unsigned char *binary, int width, int height, int *clen)
   return answer;
 }
 
-/*
-  decompression of run-length compressed binary image
-  Params: comp - pointer to the compressed data
-          width - return pointer for image width
-		  height - return pointer for image height
-  Returns: decompressed image data
-
+/**
+  Decompression of run-length compressed binary image.
+  @param[in] comp - pointer to the compressed data
+  @param[out] width - return pointer for image width
+  @param[out] height - return pointer for image height
+  @returns decompressed image data
 */
 unsigned char *decompressbinary(unsigned char *comp, int *width, int *height)
 {
@@ -1155,16 +1264,16 @@ static int walkcontour(unsigned char *binary, int width, int height, int x, int 
                         double **cy, int *Nret);
 
 
-/*
+/**
    Go round a binary image, extracting the contours of the set pixels.
-   Params:
-       binary - the image
-       width - image width
-       height - image height
-       x, y, - returns for x co-ordinates and y co-ordinates of contours (malloced)
-       Nret - return for contour lengths (malloced)
-   Returns:
-      number contours found, -1 on out of memory
+   
+   @param[in]    binary - the image
+   @param width - image width
+   @param height - image height
+   @param[out] x -  return for x co-ordinates of contours (malloced)
+   @param[out] y -  return for y co-ordinates of contours (malloced)
+   @param[out] Nret - return for contour lengths (malloced)
+   @returns Number contours found, -1 on out of memory.
  */
 int getcontours(unsigned char *binary, int width, int height, double ***x, double ***y, int **Nret)
 {

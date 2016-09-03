@@ -1,0 +1,48 @@
+\hypertarget{voronoi_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/voronoi.c File Reference}
+\label{voronoi_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/voronoi.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/voronoi.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_c_e_l_l}{C\+E\+LL}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{voronoi_8c_a19e71152d272af559d84685d0a837fed}{discrete\+\_\+voronoi} (int $\ast$seeds, int width, int height)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Discrete Voronoi cell code.
+
+Calculate Voronoi cells for a binary image. Useful if you don\textquotesingle{}t need exact Voronoi tesselation.
+
+by Malcolm Mc\+Lean 
+
+\subsection{Function Documentation}
+\index{voronoi.\+c@{voronoi.\+c}!discrete\+\_\+voronoi@{discrete\+\_\+voronoi}}
+\index{discrete\+\_\+voronoi@{discrete\+\_\+voronoi}!voronoi.\+c@{voronoi.\+c}}
+\subsubsection[{\texorpdfstring{discrete\+\_\+voronoi(int $\ast$seeds, int width, int height)}{discrete_voronoi(int *seeds, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}int discrete\+\_\+voronoi (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{seeds, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{voronoi_8c_a19e71152d272af559d84685d0a837fed}{}\label{voronoi_8c_a19e71152d272af559d84685d0a837fed}
+Calculate discrete Voronoi cells.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em seeds} & -\/ set empty cells to -\/1, filled cells to the value (usually unique for each point) \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on fail
+\end{DoxyReturn}
+On output, seeds will be expanded to fill the Voronoi cell Where there is conflict, the top left-\/most seed wins (change neighbour scan routine to adjust). 

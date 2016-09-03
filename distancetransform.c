@@ -1,9 +1,11 @@
-/* 
- * =======================
- *  ---------------------
- *    Saito's exact EDT 
- *  ---------------------
- * =======================
+/**@file
+ * 
+ * Calculates the distance transform of an image using Saito's method
+ * 
+ * Saito's exact EDT  - a Euclidean distance transfrom that returns
+ * exact results.
+ *  
+ *
  */
 #include <stdlib.h>
 #include <math.h>
@@ -15,6 +17,11 @@ int *edt_saito(unsigned char *binary, int width, int height);
   gift-wraps edt_saito.
   The function doesn't handle the case where set pixels touch the border
   Also, it returns the square of the distnace as an integer
+
+  @param[in] binary - the binary image
+  @param width - image width
+  @param height - image height
+  @returns The distance transform as a float.
 */
 float *euclideandistancetransform(unsigned char *binary, int width, int height)
 {
@@ -64,8 +71,15 @@ error_exit:
   return 0;
 }
 
-/*
- * Final implementation by R. Fabbri, 
+/**
+ * Distance transform.
+ *
+ * @param[in] binary - the binary image
+ * @param width - image width
+ * @param height - image height
+ * @returns Square of Euclidean distance transform.
+ *
+ * Final implementation by R. Fabbri, slightly adjusted by Malcolm McLean
  * based on two independent implementations by O. Cuisenaire
  * and J. C. Torelli.
  *

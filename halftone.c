@@ -1,12 +1,20 @@
 #include <stdlib.h>
 #include <assert.h>
+/**@file*
+  Halftone functions.
 
-/*
-  halftoning with random dother
-  Params: grey - the greyscale image
-          width - image width
-		  height - image height
-  Returns: halftoned binary image
+  Half toning is when we represent a greyscale iamge as a binary image,
+  using filters and dithering to give a visual representation of the
+  grey.
+
+*/
+
+/**
+  Halftoning with random dither.
+  @param grey - the greyscale image
+  @param width - image width
+  @param height - image height
+  @returns Halftoned binary image.
 */
 unsigned char *randomhalftone(unsigned char *grey, int width, int height)
 {
@@ -56,12 +64,12 @@ error_exit:
 }
 
 
-/*
-  halftoning with Floyd-Steinberg error diffusion
-  Params: grey - the greyscale image
-          width - image width
-		  heoght - image height
-  Returns: halftoned binary image
+/**
+Halftoning with Floyd-Steinberg error diffusion.
+@param grey - the greyscale image
+@param width - image width
+@param height - image height
+@returns Halftoned binary image.
 */
 unsigned char *floydsteinberg(unsigned char *grey, int width, int height)
 {
@@ -107,12 +115,12 @@ error_exit:
   return 0;
 }
 
-/*
-  Halftoning with Stucki error diffusion
-  Params: grey - the greyscale image
-          width - image width
-		  heght - image height
-  Returns: halftoned binary image
+/**
+  Halftoning with Stucki error diffusion.
+  @param grey - the greyscale image
+  @param width - image width
+  @param height - image height
+  @returns Halftoned binary image.
 */
 unsigned char *stucki(unsigned char *grey, int width, int height)
 {
@@ -196,13 +204,13 @@ static int dithervalue(int x, int y, int size)
 	return d;
 }
 
-/*
-  Ordered dithering with a Bayer matrix of size 2^order by 2^order
-  Params: grey - the greycale image
-          width - image width
-		  height - image height
-          order - size of matrix (1-4)
-  Returns: hlaftoned binary image
+/**
+  Ordered dithering with a Bayer matrix of size 2^order by 2^order.
+  @param  grey - the greycale image
+  @param  width - image width
+  @param  height - image height
+  @param order - size of matrix (1-4)
+  @returns halftoned binary image
 */
 
 unsigned char *ordereddisperseddot(unsigned char *grey, int width, int height, int order) 
@@ -253,9 +261,14 @@ error_exit:
 	return 0;
 }
 
-/* ==========================================================
- Ordered clustered dot dithering
+/**
+ Ordered clustered dot dithering.
 
+ @param[in] grey - the greyscale image
+ @param width - image width
+ @param height - image height
+ @param order - 3, 4, or8
+ @returns The dithered image.
 
 NB : The predefined dither matrices are the same as matrices used in 
 the Netpbm package (http://netpbm.sourceforge.net) and are defined in Ulichney's book.

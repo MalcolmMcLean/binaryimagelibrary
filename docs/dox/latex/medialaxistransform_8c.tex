@@ -1,0 +1,90 @@
+\hypertarget{medialaxistransform_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/medialaxistransform.c File Reference}
+\label{medialaxistransform_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/medialaxistransform.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/medialaxistransform.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{medialaxistransform_8c_a52f6d5c49d52611402fca5df027e9ba8}{thin} (unsigned char $\ast$binary, int width, int height)
+\item 
+float $\ast$ \hyperlink{medialaxistransform_8c_ad2c9b5a280932ff7db429f635bd8defb}{medialaxistransformf} (unsigned char $\ast$binary, int width, int height)
+\item 
+unsigned char $\ast$ \hyperlink{medialaxistransform_8c_a2ad12e7ca0771b508ece230b24512985}{medialaxistransform} (unsigned char $\ast$binary, int width, int height)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Medial axis transform and thin function.
+
+Used for skeltonisation of images. 
+
+\subsection{Function Documentation}
+\index{medialaxistransform.\+c@{medialaxistransform.\+c}!medialaxistransform@{medialaxistransform}}
+\index{medialaxistransform@{medialaxistransform}!medialaxistransform.\+c@{medialaxistransform.\+c}}
+\subsubsection[{\texorpdfstring{medialaxistransform(unsigned char $\ast$binary, int width, int height)}{medialaxistransform(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ medialaxistransform (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{medialaxistransform_8c_a2ad12e7ca0771b508ece230b24512985}{}\label{medialaxistransform_8c_a2ad12e7ca0771b508ece230b24512985}
+Binary raster-\/based medial axis transform. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The medial axis transform. 
+\end{DoxyReturn}
+\index{medialaxistransform.\+c@{medialaxistransform.\+c}!medialaxistransformf@{medialaxistransformf}}
+\index{medialaxistransformf@{medialaxistransformf}!medialaxistransform.\+c@{medialaxistransform.\+c}}
+\subsubsection[{\texorpdfstring{medialaxistransformf(unsigned char $\ast$binary, int width, int height)}{medialaxistransformf(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ medialaxistransformf (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{medialaxistransform_8c_ad2c9b5a280932ff7db429f635bd8defb}{}\label{medialaxistransform_8c_ad2c9b5a280932ff7db429f635bd8defb}
+Medial axis transform, retainign distance to perimater
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image. \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Transformed iamge as floats (malloced). 
+\end{DoxyReturn}
+\index{medialaxistransform.\+c@{medialaxistransform.\+c}!thin@{thin}}
+\index{thin@{thin}!medialaxistransform.\+c@{medialaxistransform.\+c}}
+\subsubsection[{\texorpdfstring{thin(unsigned char $\ast$binary, int width, int height)}{thin(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}void thin (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{image, }
+\item[{int}]{xsize, }
+\item[{int}]{ysize}
+\end{DoxyParamCaption}
+)}\hypertarget{medialaxistransform_8c_a52f6d5c49d52611402fca5df027e9ba8}{}\label{medialaxistransform_8c_a52f6d5c49d52611402fca5df027e9ba8}
+Thin a binary image using Rosenfeld\textquotesingle{}s parallel thinning algorithm.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em binary} & -\/ the bianry image \\
+\hline
+ & {\em xsize} & -\/ image width \\
+\hline
+ & {\em ysize} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Thinning is a different operation to medial axis transform, but similarly skeletonises the binary image. 
+\end{DoxyNote}

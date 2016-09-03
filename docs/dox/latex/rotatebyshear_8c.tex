@@ -1,0 +1,66 @@
+\hypertarget{rotatebyshear_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/rotatebyshear.c File Reference}
+\label{rotatebyshear_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/rotatebyshear.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/rotatebyshear.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries PI}~3.\+1415926535897932384626433832795\hypertarget{rotatebyshear_8c_a598a3330b3c21701223ee0ca14316eca}{}\label{rotatebyshear_8c_a598a3330b3c21701223ee0ca14316eca}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{rotatebyshear_8c_af46f789cbc5c1eeb7357312c574e3516}{rotatebyshear} (unsigned char $\ast$binary, int width, int height, double cx, double cy, double theta, unsigned char $\ast$out)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Rotate by shear.
+
+By Malcolm Mc\+Lean
+
+Rotate an image using the shearing method, which avoids sampling artifacts as preserves pixel values.
+
+Part of the binary image processing library. 
+
+\subsection{Function Documentation}
+\index{rotatebyshear.\+c@{rotatebyshear.\+c}!rotatebyshear@{rotatebyshear}}
+\index{rotatebyshear@{rotatebyshear}!rotatebyshear.\+c@{rotatebyshear.\+c}}
+\subsubsection[{\texorpdfstring{rotatebyshear(unsigned char $\ast$binary, int width, int height, double cx, double cy, double theta, unsigned char $\ast$out)}{rotatebyshear(unsigned char *binary, int width, int height, double cx, double cy, double theta, unsigned char *out)}}]{\setlength{\rightskip}{0pt plus 5cm}int rotatebyshear (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{double}]{cx, }
+\item[{double}]{cy, }
+\item[{double}]{theta, }
+\item[{unsigned char $\ast$}]{out}
+\end{DoxyParamCaption}
+)}\hypertarget{rotatebyshear_8c_af46f789cbc5c1eeb7357312c574e3516}{}\label{rotatebyshear_8c_af46f789cbc5c1eeb7357312c574e3516}
+Rotate an image, using the shearing method.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary or colour-\/indexed image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em cx} & -\/ centre x, y co-\/ordinates (pass in 1.\+5, 1.\+5 for the centre of a 3x3 image) \\
+\hline
+ & {\em cy} & -\/ centre x, y co-\/ordinates (pass in 1.\+5, 1.\+5 for the centre of a 3x3 image) \\
+\hline
+ & {\em theta} & -\/ angle to rotate by \\
+\hline
+ & {\em out\mbox{[}out\mbox{]}} & -\/ buffer for output (can\textquotesingle{}t be the same as input) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: 0 for success
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+conventional image rotation by the matrix method causes destination pixels to be sub-\/samples of source pixels. This isn\textquotesingle{}t a problem with continous tone images where the new pixel values can be obtained by interpolation. However with binary or colour-\/index images, interpolation isn\textquotesingle{}t possible. The shearing method preserves the pixels, at some cost in rotational accuracy. 
+\end{DoxyNote}

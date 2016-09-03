@@ -1,0 +1,50 @@
+\hypertarget{distancetransform_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/distancetransform.c File Reference}
+\label{distancetransform_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/distancetransform.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/distancetransform.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float $\ast$ {\bfseries euclideandistancetransform} (unsigned char $\ast$binary, int width, int height)\hypertarget{distancetransform_8c_a79408bf9d9ddcfa39ee0fa821bd9a71a}{}\label{distancetransform_8c_a79408bf9d9ddcfa39ee0fa821bd9a71a}
+
+\item 
+int $\ast$ \hyperlink{distancetransform_8c_a7b824e137c5f0dfb55e3269d38960615}{edt\+\_\+saito} (unsigned char $\ast$binary, int width, int height)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Calculates the distance transform of an image using Saito\textquotesingle{}s method
+
+Saito\textquotesingle{}s exact E\+DT -\/ a Euclidean distance transfrom that returns exact results. 
+
+\subsection{Function Documentation}
+\index{distancetransform.\+c@{distancetransform.\+c}!edt\+\_\+saito@{edt\+\_\+saito}}
+\index{edt\+\_\+saito@{edt\+\_\+saito}!distancetransform.\+c@{distancetransform.\+c}}
+\subsubsection[{\texorpdfstring{edt\+\_\+saito(unsigned char $\ast$binary, int width, int height)}{edt_saito(unsigned char *binary, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}static int $\ast$ edt\+\_\+saito (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{distancetransform_8c_a7b824e137c5f0dfb55e3269d38960615}{}\label{distancetransform_8c_a7b824e137c5f0dfb55e3269d38960615}
+Distance transform.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Square of Euclidean distance transform.
+\end{DoxyReturn}
+Final implementation by R. Fabbri, slightly adjusted by Malcolm Mc\+Lean based on two independent implementations by O. Cuisenaire and J. C. Torelli.
+
+P\+A\+P\+ER T. Saito and J.\+I. Toriwaki, \char`\"{}\+New algorithms for Euclidean distance 
+   transformations of an n-\/dimensional digitised picture with applications\char`\"{}, Pattern Recognition, 27(11), pp. 1551-\/1565, 1994
+
+A nice overview of Saito\textquotesingle{}s method may be found at\+: Chapter 2 of \char`\"{}\+Distance transformations\+: fast algorithms and applications 
+   to medical image processing\char`\"{}, Olivier Cuisenaire\textquotesingle{}s Ph.\+D. Thesis, October 1999, Université catholique de Louvain, Belgium. 

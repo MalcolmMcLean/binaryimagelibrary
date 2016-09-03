@@ -1,5 +1,9 @@
-/*
-   medial axis transform and thin function
+/**@file
+
+   Medial axis transform and thin function.
+
+   Used for skeltonisation of images.
+
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +17,14 @@ void thin(unsigned char *binary, int width, int height);
 static int thin_pass(unsigned char *binary, int width, int height, unsigned char *out, int pass);
 static void get3x3(unsigned char *out, unsigned char *img, int width, int height, int x, int y, unsigned char border);
 
+/**
+  Medial axis transform, retainign distance to perimater
+
+  @param[in] binary - the binary image.
+  @param     width - image width
+  @param     height - image height
+  @returns Transformed iamge as floats (malloced). 
+*/
 float *medialaxistransformf(unsigned char *binary, int width, int height)
 {
 	float *answer = 0;
@@ -89,6 +101,13 @@ error_exit:
 	return 0;
 }
 
+/**
+Binary raster-based medial axis transform.
+@param[in] binary - the binary image
+@param width - image width
+@param height - image height
+@returns The medial axis transform.
+*/
 unsigned char *medialaxistransform(unsigned char *binary, int width, int height)
 {
 	unsigned char *answer =0;
@@ -121,13 +140,7 @@ unsigned char *medialaxistransform(unsigned char *binary, int width, int height)
 	if (!dt)
 		goto error_exit;
 
-	for (y = 0; y < height + 2; y++)
-	{
-		for (x = 0; x < width + 2; x++)
-			printf("%d ", dt[y*(width+2) + x]);
-		printf("\n");
-	}
-
+	
 	for (y = 1; y < height + 1; y++)
 		for (x = 1; x < width +1; x++)
 		{
@@ -454,6 +467,17 @@ static	unsigned char	delete[512] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
+/**
+  Thin a binary image using Rosenfeld's parallel thinning 
+    algorithm.
+
+  @param[in,out] binary - the bianry image
+  @param xsize - image width
+  @param ysize - image height
+  @note Thinning is a different operation to medial axis
+    transform, but similarly skeletonises the binary image.
+
+*/
 void	thin(unsigned char *image, int xsize, int ysize)
 {
 	int		x, y;		/* Pixel location		*/
@@ -530,7 +554,10 @@ void	thin(unsigned char *image, int xsize, int ysize)
 	free(qb);
 }
 
-unsigned char *oldthin(unsigned char *binary, int width, int height)
+/*
+   old version, wasn't efficient
+*/
+static unsigned char *oldthin(unsigned char *binary, int width, int height)
 {
 	unsigned char *buff1, *buff2;
 	unsigned char *temp;

@@ -1,5 +1,9 @@
-/*
-  discrete Voronoi cell code
+/**@file
+
+  Discrete Voronoi cell code.
+
+  Calculate Voronoi cells for a binary image. Useful if
+  you don't need exact Voronoi tesselation.
 
   by Malcolm McLean
 */
@@ -17,18 +21,19 @@ typedef struct
 	int d2;
 } CELL;
 
-/*
+/**
   Calculate discrete Voronoi cells.
-  Params:
-     seeds - set empty cells to -1, filled cells to the value (usually
+  
+  @param[in]   seeds - set empty cells to -1, filled cells to the value (usually
 	   unique for each point)
-	 width - image width
-	 height - image height;
+  @param	 width - image width
+  @param	 height - image height
+  @returns 0 on success, -1 on fail
+
   On output, seeds will be expanded to fill the Voronoi cell
   Where there is conflict, the top left-most seed wins (change
   neighbour scan routine to adjust).
 */
-
 int discrete_voronoi(int *seeds, int width, int height)
 {
 	unsigned char *binary = 0;

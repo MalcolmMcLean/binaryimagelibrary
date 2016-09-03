@@ -1,0 +1,100 @@
+\hypertarget{canny_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/canny.c File Reference}
+\label{canny_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/canny.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/canny.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_c_a_n_n_y}{C\+A\+N\+NY}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries ffabs}(x)~( (x) $>$= 0 ? (x) \+: -\/(x) )\hypertarget{canny_8c_ab87153a534f45e56b10953b91bab744f}{}\label{canny_8c_ab87153a534f45e56b10953b91bab744f}
+
+\item 
+\#define {\bfseries G\+A\+U\+S\+S\+I\+A\+N\+\_\+\+C\+U\+T\+\_\+\+O\+FF}~0.\+005f\hypertarget{canny_8c_af454a74ba4609b6e15ac2c5e2e0bb123}{}\label{canny_8c_af454a74ba4609b6e15ac2c5e2e0bb123}
+
+\item 
+\#define {\bfseries M\+A\+G\+N\+I\+T\+U\+D\+E\+\_\+\+S\+C\+A\+LE}~100.\+0f\hypertarget{canny_8c_a10c107ebe6467d4452eed39de506e77b}{}\label{canny_8c_a10c107ebe6467d4452eed39de506e77b}
+
+\item 
+\#define {\bfseries M\+A\+G\+N\+I\+T\+U\+D\+E\+\_\+\+L\+I\+M\+IT}~1000.\+0f\hypertarget{canny_8c_a941ebfa4426a4dec49bd467449708dc6}{}\label{canny_8c_a941ebfa4426a4dec49bd467449708dc6}
+
+\item 
+\#define {\bfseries M\+A\+G\+N\+I\+T\+U\+D\+E\+\_\+\+M\+AX}~((int) (M\+A\+G\+N\+I\+T\+U\+D\+E\+\_\+\+S\+C\+A\+LE $\ast$ M\+A\+G\+N\+I\+T\+U\+D\+E\+\_\+\+L\+I\+M\+IT))\hypertarget{canny_8c_a11ba6874f5a46026d28ce1fd26de1404}{}\label{canny_8c_a11ba6874f5a46026d28ce1fd26de1404}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char $\ast$ \hyperlink{canny_8c_ac6a134d379b3d79ee4013ae7abe3b51f}{canny} (unsigned char $\ast$grey, int width, int height)
+\item 
+unsigned char $\ast$ \hyperlink{canny_8c_a8f62c6efbc3950f050e5dfb45bbb2d00}{cannyparam} (unsigned char $\ast$grey, int width, int height, float low\+Threshold, float highthreshold, float gaussiankernelradius, int gaussiankernelwidth, int contrastnormalised)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The code detects edges in greyscale images. The method was developed by John F Canny and s generally considered to be the best edge detection method currently available.
+
+C version. Based on Java code by Tom Gibara 
+
+\subsection{Function Documentation}
+\index{canny.\+c@{canny.\+c}!canny@{canny}}
+\index{canny@{canny}!canny.\+c@{canny.\+c}}
+\subsubsection[{\texorpdfstring{canny(unsigned char $\ast$grey, int width, int height)}{canny(unsigned char *grey, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char $\ast$ canny (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{grey, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{canny_8c_ac6a134d379b3d79ee4013ae7abe3b51f}{}\label{canny_8c_ac6a134d379b3d79ee4013ae7abe3b51f}
+Canny edge detection with default parameters 
+\begin{DoxyParams}{Parameters}
+{\em grey} & -\/ the greyscale image \\
+\hline
+{\em width} & -\/ image width \\
+\hline
+{\em height} & -\/ image height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Binary image with edges as set pixels. 
+\end{DoxyReturn}
+\index{canny.\+c@{canny.\+c}!cannyparam@{cannyparam}}
+\index{cannyparam@{cannyparam}!canny.\+c@{canny.\+c}}
+\subsubsection[{\texorpdfstring{cannyparam(unsigned char $\ast$grey, int width, int height, float low\+Threshold, float highthreshold, float gaussiankernelradius, int gaussiankernelwidth, int contrastnormalised)}{cannyparam(unsigned char *grey, int width, int height, float lowThreshold, float highthreshold, float gaussiankernelradius, int gaussiankernelwidth, int contrastnormalised)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char $\ast$ cannyparam (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{grey, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{float}]{lowthreshold, }
+\item[{float}]{highthreshold, }
+\item[{float}]{gaussiankernelradius, }
+\item[{int}]{gaussiankernelwidth, }
+\item[{int}]{contrastnormalised}
+\end{DoxyParamCaption}
+)}\hypertarget{canny_8c_a8f62c6efbc3950f050e5dfb45bbb2d00}{}\label{canny_8c_a8f62c6efbc3950f050e5dfb45bbb2d00}
+Canny edge detection with parameters passed in by user. 
+\begin{DoxyParams}{Parameters}
+{\em grey} & -\/ the greyscale image \\
+\hline
+{\em width} & -\/ image width \\
+\hline
+{\em height} & -\/ image height \\
+\hline
+{\em lowthreshold} & -\/ default 2.\+5 \\
+\hline
+{\em highthreshold} & -\/ default 7.\+5 \\
+\hline
+{\em gaussiankernelradius} & -\/ radius of edge detection Gaussian, in standard deviations (default 2.\+0) \\
+\hline
+{\em gaussiankernelwidth} & -\/ width of Gaussian kernel, in pixels (default 16) \\
+\hline
+{\em contrastnormalised} & -\/ flag to normalise image before edge detection (defualt 0) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: Binary image with set pixels as edges. 
+\end{DoxyReturn}

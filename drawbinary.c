@@ -1,8 +1,24 @@
 #include <stdlib.h>
 #include <string.h>
+/**@file
 
-/*
-  draw a line using Brasenham's algoritm
+  Basic drawing routines for binary images.
+
+  Unlikely to want to draw many binary images for human viewing,
+  but the roi=utines are useful for itnermediates steps. They
+  are also good simple reference implementations of algorithms.
+*/
+
+/**
+  Draw a line using Brasenham's algorithm.
+
+   @param[in,out] binary - the binary image
+   @param width - image width
+   @param height - image height
+   @param x0 - start x co-ordinate
+   @param y0 - start y co-ordiante
+   @param x1 - end x co-ordinate
+   @param y1 - end y co-ordinate
 */
 void binaryline(unsigned char *binary, int width, int height, int x0, int y0, int x1, int y1)
 {
@@ -40,6 +56,18 @@ void binaryline(unsigned char *binary, int width, int height, int x0, int y0, in
    }
  }
 
+/**
+  Draw an open circle using quadrant mirroring
+
+  @param[in,out] binary - the binary image
+  @param width - image width
+  @param height - image height
+  @param xm - origin x
+  @param ym - origin y
+  @param r - radius.
+
+  Notes: interger only algorithm
+*/
 void binarycircle(unsigned char *binary, int width, int height, int xm, int ym, int r)
 {
    int x = -r, y = 0, err = 2-2*r; /* II. Quadrant */ 
@@ -60,6 +88,19 @@ void binarycircle(unsigned char *binary, int width, int height, int xm, int ym, 
    } while (x < 0);
 }
 
+/**
+  Draw an ellipse.
+
+  @param[in.out] binary - the binary image
+  @param width - image width
+  @param height - image height
+  @param x0 - first focus x-co-ordinate
+  @param y0 - first focus y co-ordiante
+  @param x1 - second focus x co-ordinate
+  @param y1 - second focus y co-ordiante
+
+  Integer only algorithm.
+*/
 void binaryellipse(unsigned char *binary, int width, int height, int x0, int y0, int x1, int y1)
 {
    int a = abs(x1-x0), b = abs(y1-y0), b1 = b&1; /* values of diameter */
@@ -99,6 +140,16 @@ void binaryellipse(unsigned char *binary, int width, int height, int x0, int y0,
    }
 }
 
+/**
+   Draw a cubic Bezier curve
+
+   @param[in,out] biary - the bianry image
+   @param width - image width
+   @param height - image height
+   @param[in] x - 4 Bezier control points x
+   @param[in] y - 4 Bezier control points y
+
+*/
 void binarybezier(unsigned char *binary, int width, int height, float *x, float *y)
 {
   float t = 0;
@@ -150,6 +201,16 @@ void binarybezier(unsigned char *binary, int width, int height, float *x, float 
   }
 }
 
+/**
+  Draw a Catmull-Rom curve
+
+  @param[in,ut] binary - the binary image
+  @param width - image width
+  @param height - image height
+  @param[in] x - Catmull-Rom x control points (at least 4)
+  @param[in] y - Catmull-Rom y control oints (at least 4)
+
+*/
  void binarycatmullrom(unsigned char *binary, int width, int height, float *x, float *y, int N)
  {
     float t, t2, t3;
@@ -236,15 +297,17 @@ Flood-fill (node, target-color, replacement-color):
 14. Return.
 */
 
-/*
-  floodfill4 - floodfill, 4 connectivity
-  Params: grey - the image (formally it's greyscale but it coul dbe binary or indexed)
-          width - image width
-		  heoght - image height
-		  x, y - seed point
-		  target - the colour to flood
-		  dest - the colur to replace it by.
-  Returns: number of pixels flooded
+/**
+  Floodfill4 - floodfill, 4 connectivity.
+
+  @param[in,out] grey - the image (formally it's greyscale but it could be binary or indexed)
+  @param width - image width
+  @param height - image height
+  @param x - seed point x
+  @param y - seed point y
+  @param target - the colour to flood
+  @param dest - the colur to replace it by.
+  @returns Number of pixels flooded.
 */
 int floodfill4(unsigned char *grey, int width, int height, int x, int y, unsigned char target, unsigned char dest)
 {
@@ -361,7 +424,17 @@ int floodfill4(unsigned char *grey, int width, int height, int x, int y, unsigne
 }
 
 /*
-  floodfill, 8 connectivity
+  Floodfill, 8 connectivity.
+
+  @param[in,out] grey - the image (formally it's greyscale but it could be binary or indexed)
+  @param width - image width
+  @param height - image height
+  @param x - seed point x
+  @param y - seed point y
+  @param target - the colour to flood
+  @param dest - the colur to replace it by.
+  @returns Number of pixels flooded.
+
 */
 int floodfill8(unsigned char *grey, int width, int height, int x, int y, unsigned char target, unsigned char dest)
 {

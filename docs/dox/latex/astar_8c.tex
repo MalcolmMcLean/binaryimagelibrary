@@ -1,0 +1,111 @@
+\hypertarget{astar_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/astar.c File Reference}
+\label{astar_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/astar.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/astar.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_b_a_l_l_o_o_n}{B\+A\+L\+L\+O\+ON}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries F\+I\+LL}~0x01\hypertarget{astar_8c_a63b5892f7ab163bcb862316801283eb3}{}\label{astar_8c_a63b5892f7ab163bcb862316801283eb3}
+
+\item 
+\#define {\bfseries F\+I\+L\+L\+M\+A\+SK}~0x01\hypertarget{astar_8c_a783b4e1e3a0461da6f28cb4a694fe6db}{}\label{astar_8c_a783b4e1e3a0461da6f28cb4a694fe6db}
+
+\item 
+\#define {\bfseries A\+S\+ET}~0x02\hypertarget{astar_8c_a70b0df4bb7e6a5d9dc529a2cf73590b2}{}\label{astar_8c_a70b0df4bb7e6a5d9dc529a2cf73590b2}
+
+\item 
+\#define {\bfseries B\+S\+ET}~0x04\hypertarget{astar_8c_a89f2857fcc818f30c6ff70b67900a925}{}\label{astar_8c_a89f2857fcc818f30c6ff70b67900a925}
+
+\item 
+\#define {\bfseries S\+E\+T\+M\+A\+SK}~0x06\hypertarget{astar_8c_a1bf446b5a9b8b5aa3feee8bb7b742166}{}\label{astar_8c_a1bf446b5a9b8b5aa3feee8bb7b742166}
+
+\item 
+\#define {\bfseries N\+O\+NE}~0x00\hypertarget{astar_8c_a655c84af1b0034986ff56e12e84f983d}{}\label{astar_8c_a655c84af1b0034986ff56e12e84f983d}
+
+\item 
+\#define {\bfseries N\+O\+R\+T\+H\+W\+E\+ST}~0x10\hypertarget{astar_8c_a4fadfc1cc2d9a1723ae3ec08f3f0203d}{}\label{astar_8c_a4fadfc1cc2d9a1723ae3ec08f3f0203d}
+
+\item 
+\#define {\bfseries N\+O\+R\+TH}~0x20\hypertarget{astar_8c_a1711232abf72723b5216c206e6bbb175}{}\label{astar_8c_a1711232abf72723b5216c206e6bbb175}
+
+\item 
+\#define {\bfseries N\+O\+R\+T\+H\+E\+A\+ST}~0x30\hypertarget{astar_8c_a102c97a6b56626a25efbee52bc0ccff0}{}\label{astar_8c_a102c97a6b56626a25efbee52bc0ccff0}
+
+\item 
+\#define {\bfseries W\+E\+ST}~0x40\hypertarget{astar_8c_a755da365a2f771fdb9e15af22fee7d74}{}\label{astar_8c_a755da365a2f771fdb9e15af22fee7d74}
+
+\item 
+\#define {\bfseries E\+A\+ST}~0x50\hypertarget{astar_8c_a072a1ef1143314441742097b799be322}{}\label{astar_8c_a072a1ef1143314441742097b799be322}
+
+\item 
+\#define {\bfseries S\+O\+U\+T\+H\+W\+E\+ST}~0x60\hypertarget{astar_8c_affb1a0defb8cb94cc31897c465e20a75}{}\label{astar_8c_affb1a0defb8cb94cc31897c465e20a75}
+
+\item 
+\#define {\bfseries S\+O\+U\+TH}~0x70\hypertarget{astar_8c_af3830320fe6287f717dca9669f417950}{}\label{astar_8c_af3830320fe6287f717dca9669f417950}
+
+\item 
+\#define {\bfseries S\+O\+U\+T\+H\+E\+A\+ST}~0x80\hypertarget{astar_8c_a0bdd815c79bee3fd7243675de570e3c4}{}\label{astar_8c_a0bdd815c79bee3fd7243675de570e3c4}
+
+\item 
+\#define {\bfseries L\+I\+N\+K\+M\+A\+SK}~0x\+F0\hypertarget{astar_8c_aea9f226568e645c5558dac577c085d2d}{}\label{astar_8c_aea9f226568e645c5558dac577c085d2d}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{astar_8c_a34996aece960ff97ed7083ba6f071404}{astar} (unsigned char $\ast$binary, int width, int height, int sx, int sy, int ex, int ey, int $\ast$$\ast$pathx, int $\ast$$\ast$pathy)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A$\ast$ path finding algorithm, for binary images.
+
+It finds the path between two points by gradually expanding shells of accessible points round the two points until they meet. 
+
+\subsection{Function Documentation}
+\index{astar.\+c@{astar.\+c}!astar@{astar}}
+\index{astar@{astar}!astar.\+c@{astar.\+c}}
+\subsubsection[{\texorpdfstring{astar(unsigned char $\ast$binary, int width, int height, int sx, int sy, int ex, int ey, int $\ast$$\ast$pathx, int $\ast$$\ast$pathy)}{astar(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey, int **pathx, int **pathy)}}]{\setlength{\rightskip}{0pt plus 5cm}int astar (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{sx, }
+\item[{int}]{sy, }
+\item[{int}]{ex, }
+\item[{int}]{ey, }
+\item[{int $\ast$$\ast$}]{pathx, }
+\item[{int $\ast$$\ast$}]{pathy}
+\end{DoxyParamCaption}
+)}\hypertarget{astar_8c_a34996aece960ff97ed7083ba6f071404}{}\label{astar_8c_a34996aece960ff97ed7083ba6f071404}
+A star path finding algorithm.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em binary} & -\/ the bianry image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em sx} & -\/ start point x-\/coordiante \\
+\hline
+ & {\em sy} & -\/ start point y-\/coordiante \\
+\hline
+ & {\em ex} & -\/ end point x coordiante \\
+\hline
+ & {\em ey} & -\/ end point y coordiante \\
+\hline
+\mbox{\tt out}  & {\em pathx} & -\/ return for x-\/coordiantes of path (malloced) \\
+\hline
+\mbox{\tt out}  & {\em pathy} & -\/ return for y-\/coordiantes of path (malloced) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of path points, -\/1 on fail. 
+\end{DoxyReturn}

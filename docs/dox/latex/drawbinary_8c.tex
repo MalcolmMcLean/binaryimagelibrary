@@ -1,0 +1,191 @@
+\hypertarget{drawbinary_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/drawbinary.c File Reference}
+\label{drawbinary_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/drawbinary.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/drawbinary.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{drawbinary_8c_a34d7fc3addd66ab9f1c0bf330ecb048e}{binaryline} (unsigned char $\ast$binary, int width, int height, int x0, int y0, int x1, int y1)
+\item 
+void \hyperlink{drawbinary_8c_a380c70b4d677b7b9ccdcd6520ca39cc2}{binarycircle} (unsigned char $\ast$binary, int width, int height, int xm, int ym, int r)
+\item 
+void \hyperlink{drawbinary_8c_a01c4def1b3c4e7ec21aab8a11b13cd17}{binaryellipse} (unsigned char $\ast$binary, int width, int height, int x0, int y0, int x1, int y1)
+\item 
+void \hyperlink{drawbinary_8c_a8acd46ff1cbea470bf7990835bd004dc}{binarybezier} (unsigned char $\ast$binary, int width, int height, float $\ast$x, float $\ast$y)
+\item 
+void \hyperlink{drawbinary_8c_a164b8b567bea3a066a2cb5ddd800ff53}{binarycatmullrom} (unsigned char $\ast$binary, int width, int height, float $\ast$x, float $\ast$y, int N)
+\item 
+int \hyperlink{drawbinary_8c_a5b2c6a1f0343200fb8378e4542acd18d}{floodfill4} (unsigned char $\ast$grey, int width, int height, int x, int y, unsigned char target, unsigned char dest)
+\item 
+int {\bfseries floodfill8} (unsigned char $\ast$grey, int width, int height, int x, int y, unsigned char target, unsigned char dest)\hypertarget{drawbinary_8c_a5926bbd0214feebf247fbcf8e1d84610}{}\label{drawbinary_8c_a5926bbd0214feebf247fbcf8e1d84610}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Basic drawing routines for binary images.
+
+Unlikely to want to draw many binary images for human viewing, but the roi=utines are useful for itnermediates steps. They are also good simple reference implementations of algorithms. 
+
+\subsection{Function Documentation}
+\index{drawbinary.\+c@{drawbinary.\+c}!binarybezier@{binarybezier}}
+\index{binarybezier@{binarybezier}!drawbinary.\+c@{drawbinary.\+c}}
+\subsubsection[{\texorpdfstring{binarybezier(unsigned char $\ast$binary, int width, int height, float $\ast$x, float $\ast$y)}{binarybezier(unsigned char *binary, int width, int height, float *x, float *y)}}]{\setlength{\rightskip}{0pt plus 5cm}void binarybezier (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{float $\ast$}]{x, }
+\item[{float $\ast$}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{drawbinary_8c_a8acd46ff1cbea470bf7990835bd004dc}{}\label{drawbinary_8c_a8acd46ff1cbea470bf7990835bd004dc}
+Draw a cubic Bezier curve
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em biary} & -\/ the bianry image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\mbox{\tt in}  & {\em x} & -\/ 4 Bezier control points x \\
+\hline
+\mbox{\tt in}  & {\em y} & -\/ 4 Bezier control points y \\
+\hline
+\end{DoxyParams}
+\index{drawbinary.\+c@{drawbinary.\+c}!binarycatmullrom@{binarycatmullrom}}
+\index{binarycatmullrom@{binarycatmullrom}!drawbinary.\+c@{drawbinary.\+c}}
+\subsubsection[{\texorpdfstring{binarycatmullrom(unsigned char $\ast$binary, int width, int height, float $\ast$x, float $\ast$y, int N)}{binarycatmullrom(unsigned char *binary, int width, int height, float *x, float *y, int N)}}]{\setlength{\rightskip}{0pt plus 5cm}void binarycatmullrom (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{float $\ast$}]{x, }
+\item[{float $\ast$}]{y, }
+\item[{int}]{N}
+\end{DoxyParamCaption}
+)}\hypertarget{drawbinary_8c_a164b8b567bea3a066a2cb5ddd800ff53}{}\label{drawbinary_8c_a164b8b567bea3a066a2cb5ddd800ff53}
+Draw a Catmull-\/\+Rom curve
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{drawbinary.\+c@{drawbinary.\+c}!binarycircle@{binarycircle}}
+\index{binarycircle@{binarycircle}!drawbinary.\+c@{drawbinary.\+c}}
+\subsubsection[{\texorpdfstring{binarycircle(unsigned char $\ast$binary, int width, int height, int xm, int ym, int r)}{binarycircle(unsigned char *binary, int width, int height, int xm, int ym, int r)}}]{\setlength{\rightskip}{0pt plus 5cm}void binarycircle (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{xm, }
+\item[{int}]{ym, }
+\item[{int}]{r}
+\end{DoxyParamCaption}
+)}\hypertarget{drawbinary_8c_a380c70b4d677b7b9ccdcd6520ca39cc2}{}\label{drawbinary_8c_a380c70b4d677b7b9ccdcd6520ca39cc2}
+Draw an open circle using quadrant mirroring
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em xm} & -\/ origin x \\
+\hline
+ & {\em ym} & -\/ origin y \\
+\hline
+ & {\em r} & -\/ radius.\\
+\hline
+\end{DoxyParams}
+Notes\+: interger only algorithm \index{drawbinary.\+c@{drawbinary.\+c}!binaryellipse@{binaryellipse}}
+\index{binaryellipse@{binaryellipse}!drawbinary.\+c@{drawbinary.\+c}}
+\subsubsection[{\texorpdfstring{binaryellipse(unsigned char $\ast$binary, int width, int height, int x0, int y0, int x1, int y1)}{binaryellipse(unsigned char *binary, int width, int height, int x0, int y0, int x1, int y1)}}]{\setlength{\rightskip}{0pt plus 5cm}void binaryellipse (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{x0, }
+\item[{int}]{y0, }
+\item[{int}]{x1, }
+\item[{int}]{y1}
+\end{DoxyParamCaption}
+)}\hypertarget{drawbinary_8c_a01c4def1b3c4e7ec21aab8a11b13cd17}{}\label{drawbinary_8c_a01c4def1b3c4e7ec21aab8a11b13cd17}
+Draw an ellipse.
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{drawbinary.\+c@{drawbinary.\+c}!binaryline@{binaryline}}
+\index{binaryline@{binaryline}!drawbinary.\+c@{drawbinary.\+c}}
+\subsubsection[{\texorpdfstring{binaryline(unsigned char $\ast$binary, int width, int height, int x0, int y0, int x1, int y1)}{binaryline(unsigned char *binary, int width, int height, int x0, int y0, int x1, int y1)}}]{\setlength{\rightskip}{0pt plus 5cm}void binaryline (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{binary, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{x0, }
+\item[{int}]{y0, }
+\item[{int}]{x1, }
+\item[{int}]{y1}
+\end{DoxyParamCaption}
+)}\hypertarget{drawbinary_8c_a34d7fc3addd66ab9f1c0bf330ecb048e}{}\label{drawbinary_8c_a34d7fc3addd66ab9f1c0bf330ecb048e}
+Draw a line using Brasenham\textquotesingle{}s algorithm.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em binary} & -\/ the binary image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em x0} & -\/ start x co-\/ordinate \\
+\hline
+ & {\em y0} & -\/ start y co-\/ordiante \\
+\hline
+ & {\em x1} & -\/ end x co-\/ordinate \\
+\hline
+ & {\em y1} & -\/ end y co-\/ordinate \\
+\hline
+\end{DoxyParams}
+\index{drawbinary.\+c@{drawbinary.\+c}!floodfill4@{floodfill4}}
+\index{floodfill4@{floodfill4}!drawbinary.\+c@{drawbinary.\+c}}
+\subsubsection[{\texorpdfstring{floodfill4(unsigned char $\ast$grey, int width, int height, int x, int y, unsigned char target, unsigned char dest)}{floodfill4(unsigned char *grey, int width, int height, int x, int y, unsigned char target, unsigned char dest)}}]{\setlength{\rightskip}{0pt plus 5cm}int floodfill4 (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{grey, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{unsigned char}]{target, }
+\item[{unsigned char}]{dest}
+\end{DoxyParamCaption}
+)}\hypertarget{drawbinary_8c_a5b2c6a1f0343200fb8378e4542acd18d}{}\label{drawbinary_8c_a5b2c6a1f0343200fb8378e4542acd18d}
+Floodfill4 -\/ floodfill, 4 connectivity.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em grey} & -\/ the image (formally it\textquotesingle{}s greyscale but it could be binary or indexed) \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+ & {\em x} & -\/ seed point x \\
+\hline
+ & {\em y} & -\/ seed point y \\
+\hline
+ & {\em target} & -\/ the colour to flood \\
+\hline
+ & {\em dest} & -\/ the colur to replace it by. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of pixels flooded. 
+\end{DoxyReturn}
