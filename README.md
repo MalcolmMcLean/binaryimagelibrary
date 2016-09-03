@@ -1,6 +1,8 @@
 # binaryimagelibrary
 Portable library for binary (bi-valued) image processing
 
+[webpage](docs/index.html)
+
 This is a general-pupose library for processing binary images. Anything
 the operates essentially on set / unset pixels belongs here.
 
