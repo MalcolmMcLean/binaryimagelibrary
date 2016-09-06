@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['simplearea',['simplearea',['../binaryutils_8c.html#a4a80461210fa58f3e12883f01740d4bd',1,'binaryutils.c']]],
-  ['stucki',['stucki',['../halftone_8c.html#ae55e6872a7e3e5281be6c7365a60cebd',1,'halftone.c']]],
-  ['subbinary',['subbinary',['../binaryutils_8c.html#aa731307b0e84fd4d1f923de26039e996',1,'binaryutils.c']]]
+  ['randomhalftone',['randomhalftone',['../halftone_8c.html#a3cb997e25387646d7d8534637cb3ce19',1,'halftone.c']]],
+  ['rotatebyshear',['rotatebyshear',['../rotatebyshear_8c.html#af46f789cbc5c1eeb7357312c574e3516',1,'rotatebyshear.c']]],
+  ['rotatebyshear_2ec',['rotatebyshear.c',['../rotatebyshear_8c.html',1,'']]]
 ];

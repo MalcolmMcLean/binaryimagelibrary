@@ -1,3 +1,9 @@
+/**
+ @file
+
+ PC-style font as a (8 x 19) x 256 string array. 
+
+*/
 static char pcfont8x19 [256][8*19] = 
 {
 "        "

@@ -1,5 +1,11 @@
 #ifndef pcfontchars_h
-#define pcfotnchars_h
+#define pcfontchars_h
+/**
+@file
+
+Use to pass meaningful symbols to font-drawing routines.
+
+*/
 
 #define CH_NULL 0
 #define CH_SMILEY 1

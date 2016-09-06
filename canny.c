@@ -20,15 +20,15 @@
 
 typedef struct
 {
-  unsigned char *data; /* input image */
-  int width;           
-  int height;
-  int *idata;          /* output for edges */
-  int *magnitude;      /* edge magnitude as detected by Gaussians */
-  float *xConv;        /* temporary for convolution in x direction */
-  float *yConv;        /* temporary for convolution in y direction */
-  float *xGradient;    /* gradients in x direction, as detected by Gaussians */
-  float *yGradient;    /* gradients in x direction,a s detected by Gaussians */
+  unsigned char *data; /**< Input image .*/
+  int width;           /**< Image width. */
+  int height;          /**< Image height. */
+  int *idata;          /**< Output for edges. */
+  int *magnitude;      /**< Edge magnitude as detected by Gaussians. */
+  float *xConv;        /**< Temporary for convolution in x direction. */
+  float *yConv;        /**< Temporary for convolution in y direction. */
+  float *xGradient;    /**< Gradients in x direction, as detected by Gaussians. */
+  float *yGradient;    /**< Gradients in x direction, as detected by Gaussians. */
 } CANNY;
 
 unsigned char *canny(unsigned char *grey, int width, int height);

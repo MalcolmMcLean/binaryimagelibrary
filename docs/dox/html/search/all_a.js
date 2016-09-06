@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['magnitude',['magnitude',['../struct_c_a_n_n_y.html#a4142553c68cae4969658c38710b735ed',1,'CANNY']]],
   ['medialaxistransform',['medialaxistransform',['../medialaxistransform_8c.html#a2ad12e7ca0771b508ece230b24512985',1,'medialaxistransform.c']]],
   ['medialaxistransform_2ec',['medialaxistransform.c',['../medialaxistransform_8c.html',1,'']]],
   ['medialaxistransformf',['medialaxistransformf',['../medialaxistransform_8c.html#ad2c9b5a280932ff7db429f635bd8defb',1,'medialaxistransform.c']]],

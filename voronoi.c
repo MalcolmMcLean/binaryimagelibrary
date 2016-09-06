@@ -16,9 +16,9 @@ static int *edt_saito(unsigned char *binary, int width, int height);
 
 typedef struct
 {
-	int x;
-	int y;
-	int d2;
+	int x;  /**< x co-ordinate. */ 
+	int y;  /**< y co-ordinate. */
+	int d2; /**< Squared distance from nearest seed.*/
 } CELL;
 
 /**

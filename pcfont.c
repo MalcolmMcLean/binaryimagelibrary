@@ -4,6 +4,9 @@
 
   Use to quickly build up raster displays.
 
+  @image html cgafont.gif The CGA 8x8 font
+  @image html pcfont.gif The PC 8x19 font
+
 */
 
 #include "pcfont8x19.h"
@@ -104,7 +107,7 @@ int cgafont_putch(unsigned char *binary, int chwidth, int chheight, int cx, int 
 }
 
 /**
-Write a character to the binary buffer using 8x8 font
+Write a character to the binary buffer using 8x19 font
 
 @param[in,out] binary - the buffer
 @param width - bufffer width

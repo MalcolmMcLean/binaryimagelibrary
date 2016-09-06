@@ -27,20 +27,24 @@
 #define SOUTHEAST 0x80
 #define LINKMASK 0xF0
 
+/**
+   Structure for the search area, or "balloon"
+   
+*/
 typedef struct
 {
-	unsigned char *img;
-	int width;
-	int height;
-	int *ax;
-	int *ay;
-	int Na;
-	int *bx;
-	int *by;
-	int Nb;
-	int *pathx;
-	int *pathy;
-	int Npath;
+	unsigned char *img;  /**< image, set up with direction data to source. */
+	int width;           /**< image width. */
+	int height;          /**< image height. */
+	int *ax;             /**< boundary of a, x values. */
+	int *ay;             /**< boundary of a, y values. */
+	int Na;              /**< size of boundary a. */
+	int *bx;             /**< boundary of b, x values. */
+	int *by;             /**< boundary of b, y values. */
+	int Nb;              /**< Nb size of boundary b. */
+	int *pathx;          /**< path x co-ordinates. */
+	int *pathy;          /**< path y co-ordinates. */
+	int Npath;           /**< size of path. */
 } BALLOON;
 
 static BALLOON *balloon(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey);
