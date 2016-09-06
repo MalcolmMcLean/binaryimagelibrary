@@ -1,0 +1,38 @@
+
+
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"> <title> PC fonts for old DOS programs </title> 
+<style>
+  P{
+   width: 500px;
+}
+</style>
+</head>
+<body bgcolor="#C0C0FF">
+<h1> PC Fonts </h1>
+Part of the Binary Image Library <a href="../index.html"> Homepage </a>
+<p>
+Fonts provide a good way of constructing binary images easily and with a minimum of programming effort. The original IMB PC did not have a graphics adpater. Therefore the character set was constructed to allow for simple graphics to be constructed. Code page 437 contained the font data. The font was 8 by 19, which made for easy readability.
+</p><p>
+The main challenge in using bitmapped fonts is getting the font into the machine in a way that is both easily machine readable and easily human-readable. Then a rasteriser is trivial to write. Plenty of fonts are available on net, sometimes as images, sometimes as Microsoft .fon files, sometimes as X style .bdf files. I've decided to provide the data as ASCII strings. This uses one byte per pixel as storage, but it has the advantage that if you want to change a few characters in the font you can simply edit the file. I've also provided a list of #defines for the code page 437 symbols. Surprisingly, there don't seem to be any standard names. This saves you from remembering the code for every single box-drawing character. 
+</p><p>
+Though 8x19 fonts are more readable, they've got two problems. Firstly most images are a multiple of eight in both dimensions. Secondly, the cells are not square, which means that it's harder to produce non-distorted graphics. So there's also an 8x8 font. A similar font was provided in the original CGA adapter.  
+</p><p>
+The code is here.
+<a href="../../pcfontchars.h"> pcfontschars.h </a> (the #defines for the characters) <br>
+<a href="../../pcfont8x8.h"> pcfont8x8.h </a> (the 8x8 font) <br>
+<a href="../../pcfont8x19.h"> pcfont8x19.h </a> (the 8x19 font) <br>
+<a href="../../pcfont.c"> pcfont.c </a> (the rasteriser) 
+</p><p>
+Now is time for a trip down nostalgia road. Of course with a modern system it is not necessary to confine the characters to a raster, but doing so retains the the original DOS feel.
+</p><p>
+<img src="../images/dosartibm.gif" ,="" alt="dos art example"> 
+</p><p>
+Here's a DOS image I created with the drawing functions. The IBM font is very good at drawing boxes. For anything else you've got to be creative. 
+</p><p>
+A good resource for IBM-compatible fonts is the 
+<a href="http://dwarffortresswiki.org/index.php/Tileset_repository"> 
+Dwarf fortress tileset repository
+</a> 
+
+</body></html>

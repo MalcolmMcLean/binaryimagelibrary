@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<style>
+P{
+  width: 500px;
+}
+</style>
+
+</HEAD>
+<BODY bgcolor = #C0C0FF>
+<h1> Discrete Voronoi function </h1>
+From the Binary Image Processing Library <A href = "../index.html">homepage</A>.
+<P>
+A Voronoi diagram shows a scattered of points in a plane, with
+each point assigned its own region. The region is defined as
+the zone where the point is the closest point to an observer
+on the plane.
+</P>
+<IMG src = "../images/voronoi.png"> </IMG>
+<P>
+It's a natural divsion of space, and Voronoi diagrams have 
+may uses. However they are rather tricky to calculate. The
+discrete Voronoi function calculate Voronoi regions over a
+binary image.
+</P>
+<IMG src = "../images/voronoiseeds.gif"></IMG> &nbsp;
+<IMG src = "../images/voronoiregions.gif"></IMG>
+<P>
+The seeds are passed in in an integer array, with the
+background set to -1. Normally each seed will have a 
+unique integer values, though this is not essential. We
+then represent the seeds as a binary image, and do a 
+distance transform. We then sort all the pixels by value,
+and, starting from the closest, fill them to the value of
+the nearest neighbour.
+</P>
+<P>
+It doesn't produce perfect results because of edge effects
+and discretisaton problems. But it gives a pretty good 
+approximation to the Voronoi diagram, and much easier than
+floating-point based methods.
+</P>
+Code:
+<BR>
+<A href = "../../voronoi.c"> voronoi.c </A>
+
+   
+</BODY>
+</HTML>

@@ -77,7 +77,7 @@ int discrete_voronoi(int *seeds, int width, int height)
 			continue;
 		get3x3(neighbours, seeds, width, height, cells[i].x, cells[i].y, -1);
 		mind = width * height * 2;
-		for (ii = 1; ii < 9; ii+=2)
+		for (ii = 0; ii < 9; ii++)
 		{
 			if (neighbours[ii] != -1)
 			{
