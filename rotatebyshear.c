@@ -33,6 +33,12 @@
 	the new pixel values can be obtained by interpolation. However with binary or 
 	colour-index images, interpolation isn't possible. The shearing method preserves the
 	pixels, at some cost in rotational accuracy.
+
+	@image html maggie.jpg  Margaret Thatcher (1925-2013) greyscale photograph
+	@image html maggierotshear.gif Mrs Thatcher rotated
+	@image html test.gif  Test card (256 colour-indexed)
+	@image html testrotshear.gif Test card rotated
+
   */
 int rotatebyshear(unsigned char *binary, int width, int height, double cx, double cy, double theta, unsigned char *out)
 {

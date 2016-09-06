@@ -176,8 +176,24 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>: 0 for success</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>conventional image rotation by the matrix method causes destination pixels to be sub-samples of source pixels. This isn't a problem with continous tone images where the new pixel values can be obtained by interpolation. However with binary or colour-index images, interpolation isn't possible. The shearing method preserves the pixels, at some cost in rotational accuracy. </dd></dl>
-
+<dl class="section note"><dt>Note</dt><dd>conventional image rotation by the matrix method causes destination pixels to be sub-samples of source pixels. This isn't a problem with continous tone images where the new pixel values can be obtained by interpolation. However with binary or colour-index images, interpolation isn't possible. The shearing method preserves the pixels, at some cost in rotational accuracy.</dd></dl>
+<div class="image">
+<img src="maggie.jpg" alt="maggie.jpg"/>
+<div class="caption">
+Margaret Thatcher (1925-2013) greyscale photograph</div></div>
+ <div class="image">
+<img src="maggierotshear.gif" alt="maggierotshear.gif"/>
+<div class="caption">
+Mrs Thatcher rotated</div></div>
+ <div class="image">
+<img src="test.gif" alt="test.gif"/>
+<div class="caption">
+Test card (256 colour-indexed)</div></div>
+ <div class="image">
+<img src="testrotshear.gif" alt="testrotshear.gif"/>
+<div class="caption">
+Test card rotated</div></div>
+ 
 </div>
 </div>
 </div><!-- contents -->
