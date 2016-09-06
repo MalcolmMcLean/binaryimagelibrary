@@ -5,6 +5,8 @@
   @param height - image height
   @returns Threshold at which to split pixels into foreground and
            background.
+  @image html maggie.jpg  Margaret Thatcher (1925-2013) greyscale photograph
+  @image html maggieotsu.gif Mrs Thatcher Otsu thresholded
  */
 int getOtsuthreshold(unsigned char *grey, int width, int height)
 {

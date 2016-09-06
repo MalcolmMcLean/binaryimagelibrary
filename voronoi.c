@@ -29,6 +29,8 @@ typedef struct
   @param	 width - image width
   @param	 height - image height
   @returns 0 on success, -1 on fail
+  @image html voronoiseeds.gif The seeds
+  @image html voronoiregions.gif Voronoi regions for seeds
 
   On output, seeds will be expanded to fill the Voronoi cell
   Where there is conflict, the top left-most seed wins (change
@@ -41,6 +43,8 @@ int discrete_voronoi(int *seeds, int width, int height)
 	CELL *cells = 0;
 	int neighbours[9];
 	int i, ii;
+	int mind;
+	int nx, ny;
 
 	binary = malloc(width  * height);
 	if (!binary)
@@ -72,12 +76,18 @@ int discrete_voronoi(int *seeds, int width, int height)
 		if (cells[i].d2 == 0)
 			continue;
 		get3x3(neighbours, seeds, width, height, cells[i].x, cells[i].y, -1);
+		mind = width * height * 2;
 		for (ii = 1; ii < 9; ii+=2)
 		{
 			if (neighbours[ii] != -1)
 			{
-				seeds[cells[i].y * width + cells[i].x] = neighbours[ii];
-				break;
+				nx = cells[i].x + (ii % 3) - 1;
+				ny = cells[i].y + (ii / 3) - 1;
+				if ( mind > edt[ny * width + nx])
+				{
+					mind = edt[ny*width + nx];
+					seeds[cells[i].y * width + cells[i].x] = neighbours[ii];
+				}
 			}
 		}
 	}

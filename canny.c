@@ -5,7 +5,7 @@
 /**@file
 
   The code detects edges in greyscale images. The method was developed
-  by John F Canny and s generally considered to be the best edge
+  by John F Canny and is generally considered to be the best edge
   detection method currently available.
 
   C version. Based on Java code by
@@ -54,6 +54,8 @@ static float gaussian(float x, float sigma);
   @param width - image width
   @param height - image height
   @returns Binary image with edges as set pixels.
+  @image html maggie.jpg  Margaret Thatcher (1925-2013) greyscale photograph
+  @image html maggiecanny.gif Mrs Thatcher edge detected
 */
 unsigned char *canny(unsigned char *grey, int width, int height)
 {

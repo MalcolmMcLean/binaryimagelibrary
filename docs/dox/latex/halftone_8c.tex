@@ -20,7 +20,9 @@ unsigned char $\ast$ \hyperlink{halftone_8c_af2d49f7365cf6f949ac9132625f0f3f8}{o
 \subsection{Detailed Description}
 Halftone functions.
 
-Half toning is when we represent a greyscale iamge as a binary image, using filters and dithering to give a visual representation of the grey. 
+Half toning is when we represent a greyscale iamge as a binary image, using filters and dithering to give a visual representation of the grey.
+
+ 
 
 \subsection{Function Documentation}
 \index{halftone.\+c@{halftone.\+c}!floydsteinberg@{floydsteinberg}}
@@ -42,7 +44,7 @@ Halftoning with Floyd-\/\+Steinberg error diffusion.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Halftoned binary image. 
+Halftoned binary image.  
 \end{DoxyReturn}
 \index{halftone.\+c@{halftone.\+c}!orderedclustereddot@{orderedclustereddot}}
 \index{orderedclustereddot@{orderedclustereddot}!halftone.\+c@{halftone.\+c}}
@@ -70,6 +72,8 @@ Ordered clustered dot dithering.
 \begin{DoxyReturn}{Returns}
 The dithered image.
 \end{DoxyReturn}
+  
+
 NB \+: The predefined dither matrices are the same as matrices used in the Netpbm package (\href{http://netpbm.sourceforge.net}{\tt http\+://netpbm.\+sourceforge.\+net}) and are defined in Ulichney\textquotesingle{}s book. See also \+: The newsprint web site at \href{http://www.cl.cam.ac.uk/~and1000/newsprint/}{\tt http\+://www.\+cl.\+cam.\+ac.\+uk/$\sim$and1000/newsprint/} for more technical info on this dithering technique \index{halftone.\+c@{halftone.\+c}!ordereddisperseddot@{ordereddisperseddot}}
 \index{ordereddisperseddot@{ordereddisperseddot}!halftone.\+c@{halftone.\+c}}
 \subsubsection[{\texorpdfstring{ordereddisperseddot(unsigned char $\ast$grey, int width, int height, int order)}{ordereddisperseddot(unsigned char *grey, int width, int height, int order)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ ordereddisperseddot (
@@ -92,7 +96,7 @@ Ordered dithering with a Bayer matrix of size 2$^\wedge$order by 2$^\wedge$order
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-halftoned binary image 
+halftoned binary image     
 \end{DoxyReturn}
 \index{halftone.\+c@{halftone.\+c}!randomhalftone@{randomhalftone}}
 \index{randomhalftone@{randomhalftone}!halftone.\+c@{halftone.\+c}}
@@ -113,9 +117,9 @@ Halftoning with random dither.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Halftoned binary image. 
+Halftoned binary image.
 \end{DoxyReturn}
-\index{halftone.\+c@{halftone.\+c}!stucki@{stucki}}
+ \index{halftone.\+c@{halftone.\+c}!stucki@{stucki}}
 \index{stucki@{stucki}!halftone.\+c@{halftone.\+c}}
 \subsubsection[{\texorpdfstring{stucki(unsigned char $\ast$grey, int width, int height)}{stucki(unsigned char *grey, int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ stucki (
 \begin{DoxyParamCaption}
@@ -134,5 +138,5 @@ Halftoning with Stucki error diffusion.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Halftoned binary image. 
+Halftoned binary image.  
 \end{DoxyReturn}

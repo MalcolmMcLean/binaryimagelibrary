@@ -7,6 +7,8 @@
   using filters and dithering to give a visual representation of the
   grey.
 
+  @image html maggie.jpg  Margaret Thatcher (1925-2013) greyscale photograph
+
 */
 
 /**
@@ -15,6 +17,8 @@
   @param width - image width
   @param height - image height
   @returns Halftoned binary image.
+
+  @image html maggierandom.gif
 */
 unsigned char *randomhalftone(unsigned char *grey, int width, int height)
 {
@@ -70,6 +74,7 @@ Halftoning with Floyd-Steinberg error diffusion.
 @param width - image width
 @param height - image height
 @returns Halftoned binary image.
+@image html maggiefloyd.gif
 */
 unsigned char *floydsteinberg(unsigned char *grey, int width, int height)
 {
@@ -98,10 +103,11 @@ unsigned char *floydsteinberg(unsigned char *grey, int width, int height)
   {
     for (x = 0; x < width; x++) 
 	{
-      answer[y*width+x]  = (I[y*width+x] + 0.5) > 1 ? 1 : 0;
+      answer[y*width+x]  = (I[y*(width+1)+x] + 0.5) > 1 ? 1 : 0;
       err = I[y*(width+1)+x] - answer[y*width+x];
       I[y*(width+1)+x+1] += a*err;
-      I[(y+1)*(width+1)+x-1] += b*err;
+	  if(x)
+		I[(y+1)*(width+1)+x-1] += b*err;
       I[(y+1)*(width+1)+x] += c*err;
       I[(y+1)*(width+1)+x+1] += d*err;
 	}
@@ -121,6 +127,7 @@ error_exit:
   @param width - image width
   @param height - image height
   @returns Halftoned binary image.
+  @image html maggiestucki.gif
 */
 unsigned char *stucki(unsigned char *grey, int width, int height)
 {
@@ -211,6 +218,10 @@ static int dithervalue(int x, int y, int size)
   @param  height - image height
   @param order - size of matrix (1-4)
   @returns halftoned binary image
+  @image html maggiedisp1.gif order = 1
+  @image html maggiedisp2.gif order = 2
+  @image html maggiedisp3.gif order = 3
+  @image html maggiedisp4.gif order = 4
 */
 
 unsigned char *ordereddisperseddot(unsigned char *grey, int width, int height, int order) 
@@ -269,6 +280,10 @@ error_exit:
  @param height - image height
  @param order - 3, 4, or8
  @returns The dithered image.
+
+ @image html maggieclust3.gif order = 3
+ @image html maggieclust4.gif order = 4
+ @image html maggieclust8.gif order = 8
 
 NB : The predefined dither matrices are the same as matrices used in 
 the Netpbm package (http://netpbm.sourceforge.net) and are defined in Ulichney's book.
