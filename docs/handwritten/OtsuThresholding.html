@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<style>
+P{
+  width: 500px;
+}
+</style>
+</HEAD>
+<BODY bgcolor = #C0C0FF>
+<H1> Otsu Thresholding </H1>
+From the Binary Image Library <A href = "../index.html"> homepage </A>
+<P>
+Otsu thresholding is a technique for dividing an image into 
+foreground and background. Useful for converting an image to 
+two colours, or as a first step in object recognition.
+</P>
+<IMG src = "../images/maggie.jpg"> </IMG> &nbsp;
+<IMG src = "../images/maggieotsu.gif"> </IMG> 
+<P>
+The results of thresholding the image of Margaret Thatcher
+are quite good. The resulting image is visauly acceptable.
+</P>
+<P>
+It works by making a histogram of the greyscale values in the image, then looking for the point which maximises the difference betwwen the two sets, whilst minimisng variation within the sets. In other words, it looks for a dip somewhere in the middle of th histogram.
+</P>
+<IMG src = "../images/maggiehist.gif"> </IMG>
+<P>
+As we can see here, the image is continuous grey and the dip is very subtle, but the method has found it. It has also avoided the spurious dip caused by the presence of a lot of black or nearly black pixels. 
+</P>
+<P>
+Code: <BR>
+<A href = "../../OtsuThreshold.c"> OtsuThreshold.c </A>
+</P>
+</BODY>
+</HTML>
