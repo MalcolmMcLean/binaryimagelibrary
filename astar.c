@@ -27,6 +27,291 @@
 #define SOUTHEAST 0x80
 #define LINKMASK 0xF0
 
+typedef struct
+{
+  unsigned char *data;
+  int bufflen;
+  int N;
+  int elsize;
+  int(*compfunc)(void *ctx, void *e1, void *e2);
+  void *ctx;
+} PRIORITY_QUEUE;
+
+PRIORITY_QUEUE *priority_queue(int elsize, int(*compfunc)(void *ctx, void *e1, void *e2), void *ctx)
+{
+	PRIORITY_QUEUE *q;
+
+	q = malloc(sizeof(PRIORITY_QUEUE));
+	q->data = 0;
+	q->bufflen = 0;
+	q->N = 0;
+	q->elsize = elsize;
+	q->ctx = ctx;
+	return q;
+	out_of_memory:
+	return 0;
+}
+
+void killpriority_queue(PRIORITY_QUEUE *q)
+{
+	if (q)
+	{
+		free(q);
+		free(q->data);
+	}
+}
+
+int priority_queue_getsize(PRIORITY_QUEUE *q)
+{
+	return q->N;
+}
+
+int priority_queue_insert(PRIORITY_QUEUE *q, void *item)
+{
+	void *temp;
+	int newbufflen;
+	int i;
+
+	if (q->bufflen < q->N + 1)
+	{
+		newbufflen = q->bufflen + q->bufflen/2 + 10;
+		temp = realloc(q->data, newbufflen * q->elsize);
+		if (temp)
+		{
+			q->data = temp;
+			q->bufflen = newbufflen;
+		}
+		else
+			goto out_of_memory;
+	}
+	for (i = 0; i < q->N; i++)
+	{
+		if ((*q->compfunc)(q->ctx, q->data + q->elsize * i, item))
+		{
+			break;
+		}
+	}
+	memmove(q->data + (i + 1) * q->elsize, q->data + i * q->elsize, (q->N - i) * q->elsize);
+	memcpy(q->data + (i * q->elsize), item, q->elsize);
+	q->N++;
+	return 0;
+out_of_memory:
+	return -1;
+}
+
+int priority_queue_popfront(PRIORITY_QUEUE *q, void *item)
+{
+	if (q->N)
+	{
+		memcpy(item, q->data, q->elsize);
+		memmove(q->data, q->data + q->elsize, (q->N - 1) * q->elsize);
+		q->N--;
+	}
+}
+
+typedef struct
+{
+	int x;
+	int y;
+	double heuristic;
+	double fscore;
+	int origin;
+
+} APOINT;
+
+typedef struct
+{
+	unsigned char *img;  /**< image, set up with direction data to source. */
+	int width;           /**< image width. */
+	int height;          /**< image height. */
+	PRIORITY_QUEUE *q;
+	int sx;
+	int sy;
+	int ex;
+	int ey;
+	int *pathx;          /**< path x co-ordinates. */
+	int *pathy;          /**< path y co-ordinates. */
+	int Npath;           /**< size of path. */
+
+} ASTAR;
+
+double diagonaldistance(int ax, int ay, int bx, int by)
+{
+	int dx, dy;
+
+	dx = abs(ax - bx);
+	dy = abs(ay - by);
+
+	if (dx >= dy)
+	{
+		return (dx - dy) + dy * 1.414;
+	}
+	else
+	{
+		return (dy - dx) + dx *1.414;
+	}
+
+}
+
+int astarcomp(void *ctx, void *e1, void *e2)
+{
+	ASTAR *as = ctx;
+	APOINT *ap1 = e1;
+	APOINT *ap2 = e2;
+	double s1, s2;
+
+	s1 = ap1->heuristic + ap2->fscore;
+	s2 = ap2->heuristic + ap2->fscore;
+
+	if (s1 > s2)
+		return -1;
+	else if (s1 == s2)
+		return 0;
+	else
+		return 1;
+}
+
+/**
+A star path finding algorithm.
+
+@param[in] binary - the binary image
+@param width - image width
+@param height - image height
+@param sx - start point x-coordiante
+@param sy - start point y-coordiante
+@param ex - end point x coordiante
+@param ey - end point y coordiante
+@param[out] pathx - return for x-coordiantes of path (malloced)
+@param[out] pathy - return for y-coordiantes of path (malloced)
+@returns Number of path points, -1 on fail.
+
+*/
+int astar2(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey, int **pathx, int **pathy)
+{
+	ASTAR *as;
+	APOINT a, b, ap, np;
+	int set, otherset;
+	unsigned char neighbours[9];
+	int i, ii;
+	int j;
+	int nx, ny;
+	int Npa, Npb;
+	int *pathax, *pathay, *pathbx, *pathby;
+	int *tpathx, *tpathy;
+	int answer = 0;
+
+	as = malloc(sizeof(ASTAR));
+	if (!as)
+		goto out_of_memory;
+
+	as->img = malloc(width * height);
+	if (!as->img)
+		goto out_of_memory;
+	for (i = 0; i < width*height; i++)
+		as->img[i] = binary[i] ? FILL : 0;
+
+	as->img[sy*width + sx] |= ASET;
+	as->img[ey*width + ex] |= BSET;
+
+	as->q = priority_queue(sizeof(APOINT), astarcomp, as);
+	a.x = sx;
+	a.y = sy;
+	a.fscore = 0;
+	a.heuristic = diagonaldistance(sx, sy, ex, ey);
+	priority_queue_insert(as->q, &a);
+
+	b.x = ex;
+	b.y = ey;
+	b.fscore = 0;
+	b.heuristic = diagonaldistance(sx, sy, ex, sy);
+	priority_queue_insert(as->q, &b);
+
+	while (priority_queue_getsize(as->q) > 0)
+	{
+		priority_queue_popfront(as->q, &ap);
+		get3x3(neighbours, as->img, width,height, ap.x, ap.y, 0x0);
+		set = neighbours[4] & SETMASK;
+		if (set == ASET)
+			otherset = BSET;
+		else
+			otherset = ASET;
+
+		for (j = 0; j < 9; j++)
+		{
+			nx = ap.x + (j % 3) - 1;
+			ny = ap.y + (j / 3) - 1;
+
+
+			if ((neighbours[j] & FILLMASK) && (neighbours[j] & SETMASK) == 0)
+			{
+				double cost = 0.0;
+				switch (j)
+				{
+				case 0: cost = 1.414;  as->img[ny*width + nx] |= (set | SOUTHEAST); break;
+				case 1: cost = 1.0;    as->img[ny*width + nx] |= (set | SOUTH); break;
+				case 2: cost = 1.414;  as->img[ny*width + nx] |= (set | SOUTHWEST); break;
+				case 3: cost = 1.0;    as->img[ny*width + nx] |= (set | EAST); break;
+				case 4: break;
+				case 5: cost = 1.0;    as->img[ny*width + nx] |= (set | WEST); break;
+				case 6: cost = 1.141;  as->img[ny*width + nx] |= (set | NORTHEAST); break;
+				case 7: cost = 1.0;    as->img[ny*width + nx] |= (set | NORTH); break;
+				case 8: cost = 1.414;  as->img[ny*width + nx] |= (set | NORTHWEST); break;
+				}
+				if (j != 4)
+				{
+					np.x = nx;
+					np.y = ny;
+					np.heuristic = diagonaldistance(np.x, np.y, ex, ey);
+					np.fscore = ap.fscore + cost;
+					priority_queue_insert(as->q, &np);
+				}
+			}
+			else if ((neighbours[j] & SETMASK) == otherset)
+			{
+				Npa = traceback(as->img, width, height, ap.x, ap.y, &pathax, &pathay);
+				Npb = traceback(as->img, width, height, nx, ny, &pathbx, &pathby);
+				if (Npa == -1 || Npb == -1)
+					goto out_of_memory;
+				reverse(pathax, Npa);
+				reverse(pathay, Npa);
+				tpathx = malloc((Npa + Npb) * sizeof(int));
+				tpathy = malloc((Npa + Npb) * sizeof(int));
+				if (!tpathx || !tpathy)
+					goto out_of_memory;
+				for (ii = 0; ii < Npa; ii++)
+				{
+					tpathx[ii] = pathax[ii];
+					tpathy[ii] = pathay[ii];
+				}
+				for (ii = 0; ii < Npb; ii++)
+				{
+					tpathx[ii + Npa] = pathbx[ii];
+					tpathy[ii + Npa] = pathby[ii];
+				}
+
+				free(pathax);
+				free(pathay);
+				free(pathbx);
+				free(pathby);
+				*pathx = tpathx;
+				*pathy = tpathy;
+				answer = Npa + Npb;
+				goto done;
+			}
+		}
+	}
+   done:
+	killpriority_queue(as->q);
+	free(as->img);
+   return answer;
+
+
+out_of_memory:
+   killpriority_queue(as->q);
+   free(as->img);
+	return -1;
+}
+
 /**
    Structure for the search area, or "balloon"
    
@@ -188,10 +473,14 @@ static int passa(BALLOON *bal)
 	for (i = 0; i < bal->Na; i++)
 	{
 		get3x3(neighbours, bal->img, bal->width, bal->height, bal->ax[i], bal->ay[i], 0x0);
+		for (j = 0; j < 9; j += 2)
+			neighbours[j] = 0;
 		for (j = 0; j < 9; j++)
 		{
-			nx = bal->ax[i] + (j%3) -1;
+			nx = bal->ax[i] + (j%3) - 1;
 			ny = bal->ay[i] + (j/3) - 1;
+		
+
 			if ((neighbours[j] & FILLMASK) && (neighbours[j] & SETMASK) == 0)
 			{
 				switch (j)
@@ -293,6 +582,8 @@ static int passb(BALLOON *bal)
 	for (i = 0; i < bal->Nb; i++)
 	{
 		get3x3(neighbours, bal->img, bal->width, bal->height, bal->bx[i], bal->by[i], 0x0);
+		for (j = 0; j < 9; j += 2)
+			neighbours[j] = 0;
 		for (j = 0; j < 9; j++)
 		{
 			nx = bal->bx[i] + (j % 3) - 1;
