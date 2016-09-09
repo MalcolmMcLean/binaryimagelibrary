@@ -222,19 +222,20 @@ Functions</h2></td></tr>
 <p>A star path finding algorithm.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">binary</td><td>- the bianry image </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">binary</td><td>- the binary image </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">width</td><td>- image width </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">height</td><td>- image height </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">sx</td><td>- start point x-coordiante </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">sy</td><td>- start point y-coordiante </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">ex</td><td>- end point x coordiante </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">ey</td><td>- end point y coordiante </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">pathx</td><td>- return for x-coordiantes of path (malloced) </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">pathy</td><td>- return for y-coordiantes of path (malloced) </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">sx</td><td>- start point x-coordinate </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">sy</td><td>- start point y-coordinate </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">ex</td><td>- end point x coordinate </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">ey</td><td>- end point y coordinate </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pathx</td><td>- return for x-coordinates of path (malloced) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pathy</td><td>- return for y-coordinates of path (malloced) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Number of path points, -1 on fail. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of path points, -1 on fail.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>currently not A*, a brute force pathfinder. </dd></dl>
 
 </div>
 </div>

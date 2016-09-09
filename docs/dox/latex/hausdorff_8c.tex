@@ -1,0 +1,54 @@
+\hypertarget{hausdorff_8c}{}\section{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/hausdorff.c File Reference}
+\label{hausdorff_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/hausdorff.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/hausdorff.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{hausdorff_8c_a331dce4b4b483c89f966327b59e1e533}{binaryhausdorff} (unsigned char $\ast$imagea, unsigned char $\ast$imageb, int width, int height, int $\ast$halfa, int $\ast$halfb)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Binary Hausdorff routine 
+
+\subsection{Function Documentation}
+\index{hausdorff.\+c@{hausdorff.\+c}!binaryhausdorff@{binaryhausdorff}}
+\index{binaryhausdorff@{binaryhausdorff}!hausdorff.\+c@{hausdorff.\+c}}
+\subsubsection[{\texorpdfstring{binaryhausdorff(unsigned char $\ast$imagea, unsigned char $\ast$imageb, int width, int height, int $\ast$halfa, int $\ast$halfb)}{binaryhausdorff(unsigned char *imagea, unsigned char *imageb, int width, int height, int *halfa, int *halfb)}}]{\setlength{\rightskip}{0pt plus 5cm}int binaryhausdorff (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{imagea, }
+\item[{unsigned char $\ast$}]{imageb, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{int $\ast$}]{halfa, }
+\item[{int $\ast$}]{halfb}
+\end{DoxyParamCaption}
+)}\hypertarget{hausdorff_8c_a331dce4b4b483c89f966327b59e1e533}{}\label{hausdorff_8c_a331dce4b4b483c89f966327b59e1e533}
+Binary Hausdorff distance.
+
+The Hausforff distance is the maximum distance from the pixels in A not in B to the nearest pixel in B, and vice versa. So it is a measure of image similarity. The half-\/\+Hausdorff distance just considers A to B or B to A, and the Hausdorff distance is trivally the maximum of the two.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em imagea} & -\/ the first image \\
+\hline
+\mbox{\tt in}  & {\em imageb} & -\/ the second image \\
+\hline
+ & {\em width} & -\/ image width \\
+\hline
+ & {\em height} & -\/ image height \\
+\hline
+\mbox{\tt out}  & {\em halfa} & -\/ return for half-\/\+Hausdorff distance a to b \\
+\hline
+\mbox{\tt out}  & {\em halfb} & -\/ return for half-\/\+Hausdorff distance b to a \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Hausdorff distance between image a and image b. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Diagonal steps = 1, not Euclidean distance. 
+
+return -\/1 if either image empty. 
+\end{DoxyNote}

@@ -87,25 +87,28 @@ A star path finding algorithm.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em binary} & -\/ the bianry image \\
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
 \hline
  & {\em width} & -\/ image width \\
 \hline
  & {\em height} & -\/ image height \\
 \hline
- & {\em sx} & -\/ start point x-\/coordiante \\
+ & {\em sx} & -\/ start point x-\/coordinate \\
 \hline
- & {\em sy} & -\/ start point y-\/coordiante \\
+ & {\em sy} & -\/ start point y-\/coordinate \\
 \hline
- & {\em ex} & -\/ end point x coordiante \\
+ & {\em ex} & -\/ end point x coordinate \\
 \hline
- & {\em ey} & -\/ end point y coordiante \\
+ & {\em ey} & -\/ end point y coordinate \\
 \hline
-\mbox{\tt out}  & {\em pathx} & -\/ return for x-\/coordiantes of path (malloced) \\
+\mbox{\tt out}  & {\em pathx} & -\/ return for x-\/coordinates of path (malloced) \\
 \hline
-\mbox{\tt out}  & {\em pathy} & -\/ return for y-\/coordiantes of path (malloced) \\
+\mbox{\tt out}  & {\em pathy} & -\/ return for y-\/coordinates of path (malloced) \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Number of path points, -\/1 on fail. 
+Number of path points, -\/1 on fail.
 \end{DoxyReturn}
+\begin{DoxyNote}{Note}
+currently not A$\ast$, a brute force pathfinder. 
+\end{DoxyNote}

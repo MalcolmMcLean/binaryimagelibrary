@@ -58,17 +58,18 @@ static void get3x3(unsigned char *out, unsigned char *img, int width, int height
 /**
   A star path finding algorithm.
 
-  @param[in] binary - the bianry image
+  @param[in] binary - the binary image
   @param width - image width
   @param height - image height
-  @param sx - start point x-coordiante
-  @param sy - start point y-coordiante
-  @param ex - end point x coordiante
-  @param ey - end point y coordiante
-  @param[out] pathx - return for x-coordiantes of path (malloced)
-  @param[out] pathy - return for y-coordiantes of path (malloced)
+  @param sx - start point x-coordinate
+  @param sy - start point y-coordinate
+  @param ex - end point x coordinate
+  @param ey - end point y coordinate
+  @param[out] pathx - return for x-coordinates of path (malloced)
+  @param[out] pathy - return for y-coordinates of path (malloced)
   @returns Number of path points, -1 on fail.
 
+  @note currently not A*, a brute force pathfinder.
 */
 int astar(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey, int **pathx, int **pathy)
 {

@@ -1,6 +1,7 @@
-/**
-@file Binary Hausdorff routine
+/**@file 
+Binary Hausdorff routine
 */
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,7 +14,7 @@ static int dilate(unsigned char *binary, int width, int height, unsigned char *s
   The Hausforff distance is the maximum distance from the pixels in A not
   in B to the nearest pixel in B, and vice versa. So it is a measure of
   image similarity. The half-Hausdorff distance just considers A to B or
-  B to A, and the Huasdorff distance is trivally the maximum of the two.
+  B to A, and the Hausdorff distance is trivally the maximum of the two.
 
 
   @param[in] imagea - the first image
@@ -22,7 +23,7 @@ static int dilate(unsigned char *binary, int width, int height, unsigned char *s
   @param height - image height
   @param[out] halfa - return for half-Hausdorff distance a to b
   @param[out] halfb - return for half-Hausdorff distance b to a
-  @returns The Hausdorff distnace between image a and image b.
+  @returns The Hausdorff distance between image a and image b.
   @note Diagonal steps = 1, not Euclidean distance.
   @note return -1 if either image empty.
 */
