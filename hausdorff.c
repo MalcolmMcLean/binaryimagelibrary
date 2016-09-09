@@ -3,7 +3,9 @@
 */
 #include <stdlib.h>
 #include <string.h>
-#include "binaryutils.h"
+
+
+static int dilate(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight);
 
 /**
   Binary Hausdorff distance.
@@ -43,6 +45,7 @@ int binaryhausdorff(unsigned char *imagea, unsigned char *imageb, int width, int
 	memcpy(buff, imagea, width * height);
 	for (i = 0; i < maxit; i++)
 	{
+		
 		for (ii = 0; ii < width*height; ii++)
 			if (imageb[ii] && !buff[ii])
 				break;
@@ -87,4 +90,57 @@ out_of_memory:
 		*halfb = -1;
 	free(buff);
 	return -1;
+}
+
+/*
+Dilate operation.
+
+@param[in,out] bianry - the binary image
+@param width - image width
+@param height - image height
+@param sel[in] - the selection element
+@param swidth - selection element width
+@param sheight - selection element height
+@returns 0 on sucess, -1 on error.
+
+*/
+static int dilate(unsigned char *binary, int width, int height, unsigned char *sel, int swidth, int sheight)
+{
+	int x, y, sx, sy, ix, iy;
+	unsigned char *answer;
+	int i;
+	int bit;
+
+	answer = malloc(width * height);
+	if (!answer)
+		return -1;
+
+	for (i = 0; i<width*height; i++)
+		answer[i] = 0;
+
+	for (y = 0; y<height; y++)
+		for (x = 0; x<width; x++)
+		{
+			for (sy = 0; sy<sheight; sy++)
+				for (sx = 0; sx < swidth; sx++)
+				{
+					ix = x + sx - swidth / 2;
+					iy = y + sy - sheight / 2;
+					if (ix < 0 || ix >= width || iy < 0 || iy >= height)
+						bit = 0;
+					else
+						bit = binary[iy * width + ix];
+					if (bit == 1 && sel[sy*swidth + sx] == 1)
+					{
+						answer[y*width + x] = 1;
+					}
+				}
+		}
+	for (i = 0; i<width*height; i++)
+		binary[i] = answer[i];
+	free(answer);
+
+	return 0;
+
+
 }
