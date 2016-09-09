@@ -44,14 +44,6 @@ int binaryhausdorff(unsigned char *imagea, unsigned char *imageb, int width, int
 	for (i = 0; i < maxit; i++)
 	{
 		for (ii = 0; ii < width*height; ii++)
-		{
-			printf("%d", buff[ii]);
-			if ((ii % width) == width - 1)
-				printf("\n");
-		}
-		printf("\n");
-
-		for (ii = 0; ii < width*height; ii++)
 			if (imageb[ii] && !buff[ii])
 				break;
 		if (ii == width * height)
