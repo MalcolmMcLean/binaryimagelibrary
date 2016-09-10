@@ -10,10 +10,6 @@
 <h1> Canny edge detection </h1>
 From the Binary Image Library <A href = "../index.html"> homepage </A>
 <p>
-</p><p>
-Get the C source here <br>
-<a href="../../canny.c"> canny.c </a> <br>
-</p><p>
 Canny edge detection is the Rolls Royce of edge detection algorithms.
 </p><p>
 It works by applying a 2-dinension filter which is a Gaussian in one direction and a Gaussian derivative in the other direction. This filter detects edges in the x and the y directions. This gives two gradient levels, one for x and one for y, which are combined by taking the squafre root of sum of squares. There is then a non-maximal suppression pass, where points which are not a local maximum are set to zero.
