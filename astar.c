@@ -5,9 +5,13 @@
 	It finds the path between two points by gradually expanding
 	shells of accessible points round the two points until they meet.
 
+	Many thanks to Richard Heathfield for the heap (priority queue).
+
 */
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include "heap.h"
 
 #define FILL 0x01
 #define FILLMASK 0x01
@@ -27,87 +31,6 @@
 #define SOUTHEAST 0x80
 #define LINKMASK 0xF0
 
-typedef struct
-{
-  unsigned char *data;
-  int bufflen;
-  int N;
-  int elsize;
-  int(*compfunc)(void *ctx, void *e1, void *e2);
-  void *ctx;
-} PRIORITY_QUEUE;
-
-PRIORITY_QUEUE *priority_queue(int elsize, int(*compfunc)(void *ctx, void *e1, void *e2), void *ctx)
-{
-	PRIORITY_QUEUE *q;
-
-	q = malloc(sizeof(PRIORITY_QUEUE));
-	q->data = 0;
-	q->bufflen = 0;
-	q->N = 0;
-	q->elsize = elsize;
-	q->ctx = ctx;
-	return q;
-	out_of_memory:
-	return 0;
-}
-
-void killpriority_queue(PRIORITY_QUEUE *q)
-{
-	if (q)
-	{
-		free(q);
-		free(q->data);
-	}
-}
-
-int priority_queue_getsize(PRIORITY_QUEUE *q)
-{
-	return q->N;
-}
-
-int priority_queue_insert(PRIORITY_QUEUE *q, void *item)
-{
-	void *temp;
-	int newbufflen;
-	int i;
-
-	if (q->bufflen < q->N + 1)
-	{
-		newbufflen = q->bufflen + q->bufflen/2 + 10;
-		temp = realloc(q->data, newbufflen * q->elsize);
-		if (temp)
-		{
-			q->data = temp;
-			q->bufflen = newbufflen;
-		}
-		else
-			goto out_of_memory;
-	}
-	for (i = 0; i < q->N; i++)
-	{
-		if ((*q->compfunc)(q->ctx, q->data + q->elsize * i, item))
-		{
-			break;
-		}
-	}
-	memmove(q->data + (i + 1) * q->elsize, q->data + i * q->elsize, (q->N - i) * q->elsize);
-	memcpy(q->data + (i * q->elsize), item, q->elsize);
-	q->N++;
-	return 0;
-out_of_memory:
-	return -1;
-}
-
-int priority_queue_popfront(PRIORITY_QUEUE *q, void *item)
-{
-	if (q->N)
-	{
-		memcpy(item, q->data, q->elsize);
-		memmove(q->data, q->data + q->elsize, (q->N - 1) * q->elsize);
-		q->N--;
-	}
-}
 
 typedef struct
 {
@@ -119,57 +42,11 @@ typedef struct
 
 } APOINT;
 
-typedef struct
-{
-	unsigned char *img;  /**< image, set up with direction data to source. */
-	int width;           /**< image width. */
-	int height;          /**< image height. */
-	PRIORITY_QUEUE *q;
-	int sx;
-	int sy;
-	int ex;
-	int ey;
-	int *pathx;          /**< path x co-ordinates. */
-	int *pathy;          /**< path y co-ordinates. */
-	int Npath;           /**< size of path. */
-
-} ASTAR;
-
-double diagonaldistance(int ax, int ay, int bx, int by)
-{
-	int dx, dy;
-
-	dx = abs(ax - bx);
-	dy = abs(ay - by);
-
-	if (dx >= dy)
-	{
-		return (dx - dy) + dy * 1.414;
-	}
-	else
-	{
-		return (dy - dx) + dx *1.414;
-	}
-
-}
-
-int astarcomp(void *ctx, void *e1, void *e2)
-{
-	ASTAR *as = ctx;
-	APOINT *ap1 = e1;
-	APOINT *ap2 = e2;
-	double s1, s2;
-
-	s1 = ap1->heuristic + ap2->fscore;
-	s2 = ap2->heuristic + ap2->fscore;
-
-	if (s1 > s2)
-		return -1;
-	else if (s1 == s2)
-		return 0;
-	else
-		return 1;
-}
+static int heapcompf(const void *Left, int LeftTag, const void *Right, int RightTag);
+static double diagonaldistance(int ax, int ay, int bx, int by);
+static int traceback(unsigned char *img, int width, int height, int x, int y, int **pathx, int **pathy);
+static void reverse(int *x, int N);
+static void get3x3(unsigned char *out, unsigned char *img, int width, int height, int x, int y, unsigned char border);
 
 /**
 A star path finding algorithm.
@@ -177,64 +54,78 @@ A star path finding algorithm.
 @param[in] binary - the binary image
 @param width - image width
 @param height - image height
-@param sx - start point x-coordiante
-@param sy - start point y-coordiante
-@param ex - end point x coordiante
-@param ey - end point y coordiante
-@param[out] pathx - return for x-coordiantes of path (malloced)
-@param[out] pathy - return for y-coordiantes of path (malloced)
+@param sx - start point x-coordinate
+@param sy - start point y-coordinate
+@param ex - end point x coordinate
+@param ey - end point y coordinate
+@param[out] pathx - return for x-coordinates of path (malloced)
+@param[out] pathy - return for y-coordinates of path (malloced)
 @returns Number of path points, -1 on fail.
 
 */
-int astar2(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey, int **pathx, int **pathy)
+int astar(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey, int **pathx, int **pathy)
 {
-	ASTAR *as;
+	unsigned char *img = 0;
+	HEAP *heap = 0;
+	int ok;
 	APOINT a, b, ap, np;
 	int set, otherset;
 	unsigned char neighbours[9];
 	int i, ii;
 	int j;
 	int nx, ny;
+	int targetx, targety;
 	int Npa, Npb;
 	int *pathax, *pathay, *pathbx, *pathby;
 	int *tpathx, *tpathy;
 	int answer = 0;
-
-	as = malloc(sizeof(ASTAR));
-	if (!as)
-		goto out_of_memory;
-
-	as->img = malloc(width * height);
-	if (!as->img)
+	
+	img = malloc(width * height);
+	if (!img)
 		goto out_of_memory;
 	for (i = 0; i < width*height; i++)
-		as->img[i] = binary[i] ? FILL : 0;
+		img[i] = binary[i] ? FILL : 0;
 
-	as->img[sy*width + sx] |= ASET;
-	as->img[ey*width + ex] |= BSET;
+	img[sy*width + sx] |= ASET;
+	img[ey*width + ex] |= BSET;
 
-	as->q = priority_queue(sizeof(APOINT), astarcomp, as);
+	heap = HeapCreate(100);
+	if (!heap)
+		goto out_of_memory;
+
 	a.x = sx;
 	a.y = sy;
 	a.fscore = 0;
 	a.heuristic = diagonaldistance(sx, sy, ex, ey);
-	priority_queue_insert(as->q, &a);
+	ok = HeapInsert(heap, 0, sizeof(APOINT), &a, heapcompf);
+	if (ok == 0)
+		goto out_of_memory;
 
 	b.x = ex;
 	b.y = ey;
 	b.fscore = 0;
 	b.heuristic = diagonaldistance(sx, sy, ex, sy);
-	priority_queue_insert(as->q, &b);
+	ok = HeapInsert(heap, 0, sizeof(APOINT), &b, heapcompf);
+	if (ok == 0)
+		goto out_of_memory;
 
-	while (priority_queue_getsize(as->q) > 0)
-	{
-		priority_queue_popfront(as->q, &ap);
-		get3x3(neighbours, as->img, width,height, ap.x, ap.y, 0x0);
+	while (HeapGetSize(heap) > 0)
+	{	
+		HeapDelete(heap, 0, 0, &ap, heapcompf);
+		get3x3(neighbours, img, width,height, ap.x, ap.y, 0x0);
 		set = neighbours[4] & SETMASK;
 		if (set == ASET)
+		{
 			otherset = BSET;
+			targetx = ex;
+			targety = ey;
+		}
 		else
+		{
 			otherset = ASET;
+			targetx = sx;
+			targety = sy;
+		}
 
 		for (j = 0; j < 9; j++)
 		{
@@ -247,29 +138,31 @@ int astar2(unsigned char *binary, int width, int height, int sx, int sy, int ex,
 				double cost = 0.0;
 				switch (j)
 				{
-				case 0: cost = 1.414;  as->img[ny*width + nx] |= (set | SOUTHEAST); break;
-				case 1: cost = 1.0;    as->img[ny*width + nx] |= (set | SOUTH); break;
-				case 2: cost = 1.414;  as->img[ny*width + nx] |= (set | SOUTHWEST); break;
-				case 3: cost = 1.0;    as->img[ny*width + nx] |= (set | EAST); break;
+				case 0: cost = 1.414;  img[ny*width + nx] |= (set | SOUTHEAST); break;
+				case 1: cost = 1.0;    img[ny*width + nx] |= (set | SOUTH); break;
+				case 2: cost = 1.414;  img[ny*width + nx] |= (set | SOUTHWEST); break;
+				case 3: cost = 1.0;    img[ny*width + nx] |= (set | EAST); break;
 				case 4: break;
-				case 5: cost = 1.0;    as->img[ny*width + nx] |= (set | WEST); break;
-				case 6: cost = 1.141;  as->img[ny*width + nx] |= (set | NORTHEAST); break;
-				case 7: cost = 1.0;    as->img[ny*width + nx] |= (set | NORTH); break;
-				case 8: cost = 1.414;  as->img[ny*width + nx] |= (set | NORTHWEST); break;
+				case 5: cost = 1.0;    img[ny*width + nx] |= (set | WEST); break;
+				case 6: cost = 1.141;  img[ny*width + nx] |= (set | NORTHEAST); break;
+				case 7: cost = 1.0;    img[ny*width + nx] |= (set | NORTH); break;
+				case 8: cost = 1.414;  img[ny*width + nx] |= (set | NORTHWEST); break;
 				}
 				if (j != 4)
 				{
 					np.x = nx;
 					np.y = ny;
-					np.heuristic = diagonaldistance(np.x, np.y, ex, ey);
+					np.heuristic = diagonaldistance(np.x, np.y, targetx, targety);
 					np.fscore = ap.fscore + cost;
-					priority_queue_insert(as->q, &np);
+					ok = HeapInsert(heap, 0, sizeof(APOINT), &np, heapcompf);
+					if (ok == 0)
+						goto out_of_memory;
 				}
 			}
 			else if ((neighbours[j] & SETMASK) == otherset)
 			{
-				Npa = traceback(as->img, width, height, ap.x, ap.y, &pathax, &pathay);
-				Npb = traceback(as->img, width, height, nx, ny, &pathbx, &pathby);
+				Npa = traceback(img, width, height, ap.x, ap.y, &pathax, &pathay);
+				Npb = traceback(img, width, height, nx, ny, &pathbx, &pathby);
 				if (Npa == -1 || Npb == -1)
 					goto out_of_memory;
 				reverse(pathax, Npa);
@@ -289,6 +182,11 @@ int astar2(unsigned char *binary, int width, int height, int sx, int sy, int ex,
 					tpathy[ii + Npa] = pathby[ii];
 				}
 
+				if (tpathx[0] != sx || tpathy[0] != sy)
+				{
+					reverse(tpathx, Npa + Npb);
+					reverse(tpathy, Npa + Npb);
+				}
 				free(pathax);
 				free(pathay);
 				free(pathbx);
@@ -300,371 +198,39 @@ int astar2(unsigned char *binary, int width, int height, int sx, int sy, int ex,
 			}
 		}
 	}
-   done:
-	killpriority_queue(as->q);
-	free(as->img);
+done:
+	HeapDestroy(heap);
+	free(img);
    return answer;
 
 
 out_of_memory:
-   killpriority_queue(as->q);
-   free(as->img);
+   HeapDestroy(heap);
+   free(img);
 	return -1;
 }
 
-/**
-   Structure for the search area, or "balloon"
-   
-*/
-typedef struct
+static int heapcompf(const void *Left,
+	int LeftTag,
+	const void *Right,
+	int RightTag)
 {
-	unsigned char *img;  /**< image, set up with direction data to source. */
-	int width;           /**< image width. */
-	int height;          /**< image height. */
-	int *ax;             /**< boundary of a, x values. */
-	int *ay;             /**< boundary of a, y values. */
-	int Na;              /**< size of boundary a. */
-	int *bx;             /**< boundary of b, x values. */
-	int *by;             /**< boundary of b, y values. */
-	int Nb;              /**< Nb size of boundary b. */
-	int *pathx;          /**< path x co-ordinates. */
-	int *pathy;          /**< path y co-ordinates. */
-	int Npath;           /**< size of path. */
-} BALLOON;
+	const APOINT *ap1 = Left;
+	const APOINT *ap2 = Right;
+	double s1, s2;
 
-static BALLOON *balloon(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey);
-static void killballoon(BALLOON *bal);
-static int passa(BALLOON *bal);
-static int passb(BALLOON *bal);
-static int traceback(unsigned char *img, int width, int height, int x, int y, int **pathx, int **pathy);
-static void reverse(int *x, int N);
-static void get3x3(unsigned char *out, unsigned char *img, int width, int height, int x, int y, unsigned char border);
+	s1 = ap1->heuristic + ap1->fscore;
+	s2 = ap2->heuristic + ap2->fscore;
 
-/**
-  A star path finding algorithm.
-
-  @param[in] binary - the bianry image
-  @param width - image width
-  @param height - image height
-  @param sx - start point x-coordiante
-  @param sy - start point y-coordiante
-  @param ex - end point x coordiante
-  @param ey - end point y coordiante
-  @param[out] pathx - return for x-coordiantes of path (malloced)
-  @param[out] pathy - return for y-coordiantes of path (malloced)
-  @returns Number of path points, -1 on fail.
-
-*/
-int astar(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey, int **pathx, int **pathy)
-{
-	BALLOON *bal;
-	int answer;
-	int res;
-
-	bal = balloon(binary, width, height, sx, sy, ex, ey);
-
-	while (1)
-	{
-		res = passa(bal);
-		if (res == -1)
-			goto out_of_memory;
-		if (res == 1 || res == 2)
-			break;
-		res = passb(bal);
-		if (res == -1)
-			goto out_of_memory;
-		if (res == 1 || res == 2)
-			break;
-	}
-	answer = bal->Npath;
-	*pathx = bal->pathx;
-	*pathy = bal->pathy;
-	bal->pathx = 0;
-	bal->pathy = 0;
-	killballoon(bal);
-	return answer;
-out_of_memory:
-	killballoon(bal);
-	*pathx = 0;
-	*pathy = 0;
-	return -1;
+	if (s1 < s2)
+		return -1;
+	else if (s1 == s2)
+		return 0;
+	else
+		return 1;
 }
 
-static BALLOON *balloon(unsigned char *binary, int width, int height, int sx, int sy, int ex, int ey)
-{
-	BALLOON *bal;
-	int i;
 
-	bal = malloc(sizeof(BALLOON));
-	if (!bal)
-		goto out_of_memory;
-
-	bal->img = malloc(width * height);
-	if (!bal->img)
-		goto out_of_memory;
-	for (i = 0; i < width*height; i++)
-		bal->img[i] = binary[i] ? FILL : 0;
-
-	bal->width = width;
-	bal->height = height;
-	bal->ax = malloc(sizeof(int));
-	bal->ay = malloc(sizeof(int));
-	if (!bal->ax || !bal->ay)
-		goto out_of_memory;
-	bal->ax[0] = sx;
-	bal->ay[0] = sy;
-	bal->Na = 1;
-
-	bal->bx = malloc(sizeof(int));
-	bal->by = malloc(sizeof(int));
-	if (!bal->bx || !bal->by)
-		goto out_of_memory;
-	bal->bx[0] = ex;
-	bal->by[0] = ey;
-	bal->Nb = 1;
-
-	bal->img[sy*bal->width + sx] |= ASET;
-	bal->img[ey*bal->width + ex] |= BSET;
-	bal->pathx = 0;
-	bal->pathy = 0;
-	bal->Npath = 0;
-	return bal;
-
-out_of_memory:
-	killballoon(bal);
-	return 0;
-}
-
-static void killballoon(BALLOON *bal)
-{
-	if (bal)
-	{
-		free(bal->img);
-		free(bal->ax);
-		free(bal->ay);
-		free(bal->bx);
-		free(bal->by);
-		free(bal->pathx);
-		free(bal->pathy);
-		free(bal);
-	}
-}
-
-static int passa(BALLOON *bal)
-{
-	int i, j, ii;
-	unsigned char neighbours[9];
-	int nx, ny;
-	int N = 0;
-	int *newx = 0;
-	int *newy = 0;
-	int *pathax = 0;
-	int *pathay = 0;
-	int *pathbx = 0;
-	int *pathby = 0;
-	int *pathx = 0;
-	int *pathy = 0;
-	int Npa, Npb;
-
-	newx = malloc(bal->Na * 8 * sizeof(int));
-	newy = malloc(bal->Na * 8 * sizeof(int));
-	if (!newx || !newy)
-		goto out_of_memory;
-	for (i = 0; i < bal->Na; i++)
-	{
-		get3x3(neighbours, bal->img, bal->width, bal->height, bal->ax[i], bal->ay[i], 0x0);
-		for (j = 0; j < 9; j += 2)
-			neighbours[j] = 0;
-		for (j = 0; j < 9; j++)
-		{
-			nx = bal->ax[i] + (j%3) - 1;
-			ny = bal->ay[i] + (j/3) - 1;
-		
-
-			if ((neighbours[j] & FILLMASK) && (neighbours[j] & SETMASK) == 0)
-			{
-				switch (j)
-				{
-				case 0: bal->img[ny*bal->width + nx] |= (ASET | SOUTHEAST); break;
-				case 1: bal->img[ny*bal->width + nx] |= (ASET | SOUTH); break;
-				case 2: bal->img[ny*bal->width + nx] |= (ASET | SOUTHWEST); break;
-				case 3: bal->img[ny*bal->width + nx] |= (ASET | EAST); break;
-				case 4: break;
-				case 5: bal->img[ny*bal->width + nx] |= (ASET | WEST); break;
-				case 6: bal->img[ny*bal->width + nx] |= (ASET | NORTHEAST); break;
-				case 7: bal->img[ny*bal->width + nx] |= (ASET | NORTH); break;
-				case 8: bal->img[ny*bal->width + nx] |= (ASET | NORTHWEST); break;
-				}
-				newx[N] = nx;
-				newy[N] = ny;
-				N++;
-			}
-			else if ( (neighbours[j] & SETMASK) == BSET)
-			{
-				Npa = traceback(bal->img, bal->width, bal->height, bal->ax[i], bal->ay[i], &pathax, &pathay);
-				Npb = traceback(bal->img, bal->width, bal->height, nx, ny, &pathbx, &pathby);
-				if (Npa == -1 || Npb == -1)
-					goto out_of_memory;
-				reverse(pathax, Npa);
-				reverse(pathay, Npa);
-				pathx = malloc((Npa + Npb) * sizeof(int));
-				pathy = malloc((Npa + Npb) * sizeof(int));
-				if (!pathx || !pathy)
-					goto out_of_memory;
-				for (ii = 0; ii < Npa; ii++)
-				{
-					pathx[ii] = pathax[ii];
-					pathy[ii] = pathay[ii];
-				}
-				for (ii = 0; ii < Npb; ii++)
-				{
-					pathx[ii + Npa] = pathbx[ii];
-					pathy[ii + Npa] = pathby[ii];
-				}
-				free(newx);
-				free(newy);
-				free(pathax);
-				free(pathay);
-				free(pathbx);
-				free(pathby);
-				bal->pathx = pathx;
-				bal->pathy = pathy;
-				bal->Npath = Npa + Npb;
-				return 1;
-			}
-		}
-	}
-	if (N == 0)
-	{
-		free(newx);
-		free(newy);
-		return 2;
-	}
-	free(bal->ax);
-	free(bal->ay);
-	bal->ax = newx;
-	bal->ay = newy;
-	bal->Na = N;
-	return  0;
-
-out_of_memory:
-	free(newx);
-	free(newy);
-	free(pathax);
-	free(pathay);
-	free(pathbx);
-	free(pathby);
-	free(pathx);
-	free(pathy);
-	return -1;
-}
-
-static int passb(BALLOON *bal)
-{
-	int i, j, ii;
-	unsigned char neighbours[9];
-	int nx, ny;
-	int N = 0;
-	int *newx = 0;
-	int *newy = 0;
-	int *pathax = 0;
-	int *pathay = 0;
-	int *pathbx = 0;
-	int *pathby = 0;
-	int *pathx = 0;
-	int *pathy = 0;
-	int Npa, Npb;
-
-	newx = malloc(bal->Nb * 8 * sizeof(int));
-	newy = malloc(bal->Nb * 8 * sizeof(int));
-	if (!newx || !newy)
-		goto out_of_memory;
-	for (i = 0; i < bal->Nb; i++)
-	{
-		get3x3(neighbours, bal->img, bal->width, bal->height, bal->bx[i], bal->by[i], 0x0);
-		for (j = 0; j < 9; j += 2)
-			neighbours[j] = 0;
-		for (j = 0; j < 9; j++)
-		{
-			nx = bal->bx[i] + (j % 3) - 1;
-			ny = bal->by[i] + (j / 3) - 1;
-			if ((neighbours[j] & FILLMASK) && (neighbours[j] & SETMASK) == 0)
-			{
-				switch (j)
-				{
-				case 0: bal->img[ny*bal->width + nx] |= (BSET | SOUTHEAST); break;
-				case 1: bal->img[ny*bal->width + nx] |= (BSET | SOUTH); break;
-				case 2: bal->img[ny*bal->width + nx] |= (BSET | SOUTHWEST); break;
-				case 3: bal->img[ny*bal->width + nx] |= (BSET | EAST); break;
-				case 4: break;
-				case 5: bal->img[ny*bal->width + nx] |= (BSET | WEST); break;
-				case 6: bal->img[ny*bal->width + nx] |= (BSET | NORTHEAST); break;
-				case 7: bal->img[ny*bal->width + nx] |= (BSET | NORTH); break;
-				case 8: bal->img[ny*bal->width + nx] |= (BSET | NORTHWEST); break;
-				}
-				newx[N] = nx;
-				newy[N] = ny;
-				N++;
-			}
-			else if ((neighbours[j] & SETMASK) == ASET)
-			{
-				Npa = traceback(bal->img, bal->width, bal->height, nx, ny, &pathax, &pathay);
-				Npb = traceback(bal->img, bal->width, bal->height, bal->bx[i], bal->by[i], &pathbx, &pathby);
-				if (Npa == -1 || Npb == -1)
-					goto out_of_memory;
-				reverse(pathax, Npa);
-				reverse(pathay, Npa);
-				pathx = malloc((Npa + Npb) * sizeof(int));
-				pathy = malloc((Npa + Npb) * sizeof(int));
-				if (!pathx || !pathy)
-					goto out_of_memory;
-				for (ii = 0; ii < Npa; ii++)
-				{
-					pathx[ii] = pathax[ii];
-					pathy[ii] = pathay[ii];
-				}
-				for (ii = 0; ii < Npb; ii++)
-				{
-					pathx[ii + Npa] = pathbx[ii];
-					pathy[ii + Npa] = pathby[ii];
-				}
-				free(newx);
-				free(newy);
-				free(pathax);
-				free(pathay);
-				free(pathbx);
-				free(pathby);
-				bal->pathx = pathx;
-				bal->pathy = pathy;
-				bal->Npath = Npa + Npb;
-				return 1;
-			}
-		}
-	}
-	if (N == 0)
-	{
-		free(newx);
-		free(newy);
-		return 2;
-	}
-	free(bal->bx);
-	free(bal->by);
-	bal->bx = newx;
-	bal->by = newy;
-	bal->Nb = N;
-	return  0;
-
-out_of_memory:
-	free(newx);
-	free(newy);
-	free(pathax);
-	free(pathay);
-	free(pathbx);
-	free(pathby);
-	free(pathx);
-	free(pathy);
-	return -1;
-}
 static int traceback(unsigned char *img, int width, int height, int x, int y, int **pathx, int **pathy)
 {
 	int N = 0;
@@ -739,6 +305,25 @@ static void reverse(int *x, int N)
 		x[N - i - 1] = temp;
 	}
 }
+
+static double diagonaldistance(int ax, int ay, int bx, int by)
+{
+	int dx, dy;
+
+	dx = abs(ax - bx);
+	dy = abs(ay - by);
+
+	if (dx >= dy)
+	{
+		return (dx - dy) + dy * 1.414;
+	}
+	else
+	{
+		return (dy - dx) + dx *1.414;
+	}
+
+}
+
 
 static void get3x3(unsigned char *out, unsigned char *img, int width, int height, int x, int y, unsigned char border)
 {
