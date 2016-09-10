@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['width',['width',['../struct_b_a_l_l_o_o_n.html#a3aa32ca888a9814d614a950ea0604dad',1,'BALLOON::width()'],['../struct_c_a_n_n_y.html#abf7b9fa930751c2a0c08ad9d4f36447a',1,'CANNY::width()']]]
+  ['x',['x',['../struct_c_e_l_l.html#a7ada1bd1b65cd4c6ec69fead0cdece9a',1,'CELL']]],
+  ['xconv',['xConv',['../struct_c_a_n_n_y.html#a43cadae92c47238ed450e49346531c2d',1,'CANNY']]],
+  ['xgradient',['xGradient',['../struct_c_a_n_n_y.html#acee34f5b2a2efb10a047710f07532514',1,'CANNY']]]
 ];

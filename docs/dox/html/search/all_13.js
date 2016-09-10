@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['x',['x',['../struct_c_e_l_l.html#a7ada1bd1b65cd4c6ec69fead0cdece9a',1,'CELL']]],
-  ['xconv',['xConv',['../struct_c_a_n_n_y.html#a43cadae92c47238ed450e49346531c2d',1,'CANNY']]],
-  ['xgradient',['xGradient',['../struct_c_a_n_n_y.html#acee34f5b2a2efb10a047710f07532514',1,'CANNY']]]
+  ['y',['y',['../struct_c_e_l_l.html#a899af2d554b46953ccd3e644057959ff',1,'CELL']]],
+  ['yconv',['yConv',['../struct_c_a_n_n_y.html#af0b4307fa9ac5d44278e60c68ac21a73',1,'CANNY']]],
+  ['ygradient',['yGradient',['../struct_c_a_n_n_y.html#a26bbd60c2cdefea2ddead831d6041190',1,'CANNY']]]
 ];
