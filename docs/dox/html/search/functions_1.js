@@ -7,6 +7,7 @@ var searchData=
   ['binarycatmullrom',['binarycatmullrom',['../drawbinary_8c.html#a164b8b567bea3a066a2cb5ddd800ff53',1,'drawbinary.c']]],
   ['binarycircle',['binarycircle',['../drawbinary_8c.html#a380c70b4d677b7b9ccdcd6520ca39cc2',1,'drawbinary.c']]],
   ['binaryellipse',['binaryellipse',['../drawbinary_8c.html#a01c4def1b3c4e7ec21aab8a11b13cd17',1,'drawbinary.c']]],
+  ['binaryhausdorff',['binaryhausdorff',['../hausdorff_8c.html#a331dce4b4b483c89f966327b59e1e533',1,'hausdorff.c']]],
   ['binaryline',['binaryline',['../drawbinary_8c.html#a34d7fc3addd66ab9f1c0bf330ecb048e',1,'drawbinary.c']]],
   ['boundingbox',['boundingbox',['../binaryutils_8c.html#a17e38ac134ed8807ddab1690523bc4b3',1,'binaryutils.c']]],
   ['branchpoints',['branchpoints',['../binaryutils_8c.html#a24c659312acd87be58f36a2bf41c985d',1,'binaryutils.c']]]
