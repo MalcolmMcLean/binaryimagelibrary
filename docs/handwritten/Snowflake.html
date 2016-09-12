@@ -1,6 +1,11 @@
 <HTML>
 <HEAD>
 </HEAD>
+<style>
+P {
+  width:500px;
+}
+</style>
 <script>
 
 var g_binary = [];
@@ -238,16 +243,40 @@ function myFunction()
 }
 
 </script>
-<BODY onload="myFunction()">
+<BODY bgcolor = "#C0C0FF" onload="myFunction()">
+<div>
+<H1> Snowflake Dock </H1>
+From the Binary Image Library <A href = "../index.html"> homepage </A>
+
+<P>
+Snowflake dock is a simple simulation of crystal growing.
+</P>
+<P>
+The crystal is seeded with a single value. Particlaes then 
+float about randomly, and dock when they come into contact
+with the structure. In order to allow the simulation to 
+complete in reasonable time without introducing artifacts, we have a do-nut shaped creation and loss zone. The particle is created at a random point on the inner ring. It then floats randomly. If it goes beyond the outer ring, it is lost and replaced at its original position.   
+</P>
+<IMG src = "../images/snowflake.gif"> </IMG>
+<P>
+The result is a nice fractal.
+</P>
+</div>
+<H2> Here's a simulation </H2>
+<P>
+To get decent speed you will of course need to use the C code.
+</P>
+<div>
 <div>
 <canvas id="snowflake" width="300" height="300">
 </div>
 <div>
 <button id = "stopstart_but" onclick="clickstopstart()">Stop</button>
-Some text
-<span id = "step"> step </span>
-<span id = "Ndocked"> 0 </span>
+<BR>
+Steps: <span id = "step" style = "background-color:white"> step </span> &nbsp; &nbsp;
+Docked: <span id = "Ndocked" style = "background-color:white"> 0 </span>
 
+</div>
 </div>
 </BODY>
 </HTML>
