@@ -1,5 +1,63 @@
 <HTML>
 <HEAD>
+<style>
+
+P{
+  width:500px;
+}
+pre.prettyprint
+{
+  background-color: aliceblue;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+
+
+.inputfile + label:hover {
+    background-color: red;
+}
+
+div#applet_div
+{
+  position:relative;
+}
+div#buttons_div
+{
+  position: absolute;
+  left: 0px;
+  width: 80px;
+}
+div#maincanvas_div
+{
+  position:absolute;
+  left:80px;
+}
+div#footer_div
+{
+  position:absolute;
+  top: 130px;
+  left:0px;
+}
+
+</style>
+
+<script src="morphops.js"> </script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
 <script>
 
 function Otsu(imgData)
@@ -80,12 +138,14 @@ function loadImage()
      can.width = downloadingImage.width;
      can.height = downloadingImage.height;
 
+     
+     document.getElementById("footer_div").style.top = can.height +100;
+
      var ctx = can.getContext("2d");
      
      ctx.drawImage(downloadingImage, 0, 0);
 
      var imgData=ctx.getImageData(0,0,can.width,can.height);
-// invert colors
     
 
      for (var i=0;i<imgData.data.length;i+=4)
@@ -115,18 +175,204 @@ function loadImage()
 
      
      ctx.putImageData(imgData,0,0);
+     console.log("ret");
   }
 
   downloadingImage.src = url;
   
 }
 
+function open_clicked()
+{
+   var strel = [1,1,1,1,1,1,1,1,1];
+   var swidth = 3;
+   var sheight = 3;
+   
+   console.log("Here");
+
+   var can = document.getElementById("mycanvas");
+   var ctx = can.getContext("2d");
+   var imgData=ctx.getImageData(0,0,can.width,can.height);
+   
+   erode(imgData, can.width, can.height, strel, swidth, sheight);
+
+   dilate(imgData, can.width, can.height, strel, swidth, sheight);
+   ctx.putImageData(imgData,0,0);
+
+
+}
+function closed_clicked()
+{
+   var strel = [1,1,1,1,1,1,1,1,1];
+   var swidth = 3;
+   var sheight = 3;
+   
+   console.log("Here");
+   var can = document.getElementById("mycanvas");
+   var ctx = can.getContext("2d");
+   var imgData=ctx.getImageData(0,0,can.width,can.height);
+   
+   dilate(imgData, can.width, can.height, strel, swidth, sheight);
+   erode(imgData, can.width, can.height, strel, swidth, sheight);
+
+   ctx.putImageData(imgData,0,0);
+
+
+}
+
+
+function dilate_clicked()
+{
+   var strel = [1,1,1,1,1,1,1,1,1];
+   var swidth = 3;
+   var sheight = 3;
+   
+   console.log("Here");
+   var can = document.getElementById("mycanvas");
+   var ctx = can.getContext("2d");
+   var imgData=ctx.getImageData(0,0,can.width,can.height);
+   
+   dilate(imgData, can.width, can.height, strel, swidth, sheight);
+   ctx.putImageData(imgData,0,0);
+
+
+}
+function erode_clicked()
+{
+   var strel = [1,1,1,1,1,1,1,1,1];
+   var swidth = 3;
+   var sheight = 3;
+   
+   console.log("Here");
+   var can = document.getElementById("mycanvas");
+   var ctx = can.getContext("2d");
+   var imgData=ctx.getImageData(0,0,can.width,can.height);
+   
+   erode(imgData, can.width, can.height, strel, swidth, sheight);
+   ctx.putImageData(imgData,0,0);
+
+
+}
+
+
 </script>
 </HEAD>
-<BODY>
+<BODY bgcolor = #C0C0FF>
+<H1> Morphological Operations </H1>
+From the Binary Image Library <A href = "../index.html"> homepage </A>
+
 <div>
+<P>
+The morphological operations are dilate, erode, open, and close. They are applied to a binary image with a structuring element.
+</P>
+<H3> Dilate </H3>
+<P>
+Pass the structuring element over the image. If any pixels set in the structuring element are set in the image, set the central pixel in the image.
+</P>
+<H3> Erode </H3>
+<P>
+Pass the structuring element over the image. If any pixels set in the sturcturing element are unset in the image, unset the central pixel in the image.
+</P>
+<H3> Open </H3>
+<P>
+Erode, then dilate with the same structuring element. Gets rid of small feaures.
+</P>
+<H3> Close </H3>
+<P>
+Dilate, then erode with the same structuring element. Gets rid of small holes. 
+</P>
+<P>
+</P>
+<P>
+</P>
+What is the point of all this? By picking the right structuring element and applying an open followed by a close, or vice versa, you can get rid of image features you don't want. For example, if you want to keep disks but not lines, a morhological open operation with a disk-shaped structuring element will do the trick. Opening and closing is less destructive tha erode or dilate alone. Large features remain intact.
+</P>
+<IMG src = "../images/linesandcircles.gif"> &nbsp;
+<IMG src = "../images/morphopen.gif">
+<P>
+A morphological open operation with a disk of radius five pixels removes the lines whilst keeping the circles, admittedly distorting some of them a bit.
+</P>
+
+</div>
+
+<div>
+<H3> Some common structuring elements </H3>
+<table>
+<tr>
+<td> <IMG src = "../images/strel_square.gif"></td>
+<td> <IMG src = "../images/strel_rectangle.gif"> </td>
+<td> <IMG src = "../images/strel_line.gif"></td>
+<td> <IMG src = "../images/strel_diamond.gif"></td>
+<td> <IMG src = "../images/strel_octagon.gif"></td>
+<td> <IMG src = "../images/strel_disk.gif"></td>
+</tr>
+<tr>
+<td> Square </td>
+<td> Rectangle </td>
+<td> Line </td>
+<td> Diamond </td>
+<td> Octagon </td>
+<td> Disk </td>
+</tr>
+</table>
+You can also use your own, user-defined elements.
+</div>
+
+<div>
+<H3> Example </H3>
+<pre class = "prettyprint">
+int testmorphologicalops()
+{
+	unsigned char se3x3[9] = { 1,1,1,1,1,1,1,1,1};
+	unsigned char *secircle;
+	int swidth, sheight;
+	unsigned char *binary;
+	int width, height;
+	unsigned char opal[256 * 3];
+	int transparent;
+	unsigned char pal[2 * 3] = {
+		0, 0, 0, 255, 255, 255
+	};
+
+	binary = loadgif("linesandcircles.gif", &width, &height, opal, &transparent);
+	assert(binary);
+	giftobinary(binary, width, height, opal, 256, transparent);
+
+	swidth = 13;
+	sheight = 13;
+	secircle = malloc(swidth*sheight);
+	memset(secircle, 0, swidth * sheight);
+       /* hand drawing a circle to make the point you can use any se */
+	fillcircle(secircle, swidth, sheight, 6, 6, 5);
+	morphopen(binary, width, height, secircle, swidth, sheight);
+	
+	savegif("morphopen.gif", binary, width, height, pal, 2, -1, 0, 0);
+}
+</pre>
+</div>
+
+<div id="applet_div">
+<H3> Try it out </H3>
+
+<div id = "buttons_div">
+<button id = "open_but" onclick = "open_clicked()"> Open </button> 
+<button id = "close_but" onclick = "closed_clicked()"> Close </button>
+<button id = "dilate_but" onclick = "dilate_clicked()"> Dilate </button>
+<button id = "erode_but" onclick = "erode_clicked()"> Erode </button>
+</div>
+
+<div id="maincanvas_div">
 <canvas id = "mycanvas" width="100" height = "100"> </canvas>
 </div>
-<input type="file" id="file_input" accept="image/*" onchange = "loadImage()">
+<div id="footer_div">
+<!---input type="file" id="file_input" accept="image/*" onchange = "loadImage()"--->
+
+<input type="file" name="file" id="file_input" class="inputfile"  onchange = "loadImage()"/>
+<label for="file_input">&nbsp Choose a file &nbsp;</label>
+<P>
+Load your image. Currently restricted to a 3x3 square structuring element. Javascript isn't meant for this type of
+operation and it's pretty slow.
+</P>
+</div>
+</div>
 </BODY>
-</HTML>

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
@@ -118,8 +119,8 @@ unsigned char *seline(double length, double width, double theta, int *swidth, in
 	costheta = cos(theta);
 	sintheta = sin(theta);
 
-	dx = length/2 * costheta + width/2 * sintheta;
-	dy = length / 2 * -sintheta + width / 2 * costheta;
+	dx = length/2 *  fabs(costheta) + width/2 * fabs(sintheta);
+	dy = length / 2 * fabs(sintheta) + width / 2 * fabs(costheta);
 	w = (int) ceil(fabs(dx));
 	h = (int) ceil(fabs(dy));
 	w = (w * 2) - 1;
@@ -144,10 +145,10 @@ unsigned char *seline(double length, double width, double theta, int *swidth, in
 			dx = (x + 0.5) - ox;
 			dy = (y + 0.5) - oy;
 
-			rx = dx *costheta - dy * sintheta;
+			rx = dx * costheta - dy * sintheta;
 			ry = dx * sintheta + dy * costheta;
 
-			if (fabs(rx) < length / 2.0 || ry < width / 2)
+			if (fabs(rx) <= length / 2.0 && fabs(ry) <= width / 2.0)
 				answer[y*w + x] = 1;
 			else
 				answer[y*w + x] = 0;
@@ -158,6 +159,7 @@ unsigned char *seline(double length, double width, double theta, int *swidth, in
 		*swidth = w;
 	if (sheight)
 		*sheight = h;
+
 	return answer;
 out_of_memory:
 	
@@ -201,7 +203,7 @@ unsigned char *seoctagon(int radius, int *swidth, int *sheight)
 				answer[y*w + x] = 1;
 			else if (abs(y - y0) < radius / 3)
 				answer[y*w + x] = 1;
-			else if (abs(x - x0) + abs(y - y0) < radius)
+			else if (abs(x - x0) + abs(y - y0) < radius + radius/3)
 				answer[y*w + x] = 1;
 			else
 				answer[y*w + x] = 0;
