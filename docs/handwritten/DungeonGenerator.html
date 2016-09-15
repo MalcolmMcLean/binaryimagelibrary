@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<style>
+P {
+width:500px;
+}
+
+pre.prettyprint
+{
+  background-color: aliceblue;
+}
+
+
+</style>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+</HEAD>
+<BODY bgcolor = #C0C0FF>
+<H1> Dungeon Generator </H1>
+From the Binary Image Library <A href = "../index.html"> homepage </A>
+<P>
+Dungeon generation is an important part of games design. Some
+games require dungeons to be created on the fly, other games
+designers use automatic generation to speed up their work.
+</P>
+<P>
+Currently the generator is a straight port of Bob Nystrom's work
+<A href = "http://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/"> here </A> and it's got a very simple interface, just:
+<pre class = "prettyprint">
+int width = 200;
+int height = 100;
+unsigned char *dungeon = makedungeon(width, height);
+</pre>
+<P>
+<IMG id = "dungeon_img" src = "../images/dungeon.gif">
+</P>
+<P>
+Very nice.
+</P>
+
+</BODY>
+</HTML>
