@@ -120,14 +120,13 @@ int dilate(unsigned char *binary, int width, int height, unsigned char *sel, int
 			{
 		      ix = x + sx - swidth/2;
 			  iy = y + sy - sheight/2;
-			  if(ix < 0 || ix >= width || sy < 0 || sy >= height)
+			  if(ix < 0 || ix >= width || iy < 0 || iy >= height)
 				  bit = 0;
 			  else
 		        bit = binary[iy * width + ix];
-			  if(bit == 1 && sel[sy*width+sx] == 1)
+			  if(bit == 1 && sel[sy*swidth+sx] == 1)
 			  {
                  answer[y*width+x] = 1;
-			     break;
 			  }
 			}
 	  }
@@ -174,11 +173,11 @@ int erode(unsigned char *binary, int width, int height, unsigned char *sel, int 
 			{
 		      ix = x + sx - swidth/2;
 			  iy = y + sy - sheight/2;
-			  if(ix < 0 || ix >= width || sy < 0 || sy >= height)
+			  if(ix < 0 || ix >= width || iy < 0 || iy >= height)
 				  bit = 0;
 			  else
 		        bit = binary[iy * width + ix];
-			  if(bit == 0 && sel[sy*width+sx] == 1)
+			  if(bit == 0 && sel[sy*swidth+sx] == 1)
 			  {
                  answer[y*width+x] = 0;
 			     break;

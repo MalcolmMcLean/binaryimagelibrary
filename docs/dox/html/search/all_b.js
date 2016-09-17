@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['na',['Na',['../struct_b_a_l_l_o_o_n.html#a76b75cde6c3eb4c4ce4c6dd65bb02b5a',1,'BALLOON']]],
-  ['nb',['Nb',['../struct_b_a_l_l_o_o_n.html#a85e567fb946d66b7253609afc8881f16',1,'BALLOON']]],
-  ['npath',['Npath',['../struct_b_a_l_l_o_o_n.html#ae1c9ea29b29e7aadaff70947a4d26a71',1,'BALLOON']]]
+  ['orderedclustereddot',['orderedclustereddot',['../halftone_8c.html#af2d49f7365cf6f949ac9132625f0f3f8',1,'halftone.c']]],
+  ['ordereddisperseddot',['ordereddisperseddot',['../halftone_8c.html#a4f40133515d681ebf37abf547f8c8b52',1,'halftone.c']]],
+  ['otsuthreshold_2ec',['Otsuthreshold.c',['../_otsuthreshold_8c.html',1,'']]]
 ];

@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<style>
+ 
+  P{
+width: 500px;
+}
+
+table {
+    table-layout: fixed;
+    background-color : white;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td
+{
+width: 60px;
+border: 1px solid black;
+text-align : center;
+}
+
+pre.prettyprint
+{
+  background-color: aliceblue;
+}
+</style>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</HEAD>
+<BODY bgcolor = #C0C0FF>
+<H1> Rotate by Shear </H1>
+From the the Binary Image Library <A href = "../index.html"> homepage </A>
+<P>
+You often want to rotate an image by a certain amount. The
+normal way to achieve this to apply a transformation matrix.
+The rotation matrix looks like this:
+
+<TABLE>
+<TR> <TD> cos &theta; </TD><TD> sin &theta;</TD> </TR>
+<TR> <TD> -sin &theta; </TD><TD> cos &theta;</TD> </TR>
+</TABLE>
+
+However to make sure you hit every pixel, you need to iterate
+over the destination, and work backwards. So you need to put
+the matrix the other way round.
+
+<TABLE>
+<TR> <TD> cos &theta; </TD><TD> -sin &theta;</TD> </TR>
+<TR> <TD> sin &theta; </TD><TD> cos &theta;</TD> </TR>
+</TABLE>
+
+Then you need to translate to the origin and back. Iterate
+through, applying the rotation.
+</P>
+
+<pre class = "prettyprint">
+void rotatebymatrix(unsigned char *binary, int width, int height, double cx, double cy, double theta, unsigned char *out)
+{
+	double rotmtx[2][2];
+	double tx, ty;
+	double rx, ry;
+	double dx, dy;
+	int dxi, dyi;
+	int x, y;
+
+	rotmtx[0][0] = cos(theta);
+	rotmtx[0][1] = -sin(theta);
+	rotmtx[1][0] = sin(theta);
+	rotmtx[1][1] = cos(theta);
+
+	for (y = 0;  y < height; y++)
+	{
+		for (x = 0; x < width; x++)
+		{
+			tx = x - cx;
+			ty = y - cy;
+			rx = tx * rotmtx[0][0] + ty * rotmtx[0][1];
+			ry = tx * rotmtx[1][0] + ty * rotmtx[1][1];
+			dx = rx + cx;
+			dy = ry + cy;
+			dxi = (int) dx;
+			dyi = (int) dy;
+			if (dxi >= 0 && dxi < width && dyi >= 0 && dyi < height)
+			{
+				out[y*width + x] = binary[dyi*width + dxi];
+			}
+		}
+	}
+
+}
+</pre>
+<P>
+The snag is that you miss some pixel and duplicate others, because the rotated values not longer lie at integer values. With a continuous rgba image you can of course take the wieighted average of four pixels and do interpolation. But you 
+can't do that with a binary image.
+</P>
+<H3> Shearing </H3> 
+<P>
+To get round this problem we shear instead. A shearing transformation is.
+
+<TABLE>
+<TR> <TD> 1 </TD><TD> shear x</TD> </TR>
+<TR> <TD> 0 </TD><TD>  1 </TD> </TR>
+</TABLE>
+
+Y remains the same, x is sheared.
+</P>
+<P>
+By iteratively applying shearing transformations in x and y,
+we can achive rotation. This won;t solve our problem in itself. But we can rewrite the shear to use only integer 
+transforms, and not drop any pixels. (We go through the rows
+and columns, and always clamp the row shift for that row to
+a whole number of pixels). This is the basis for the shear transform.
+
+</P>
+<P>
+You can see the results here
+</P>
+<IMG src = "../images/maggiebinaryrotmtx.gif"> </IMG> &nbsp;
+<IMG src = "../images/maggiebinaryrotshear.gif"> </IMG>
+<P>
+We've chosen a halftoned image of Margaret Thatcher. The right image is rotated by shear.
+</P>
+
+</BODY>
+</HTML>

@@ -2,10 +2,12 @@
 \label{astar_8c}\index{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/astar.\+c@{C\+:/\+Users/\+Malcolm/\+Documents/temp/binaryimagelibrary/astar.\+c}}
 {\ttfamily \#include $<$stdlib.\+h$>$}\\*
 {\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}heap.\+h\char`\"{}}\\*
 \subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{struct_b_a_l_l_o_o_n}{B\+A\+L\+L\+O\+ON}
+struct \hyperlink{struct_a_p_o_i_n_t}{A\+P\+O\+I\+NT}
 \end{DoxyCompactItemize}
 \subsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -65,7 +67,9 @@ int \hyperlink{astar_8c_a34996aece960ff97ed7083ba6f071404}{astar} (unsigned char
 \subsection{Detailed Description}
 A$\ast$ path finding algorithm, for binary images.
 
-It finds the path between two points by gradually expanding shells of accessible points round the two points until they meet. 
+It finds the path between two points by gradually expanding shells of accessible points round the two points until they meet.
+
+Many thanks to Richard Heathfield for the heap (priority queue). 
 
 \subsection{Function Documentation}
 \index{astar.\+c@{astar.\+c}!astar@{astar}}
@@ -87,23 +91,23 @@ A star path finding algorithm.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em binary} & -\/ the bianry image \\
+\mbox{\tt in}  & {\em binary} & -\/ the binary image \\
 \hline
  & {\em width} & -\/ image width \\
 \hline
  & {\em height} & -\/ image height \\
 \hline
- & {\em sx} & -\/ start point x-\/coordiante \\
+ & {\em sx} & -\/ start point x-\/coordinate \\
 \hline
- & {\em sy} & -\/ start point y-\/coordiante \\
+ & {\em sy} & -\/ start point y-\/coordinate \\
 \hline
- & {\em ex} & -\/ end point x coordiante \\
+ & {\em ex} & -\/ end point x coordinate \\
 \hline
- & {\em ey} & -\/ end point y coordiante \\
+ & {\em ey} & -\/ end point y coordinate \\
 \hline
-\mbox{\tt out}  & {\em pathx} & -\/ return for x-\/coordiantes of path (malloced) \\
+\mbox{\tt out}  & {\em pathx} & -\/ return for x-\/coordinates of path (malloced) \\
 \hline
-\mbox{\tt out}  & {\em pathy} & -\/ return for y-\/coordiantes of path (malloced) \\
+\mbox{\tt out}  & {\em pathy} & -\/ return for y-\/coordinates of path (malloced) \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

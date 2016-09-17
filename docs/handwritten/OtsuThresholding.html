@@ -1,0 +1,160 @@
+<HTML>
+<HEAD>
+<style>
+P{
+  width: 500px;
+}
+</style>
+
+<script>
+
+function Otsu(imgData)
+{
+  var hist = [];
+   var wB = 0;
+   var wF;
+   var mB, mF;
+   var sum = 0;
+   var sumB = 0;
+   var varBetween;
+   var varMax = 0.0;
+   var answer = 0;
+   var i;
+   var k;
+  
+    
+  for(i=0;i<256;i++)
+  {
+     hist.push(0);
+  }
+  for(i=0;i<imgData.data.length;i+=4)
+  {
+    hist[imgData.data[i]]++;
+  }
+ 
+  /* sum of all (for means) */
+  for (k=0 ; k<256 ; k++)
+  {
+       sum += k * hist[k];
+  }
+
+  
+  for(k=0;k<256;k++)
+  {
+     wB += hist[k];               
+     if (wB == 0) 
+         continue;
+
+     wF = imgData.data.length/4 - wB;            
+     if (wF == 0) 
+       break;
+
+     sumB +=  (k * hist[k]);
+
+     mB = sumB / wB;            /* Mean Background */
+     mF = (sum - sumB) / wF;    /* Mean Foreground */
+
+     /* Calculate Between Class Variance */
+     varBetween = wB * wF * (mB - mF) * (mB - mF);
+
+     /* Check if new maximum found */
+     if (varBetween > varMax) 
+     {
+       varMax = varBetween;
+       answer = k;
+     }
+
+  }
+  return answer;
+ 
+}
+
+function loadImage()
+{
+  var e = document.getElementById("file_input");
+ var fullPath = document.getElementById("file_input").value;
+
+    var URL = window.webkitURL || window.URL;
+    var url = URL.createObjectURL(e.files[0]);
+
+  var downloadingImage = new Image();
+  
+  downloadingImage.onload = function()
+  {
+     var avg = 255;
+     var can = document.getElementById("mycanvas");
+     can.width = downloadingImage.width;
+     can.height = downloadingImage.height;
+
+     var ctx = can.getContext("2d");
+     
+     ctx.drawImage(downloadingImage, 0, 0);
+
+     var imgData=ctx.getImageData(0,0,can.width,can.height);
+    
+
+     for (var i=0;i<imgData.data.length;i+=4)
+    {
+       var grey = imgData.data[i] * 0.299 + imgData.data[i+1] * 0.578 + imgData.data[i+2] * 0.114; 
+      
+     
+      imgData.data[i] = grey;
+      imgData.data[i+1] = grey;
+      imgData.data[i+2] = grey;
+      imgData.data[i+3] = 255;
+     }
+
+     var threshold = Otsu(imgData);
+    
+
+     for (var i=0;i<imgData.data.length;i+=4)
+    {
+       var grey = imgData.data[i] > threshold ? 255 : 0;
+     
+      imgData.data[i] = grey;
+      imgData.data[i+1] = grey;
+      imgData.data[i+2] = grey;
+      imgData.data[i+3] = 255;
+     }
+
+     
+     ctx.putImageData(imgData,0,0);
+  }
+
+  downloadingImage.src = url;
+  
+}
+
+</script>
+
+</HEAD>
+<BODY bgcolor = #C0C0FF>
+<H1> Otsu Thresholding </H1>
+From the Binary Image Library <A href = "../index.html"> homepage </A>
+<P>
+Otsu thresholding is a technique for dividing an image into 
+foreground and background. Useful for converting an image to 
+two colours, or as a first step in object recognition.
+</P>
+<IMG src = "../images/maggie.jpg"> </IMG> &nbsp;
+<IMG src = "../images/maggieotsu.gif"> </IMG> 
+<P>
+The results of thresholding the image of Margaret Thatcher
+are quite good. The resulting image is visauly acceptable.
+</P>
+<P>
+It works by making a histogram of the greyscale values in the image, then looking for the point which maximises the difference betwwen the two sets, whilst minimisng variation within the sets. In other words, it looks for a dip somewhere in the middle of th histogram.
+</P>
+<IMG src = "../images/maggiehist.gif"> </IMG>
+<P>
+As we can see here, the image is continuous grey and the dip is very subtle, but the method has found it. It has also avoided the spurious dip caused by the presence of a lot of black or nearly black pixels. 
+</P>
+<div>
+<H2> Try it out </H2>
+<div>
+<canvas id = "mycanvas" width="161" height = "100"></canvas>
+</div>
+<input type = "file" id="file_input" onchange="loadImage()">
+</div>
+</BODY>
+</HTML>

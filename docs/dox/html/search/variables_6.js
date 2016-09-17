@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['na',['Na',['../struct_b_a_l_l_o_o_n.html#a76b75cde6c3eb4c4ce4c6dd65bb02b5a',1,'BALLOON']]],
-  ['nb',['Nb',['../struct_b_a_l_l_o_o_n.html#a85e567fb946d66b7253609afc8881f16',1,'BALLOON']]],
-  ['npath',['Npath',['../struct_b_a_l_l_o_o_n.html#ae1c9ea29b29e7aadaff70947a4d26a71',1,'BALLOON']]]
+  ['y',['y',['../struct_c_e_l_l.html#a899af2d554b46953ccd3e644057959ff',1,'CELL']]],
+  ['yconv',['yConv',['../struct_c_a_n_n_y.html#af0b4307fa9ac5d44278e60c68ac21a73',1,'CANNY']]],
+  ['ygradient',['yGradient',['../struct_c_a_n_n_y.html#a26bbd60c2cdefea2ddead831d6041190',1,'CANNY']]]
 ];

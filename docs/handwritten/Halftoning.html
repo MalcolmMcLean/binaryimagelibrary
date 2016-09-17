@@ -1,0 +1,69 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"> <title> Halftoning </title> </head>
+
+<body bgcolor="#C0C0FF">
+<h1> Halftoning </h1>
+Form the Binary Image Library <A hrer = "../index.html> homepage </A> 
+<p>
+Halftoning is the procedure of turning a greyscale image into a binary image, by replacing the grey with patterns of dots. The ususal reason for halftoning is to output the image to printing devices which will only support black or white pixels. 
+</p><p>
+<img src="../images/lena.bmp">  <img src="../images/lenagrey.gif"> 
+</p><p>
+The test image we always use is the famous picture of Lena. The first step is to convert her from glorious technicolour to greyscale.
+</p><p>
+<img src="../images/lenarandom.gif"> 
+</p><p>
+Here's Lena with random dither.
+</p><p>
+The approach we use is to scan from the top left. If a pixel is above 127, we replace it with a set pixel, if below 127 with an unset pixel. This generates an error between the true value of the pixel and the value we have set it to. So we distribute this error to a random neighbouring pixel.
+</p><p>
+Random dithering isn't a bad strategy. It creates a rather grainy image. 
+</p><p> 
+<img src="../images/lenafloyd.gif"> 
+</p><p>
+Here's Lena dithered with Floyd-Steinberg error diffusion.
+</p><p>
+With Floyd-Steinberg error diffusion we distribute the error like this.
+</p><p>
+<table>
+<tbody><tr> <td> &nbsp; </td> <td> * </td> <td> 7 </td> </tr>
+<tr> <td> 3 </td>  <td> 5 </td> <td> 1 </td> </tr>
+</tbody></table>
+The weights sum to 16, which allows for fast calculations using a shift rather than a divide. That's maybe less relevant now than it was. Floyd-Steinberg halftoning is the standard method which most people use.
+</p><p>
+<img src="../images/lenastucki.gif"> 
+</p><p>
+Here's Lena dithered with Stucki error diffusion.
+</p><p>
+These are the weights for Stucki halftoning.
+</p><p>
+<table>
+<tbody><tr> <td>&nbsp;</td> <td>&nbsp;</td> <td>*</td> <td>8</td> <td>4</td>  </tr>
+<tr> <td>2</td> <td>4</td> <td>8</td> <td>4</td> <td>2</td>  </tr>
+<tr> <td>1</td> <td>2</td> <td>4</td> <td>2</td> <td>1</td>  </tr>
+</tbody></table>
+</p><p>
+<img src="../images/lenadispersed1.gif"> 
+<img src="../images/lenadispersed2.gif"> 
+<img src="../images/lenadispersed3.gif"> 
+<img src="../images/lenadispersed4.gif"> 
+</p><p>
+Here's Lena dithered with dispersed dots.
+</p><p>
+Dispersed dots works on different principle. We create a sort of checkerboard of threshold values. The checkerboard is then tiled over the image. Pixels are set or unset depending on whether they excedd the threshold at the local point. So regions of fairly constant colour will be replaced with a regular pattern, with the dots distributed so they are far from each other.
+</p><p>
+Here we see Lena with 1, 2, 3 and 4 order grids.
+</p><p>
+<img src="../images/lenaclustered3.gif"> 
+<img src="../images/lenaclustered4.gif"> 
+<img src="../images/lenaclustered8.gif"> 
+</p><p>
+Here's Lena dithered with clustered dots.   
+</p><p>
+Clustered dots work on the same principle as dispersed dots, except that instead of the threshold values being in a checkerboard pattern, they are arranged in a circle. Actually The thresholds consist of four cicles arranged in a  grid, two positive and two negative.
+</p><p>
+The result is that you get coherent dots. This is more suitable for newspaper-style printing processes. We see Lena with 3, 4 and 8 order grids. 
+</p>
+
+
+</body></html>
