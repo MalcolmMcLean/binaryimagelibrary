@@ -37,6 +37,29 @@ unsigned char *dungeon = makedungeon(width, height);
 <P>
 Very nice.
 </P>
-
+<H2> Cavern generator </H2>
+<P>
+For cavern levels, a generator based on square rooms and corridors is no good. So we have a separate cavern generator.
+</P>
+<P>
+It works on the cellular automaton principle. We start off
+with all the tiles set to random, except for the borders 
+which are hard-coded to walls. Then we majority filter several
+times. This creates coherent regions of cavern and wall. 
+</P>
+<P>
+The cavern regions are not connected, so we label the separate regions, then for each one, take the point closest to the
+centre. The we draw a slighly jagged corridor from cavern to centre until we hit another cavern. This is almost but not
+quite guaranteed to connect all our caverns. So as a last step
+we eliminate any unconnected caverns and break any 8-connections in the background we might have introduced.
+</P>
+<P>
+Note that you can modify the function slightly to retain the 
+labels. That might be useful if you want a notion of caverns as rooms or separate encounter areas.
+</P>
+<IMG src = "../images/caverns.gif">
+<P>
+Not too bad.
+</P>
 </BODY>
 </HTML>
