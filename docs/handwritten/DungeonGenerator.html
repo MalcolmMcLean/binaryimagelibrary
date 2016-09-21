@@ -61,5 +61,32 @@ labels. That might be useful if you want a notion of caverns as rooms or separat
 <P>
 Not too bad.
 </P>
+<H2> Seed growing generator </H2>
+<P>
+Here's another generator. It works by placing random seeds 
+across the dungeon, then expanding them until they almost
+touch. The result is a dungeon consisting almost entirely 
+of rectangular rooms, with only a few filled regions. You
+the connect it as before.
+</P>
+<P>
+It's possible to add corridors first to get some long
+narrow rectangles, as I have done. This method produces a more 
+realistic division of space than the previous method, but
+probably less playable dungeons for most rogue-like games.
+</P>
+<P>
+So maybe use for house interiors
+</P>
+<IMG src = "../images/dungeon2.gif">
+<P>
+Definitely worth a closer look.
+</P>
+<pre class = "prettyprint">
+int width = 200;
+int height = 100;
+unsigned char *dungeon = makedungeon(width, height);
+</pre>
+
 </BODY>
 </HTML>
