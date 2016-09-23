@@ -210,6 +210,12 @@ int binary_followboundary(unsigned char *binary, int width, int height, int **pa
 		  cx += dx[index];
 		  cy += dy[index];
 	  }
+	  if (cx >= 0 && cx < width && cy >= 0 && cy < height)
+	  {
+		  binary[cy*width + cx] = 1;
+	  }
+	  else
+		  answer++;
 
 	  return answer;
   }
@@ -226,8 +232,8 @@ int binary_followboundary(unsigned char *binary, int width, int height, int **pa
 	  const POINT *p2 = e2;
 
 	  if (p1->y != p2->y)
-		  return p2->y - p1->y;
-	  return p2->x - p1->x;
+		  return p1->y - p2->y;
+	  return p1->x - p2->x;
   }
 
   /**
@@ -244,7 +250,7 @@ int binary_followboundary(unsigned char *binary, int width, int height, int **pa
   int chaincodetofill(unsigned char *binary, int width, int height, char *code, int x, int y)
   {
 	  int N = 0;
-	  int i;
+	  int i, j;
 	  POINT *points = 0;
 	  int sx, ex, ix;
 	  int cx, cy;
@@ -255,19 +261,22 @@ int binary_followboundary(unsigned char *binary, int width, int height, int **pa
 
 	  for (i = 0; code[i]; i++)
 		  continue;
-	  N = i;
+	  N = i +1;
 
 	  points = malloc(N * sizeof(POINT));
 	  if (!points)
 		  goto error_exit;
 
+	  j = 0;
 	  cx = x;
 	  cy = y;
 	  for (i = 0; code[i]; i++)
 	  {
 		  if (cx >= 0 && cx < width && cy >= 0 && cy < height)
 		  {
-			  binary[cy*width + cx] = 1;
+			  points[j].x = cx;
+			  points[j].y = cy;
+			  j++;
 		  }
 		  else
 			  answer++;
@@ -276,12 +285,23 @@ int binary_followboundary(unsigned char *binary, int width, int height, int **pa
 		  cx += dx[index];
 		  cy += dy[index];
 	  }
+	  if (cx >= 0 && cx < width && cy >= 0 && cy < height)
+	  {
+		  points[j].x = cx;
+		  points[j].y = cy;
+		  j++;
+	  }
+	  else
+		  answer++;
 
+
+	  N = j;
 	  qsort(points, N, sizeof(POINT), comppoints);
 
 	  i = 0;
 	  while(i < N)
 	  {
+		  printf("i %d\n", i);
 		  cy = points[i].y;
 		  if (cy < 0)
 		  {
@@ -294,10 +314,13 @@ int binary_followboundary(unsigned char *binary, int width, int height, int **pa
 			  answer = 1;
 			  break;
 		  }
-		  while (i < N - 1 && points[i].y == cy && points[i + 1].y == cy)
+		  while (i < N && points[i].y == cy)
 		  {
 			  sx = points[i].x;
-			  ex = points[i + 1].x;
+			  j = 0;
+			  while (i+j < N && points[i+j].x == points[i].x)
+				  j++;
+			  ex = points[i + j-1].x;
 			  if (sx < 0)
 			  {
 				  answer = 1;
@@ -306,7 +329,7 @@ int binary_followboundary(unsigned char *binary, int width, int height, int **pa
 			  if (sx >= width)
 			  {
 				  answer = 1;
-				  i += 2;
+				  i += j;
 				  continue;
 			  }
 			  if (ex >= height)
@@ -318,7 +341,7 @@ int binary_followboundary(unsigned char *binary, int width, int height, int **pa
 			  {
 				  binary[cy * width + ix] = 1;
 			  }
-			  i += 2;
+			  i += j;
 		  }
 	  }
 

@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+<style>
+P
+{
+  width: 500px;
+}
+table
+{
+  background-color : aliceblue;
+}
+pre.prettyprint
+{
+  background-color: aliceblue;
+}
+</style>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+
+</HEAD>
+<BODY bgcolor = #C0C0FF>
+<H1> Chain Codes </H1>
+From the Binary Image Library <A href = "../index.html"> homepage </A>
+<P>
+Chaincodes are a way of representing a path of connected 
+pixels. We store the starting x, y co-ordinates, then the
+moves, up, down, right, left, up-left, and so on. Usually
+chain codes represent contours, though they can also be used to represent pixel-wide lines.
+</P>
+The conventional representations are
+
+<TABLE>
+<tr><td>3</td><td>2</td><td>1</td> </tr>
+<tr><td>4</td><td>X</td><td>0</td> </tr>
+<tr><td>5</td><td>6</td><td>7</td> </tr>
+</TABLE>
+</P>
+
+<P>
+Chain codes are a compact way of representing a binary image
+that consists mainly of large connected objects, and provide
+a means for comparing two objects for similarity. They are
+alos useful for converting binary images into vector
+representation.
+</P>
+<H3> Functions </H3>
+<H4> getchaincode </H4>
+
+<p>
+  Get a chain code from a binary image.
+  Returns the chain code in ascii representation, so 0 is '0'. We
+  extract the top-leftmost object.
+</P>
+
+<P>
+  binary - the binary image <BR>
+  width - image width <BR>
+  height - image height <BR>
+  connex - 4 or 8 connectivity (4 not implemented) <BR>
+  xret - return for start position x <BR>
+  yret - return for start position y <BR>
+  returns the chain code <BR>
+</P>
+<pre class = "prettyprint">
+char *getchaincode(unsigned char *binary, int width, int height, int connex, int *xret, int *yret)
+</pre>
+<H4> chaincodetoperimeter </H4>
+<P>
+     Create a perimeter from a  chain code.
+</P>
+<P>
+	 binary - the binary image <BR>
+	 width - image width <BR>
+	 height - image height <BR>
+	 code - the chain code <BR>
+	 x - start point x <BR>
+	 y - start point y <BR>
+	 returns 0 on success, or the number of pixels out of bounds. <BR>
+</P>  
+<pre class = "prettyprint">
+  int chaincodetoperimeter(unsigned char *binary, int width, int height, char *code, int x, int y);
+</pre>
+
+<H3> Examples </H3>
+
+<pre class = "prettyprint">
+int testchaincodes()
+{
+	unsigned char *binary, *out;
+	int width, height;
+	unsigned char opal[256 * 3];
+	int trans;
+	char *ccode;
+	int sx, sy;
+
+	binary = loadgif("image.gif", &width, &height, opal, &trans);
+	giftobinary(binary, width, height, opal, 256, trans);
+	ccode = getchaincode(binary, width, height, 8, &sx, &sy);
+	printf("code %s\n", ccode);
+	out = malloc(width * height);
+	memset(out, 0, width * height);
+	chaincodetofill(out, width, height, ccode, sx, sy);
+	printbinary(out, width, height);
+
+}
+</pre>
+ 
+
+</BODY>
+</HTML>
