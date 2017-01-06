@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<style>
+P {
+width:500px;
+}
+
+pre.prettyprint
+{
+  background-color: aliceblue;
+}
+
+
+</style>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+</HEAD>
+<BODY bgcolor = #C0C0FF>
+<H1> Dungeon Generator </H1>
+From the Binary Image Library <A href = "../index.html"> homepage </A>
+<P>
+Dungeon generation is an important part of games design. Some
+games require dungeons to be created on the fly, other games
+designers use automatic generation to speed up their work.
+</P>
+<P>
+Currently the generator is a straight port of Bob Nystrom's work
+<A href = "http://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/"> here </A> and it's got a very simple interface, just:
+<pre class = "prettyprint">
+int width = 200;
+int height = 100;
+unsigned char *dungeon = makedungeon(width, height);
+</pre>
+<P>
+<IMG id = "dungeon_img" src = "../images/dungeon.gif">
+</P>
+<P>
+Very nice.
+</P>
+<H2> Cavern generator </H2>
+<P>
+For cavern levels, a generator based on square rooms and corridors is no good. So we have a separate cavern generator.
+</P>
+<P>
+It works on the cellular automaton principle. We start off
+with all the tiles set to random, except for the borders 
+which are hard-coded to walls. Then we majority filter several
+times. This creates coherent regions of cavern and wall. 
+</P>
+<P>
+The cavern regions are not connected, so we label the separate regions, then for each one, take the point closest to the
+centre. The we draw a slighly jagged corridor from cavern to centre until we hit another cavern. This is almost but not
+quite guaranteed to connect all our caverns. So as a last step
+we eliminate any unconnected caverns and break any 8-connections in the background we might have introduced.
+</P>
+<P>
+Note that you can modify the function slightly to retain the 
+labels. That might be useful if you want a notion of caverns as rooms or separate encounter areas.
+</P>
+<IMG src = "../images/caverns.gif">
+<P>
+Not too bad.
+</P>
+<H2> Seed growing generator </H2>
+<P>
+Here's another generator. It works by placing random seeds 
+across the dungeon, then expanding them until they almost
+touch. The result is a dungeon consisting almost entirely 
+of rectangular rooms, with only a few filled regions. You
+the connect it as before.
+</P>
+<P>
+It's possible to add corridors first to get some long
+narrow rectangles, as I have done. This method produces a more 
+realistic division of space than the previous method, but
+probably less playable dungeons for most rogue-like games.
+</P>
+<P>
+So maybe use for house interiors
+</P>
+<IMG src = "../images/dungeon2.gif">
+<P>
+Definitely worth a closer look.
+</P>
+<pre class = "prettyprint">
+int width = 200;
+int height = 100;
+unsigned char *dungeon = makedungeon(width, height);
+</pre>
+
+</BODY>
+</HTML>
