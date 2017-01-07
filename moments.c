@@ -84,7 +84,9 @@ void binarymoments(unsigned char *binary, int width, int height, MOMENTS *ret){
     return;
 }
 
+#if 0
 
+/* unit test code */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -104,15 +106,15 @@ int binarymomentsmain(void)
   for(i=10;i<90;i++)
   {
   image[i/2*width+i] = 1;
-  //  image[(i/2+1)*width+i] = 1;
+  image[(i/2+1)*width+i] = 1;
   }
 
   for(y=0;y<height;y++)
   {
     for(x=0;x<width;x++)
     {
-      // if( (x-20)*(x-20) + (y-20) *(y-20) < 10*10)
-	//	image[y*width+x] = 1;
+       if( (x-20)*(x-20) + (y-20) *(y-20) < 10*10)
+		image[y*width+x] = 1;
     }
   }
 
@@ -122,3 +124,4 @@ int binarymomentsmain(void)
    printf("theta %f (%f)\n", moments.theta, moments.theta/3.14 * 180);
    return 0;
 }
+#endif
