@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<style>
+P {
+  width : 500px;
+}
+pre.prettyprint
+{
+  background-color: aliceblue;
+}
+</style>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+</HEAD>
+<BODY bgcolor = #C0C0FF>
+<H1> Feature Transform </H1>
+From the Binary Image Library <A href = "../index.html"> homepage </A>
+
+<P>
+The feature transform is a bit like the distance transform, but instead of storing the distance of each pixel from the nearest background pixel, it stores to co-ordinates of the nearest background pixel.
+</P>
+
+<pre class = "prettyprint">
+
+/**
+   feature transform - like distance transform except gets 
+      the co-ordinates of the nearest background pixel
+ 
+    Returns: feature transfrom [2][height][width] with rows
+       in the first half of the buffer and columns in the second.
+ 
+ */
+int *featuretransform(unsigned char *binary, int width, int height)
+
+</pre>
+
+
+
+</BODY>
+</HTML>
