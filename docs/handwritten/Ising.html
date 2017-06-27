@@ -145,6 +145,7 @@ function myTimer() {
        temp = 0; 
     }
     
+    TEMP = document.getElementById("temperature_edt").value;
     isingstep();
    
     redraw();
@@ -178,18 +179,27 @@ function myFunction()
 </script>
 
 </HEAD>
-<BODY onload="myFunction()">
+<BODY onload="myFunction()" bgcolor = #C0C0FF>
+<H1> Ising model </H1>
+<P>
+   From the Binary Image Library <A href = "../index.html"> homepage </A>
+</P>
 <div>
 <canvas id = "myCanvas" width="200" height= "100" style="border:1px solid #000000;" />
 </div>
 <div>
 <button id = "stopstart_but" onclick="stopStart()">Stop</button>
+<input id = "temperature_edt" type = "number" value = "2.0" step = "0.01" name = "Temp" > </input>
 <P id = "demo">
   Fred
   <span id = "xdemo"> Fred </span>
 </P>
 <P>
-  Some text
+  A simple Ising model. Set the temperature to see the model shift between 
+a random state to a frozen state.
+</P>
+<P>
+The model should show a phase transition at a temperature of 2.269. For artistic purposes, you get interesting results from low temperatures.
 </P>
 </div>
 </BODY>
